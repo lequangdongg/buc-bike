@@ -58,6 +58,24 @@ html {
   border-radius: 4px;
 }
 
+/* Page-transition keyframes referenced by src/lib/motion/pageTransition.ts. */
+@keyframes bk-enter-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes bk-exit-down {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-10px); }
+}
+@keyframes bk-enter-down {
+  from { opacity: 0; transform: translateY(-16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes bk-exit-up {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(10px); }
+}
+
 /* Safety net — components also guard reduced-motion in JS. */
 @media (prefers-reduced-motion: reduce) {
   *,
