@@ -1,0 +1,14 @@
+---
+import FleetDetailPage from '../../../components/pages/FleetDetailPage.astro';
+import { BIKES, getBike } from '../../../data/fleet';
+import { LOCALES, DEFAULT_LOCALE, type Locale } from '../../../i18n/config';
+
+export function getStaticPaths() {
+  const langs = LOCALES.filter((l) => l !== DEFAULT_LOCALE);
+  return langs.flatMap((lang) => BIKES.map((b) => ({ params: { lang, bike: b.id } })));
+}
+
+const locale = Astro.params.lang as Locale;
+const bike = getBike(Astro.params.bike!)!;
+---
+<FleetDetailPage locale={locale} path={`/fleet/${bike.id}`} bike={bike} />
