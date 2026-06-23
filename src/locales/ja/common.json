@@ -81,6 +81,11 @@
     "period": { "daily": "日", "weekly": "週", "monthly": "月" },
     "most_popular": "一番人気",
     "per_day": "/ 日",
+    "best_value": "一番お得",
+    "plans": [
+      { "name": "日単位", "note": "1〜3日" },
+      { "name": "長期レンタル", "note": "4日以上" }
+    ],
     "per_week": "/ 週",
     "per_month": "/ 月",
     "includes_heading": "全プラン共通",

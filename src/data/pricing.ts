@@ -14,6 +14,10 @@ export const PRICING: Record<BikeId, Record<Period, number>> = {
 
 export const getPrice = (id: BikeId, period: Period): number => PRICING[id][period];
 
+/** Flat daily tiers shown on the pricing page. */
+export const DAILY_RATE = 150000; // 1–3 days
+export const LONG_STAY_RATE = 100000; // more than 3 days
+
 export function formatVnd(amount: number): string {
   return `${new Intl.NumberFormat('vi-VN').format(amount)} ₫`;
 }

@@ -81,6 +81,11 @@
     "period": { "daily": "일간", "weekly": "주간", "monthly": "월간" },
     "most_popular": "가장 인기",
     "per_day": "/ 일",
+    "best_value": "가장 알뜰",
+    "plans": [
+      { "name": "일일", "note": "1–3일" },
+      { "name": "장기 렌탈", "note": "3일 초과" }
+    ],
     "per_week": "/ 주",
     "per_month": "/ 월",
     "includes_heading": "모든 플랜 포함 사항",

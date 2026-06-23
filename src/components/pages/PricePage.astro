@@ -4,7 +4,7 @@ import SectionReveal from '../SectionReveal.astro';
 import { useTranslations } from '../../i18n';
 import { localizePath, type Locale } from '../../i18n/config';
 import { buildProductsJsonLd } from '../../lib/seo';
-import { PRICING, formatVnd } from '../../data/pricing';
+import { DAILY_RATE, LONG_STAY_RATE, formatVnd } from '../../data/pricing';
 import { BUSINESS } from '../../data/business';
 
 interface Props {
@@ -15,7 +15,8 @@ const { locale, path } = Astro.props;
 const t = await useTranslations(locale);
 const link = (p: string) => localizePath(p, locale);
 
-const dailyPrice = Math.min(...Object.values(PRICING).map((p) => p.daily)); // 150.000 ₫
+const plans = t('price.plans', { returnObjects: true }) as { name: string; note: string }[];
+const tierPrices = [DAILY_RATE, LONG_STAY_RATE];
 const perks = t('price.perks', { returnObjects: true }) as { title: string; body: string }[];
 const faq = t('price.faq', { returnObjects: true }) as { q: string; a: string }[];
 
@@ -43,56 +44,65 @@ const faqJsonLd = {
     <p class="mt-5 max-w-2xl text-base text-(--muted) sm:text-lg">{t('price.intro')}</p>
   </section>
 
-  <!-- Daily rental card + perks -->
+  <!-- Pricing tiers -->
+  <section class="mx-auto max-w-5xl px-5 pb-6">
+    <SectionReveal class="grid gap-5 md:grid-cols-2">
+      {
+        plans.map((plan, i) => (
+          <div
+            data-reveal-item
+            class:list={[
+              'relative overflow-hidden rounded-card border bg-(--card) p-8 md:p-10',
+              i === 1 ? 'border-accent' : 'border-(--line)',
+            ]}
+          >
+            {i === 1 && (
+              <span class="absolute right-6 top-6 rounded-full bg-accent px-3 py-1 text-xs font-semibold text-(--color-accent-ink)">
+                {t('price.best_value')}
+              </span>
+            )}
+            {i === 1 && (
+              <svg class="pointer-events-none absolute -right-20 -top-16 size-64 opacity-20" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+                <circle cx="100" cy="100" r="92" stroke="var(--color-charge)" stroke-width="3" stroke-linecap="round" stroke-dasharray="578" stroke-dashoffset="150" transform="rotate(-90 100 100)" />
+              </svg>
+            )}
+            <p class="font-display text-sm uppercase tracking-[0.2em] text-accent">{plan.name}</p>
+            <div class="mt-5 flex items-end gap-2">
+              <span class="font-display text-5xl font-bold leading-none sm:text-6xl">{formatVnd(tierPrices[i])}</span>
+              <span class="pb-1 text-(--muted)">{t('price.per_day')}</span>
+            </div>
+            <p class="mt-4 text-(--muted)">{plan.note}</p>
+          </div>
+        ))
+      }
+    </SectionReveal>
+
+    <div class="mt-8 flex flex-wrap items-center gap-3">
+      <a href={BUSINESS.whatsapp} class="rounded-full bg-accent px-6 py-3 font-semibold text-(--color-accent-ink) transition hover:brightness-110">
+        {t('nav.book')}
+      </a>
+      <a href={link('/fleet')} class="rounded-full border border-(--line) px-6 py-3 font-semibold transition hover:border-accent hover:text-accent">
+        {t('hero.cta_secondary')}
+      </a>
+      <p class="text-sm text-(--muted)">{t('price.daily.note')}</p>
+    </div>
+  </section>
+
+  <!-- What every rental includes -->
   <section class="mx-auto max-w-5xl px-5 pb-14">
-    <SectionReveal>
-      <div
-        data-reveal-item
-        class="relative overflow-hidden rounded-card border border-accent/40 bg-(--card) md:grid md:grid-cols-2"
-      >
-        <!-- decorative charge arc -->
-        <svg class="pointer-events-none absolute -right-20 -top-20 -z-0 size-72 opacity-20 md:opacity-30" viewBox="0 0 200 200" fill="none" aria-hidden="true">
-          <circle cx="100" cy="100" r="92" stroke="var(--color-charge)" stroke-width="3" stroke-linecap="round" stroke-dasharray="578" stroke-dashoffset="150" transform="rotate(-90 100 100)" />
-        </svg>
-
-        <!-- price + CTA -->
-        <div class="relative border-b border-(--line) p-8 md:border-b-0 md:border-r md:p-10">
-          <p class="font-display text-sm uppercase tracking-[0.2em] text-accent">{t('price.daily.eyebrow')}</p>
-          <div class="mt-5 flex items-end gap-2">
-            <span class="font-display text-5xl font-bold leading-none sm:text-6xl">{formatVnd(dailyPrice)}</span>
-            <span class="pb-1 text-(--muted)">{t('price.per_day')}</span>
+    <h2 class="mb-6 font-display text-2xl font-bold">{t('price.includes_heading')}</h2>
+    <SectionReveal class="grid gap-5 sm:grid-cols-2">
+      {
+        perks.map((perk) => (
+          <div data-reveal-item class="flex gap-4 rounded-card border border-(--line) p-6">
+            <span class="mt-0.5 grid size-7 shrink-0 place-items-center rounded-full bg-accent text-sm text-(--color-accent-ink)">✓</span>
+            <div>
+              <h3 class="font-display font-bold leading-snug">{perk.title}</h3>
+              <p class="mt-1 text-sm text-(--muted)">{perk.body}</p>
+            </div>
           </div>
-          <p class="mt-4 text-(--muted)">{t('price.daily.applies')}</p>
-
-          <div class="mt-8 flex flex-wrap gap-3">
-            <a href={BUSINESS.whatsapp} class="rounded-full bg-accent px-6 py-3 font-semibold text-(--color-accent-ink) transition hover:brightness-110">
-              {t('nav.book')}
-            </a>
-            <a href={link('/fleet')} class="rounded-full border border-(--line) px-6 py-3 font-semibold transition hover:border-accent hover:text-accent">
-              {t('hero.cta_secondary')}
-            </a>
-          </div>
-
-          <p class="mt-6 text-sm text-(--muted)">{t('price.daily.note')}</p>
-        </div>
-
-        <!-- perks -->
-        <div class="relative p-8 md:p-10">
-          <ul class="space-y-6">
-            {
-              perks.map((perk) => (
-                <li data-reveal-item class="flex gap-4">
-                  <span class="mt-0.5 grid size-7 shrink-0 place-items-center rounded-full bg-accent text-sm text-(--color-accent-ink)">✓</span>
-                  <div>
-                    <h3 class="font-display font-bold leading-snug">{perk.title}</h3>
-                    <p class="mt-1 text-sm text-(--muted)">{perk.body}</p>
-                  </div>
-                </li>
-              ))
-            }
-          </ul>
-        </div>
-      </div>
+        ))
+      }
     </SectionReveal>
   </section>
 

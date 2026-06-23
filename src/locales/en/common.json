@@ -81,6 +81,11 @@
     "period": { "daily": "Daily", "weekly": "Weekly", "monthly": "Monthly" },
     "most_popular": "Most popular",
     "per_day": "/ day",
+    "best_value": "Best value",
+    "plans": [
+      { "name": "Daily", "note": "1–3 days" },
+      { "name": "Long stay", "note": "More than 3 days" }
+    ],
     "per_week": "/ week",
     "per_month": "/ month",
     "includes_heading": "All plans include",

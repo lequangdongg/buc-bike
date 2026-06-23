@@ -81,6 +81,11 @@
     "period": { "daily": "Ngày", "weekly": "Tuần", "monthly": "Tháng" },
     "most_popular": "Phổ biến nhất",
     "per_day": "/ ngày",
+    "best_value": "Tiết kiệm nhất",
+    "plans": [
+      { "name": "Theo ngày", "note": "1–3 ngày" },
+      { "name": "Thuê dài ngày", "note": "Trên 3 ngày" }
+    ],
     "per_week": "/ tuần",
     "per_month": "/ tháng",
     "includes_heading": "Mọi gói đều gồm",

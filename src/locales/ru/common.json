@@ -81,6 +81,11 @@
     "period": { "daily": "День", "weekly": "Неделя", "monthly": "Месяц" },
     "most_popular": "Популярный",
     "per_day": "/ день",
+    "best_value": "Выгоднее всего",
+    "plans": [
+      { "name": "Посуточно", "note": "1–3 дня" },
+      { "name": "Долгая аренда", "note": "Более 3 дней" }
+    ],
     "per_week": "/ неделя",
     "per_month": "/ месяц",
     "includes_heading": "Все тарифы включают",

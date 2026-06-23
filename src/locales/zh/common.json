@@ -81,6 +81,11 @@
     "period": { "daily": "日租", "weekly": "周租", "monthly": "月租" },
     "most_popular": "最受欢迎",
     "per_day": "/ 天",
+    "best_value": "最划算",
+    "plans": [
+      { "name": "按日", "note": "1–3 天" },
+      { "name": "长租", "note": "超过 3 天" }
+    ],
     "per_week": "/ 周",
     "per_month": "/ 月",
     "includes_heading": "所有方案均包含",
