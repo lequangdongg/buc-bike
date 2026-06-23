@@ -1,0 +1,25 @@
+export const BUSINESS = {
+  name: 'BuckBike',
+  legalName: 'BuckBike — Electric Scooter Rental',
+  phone: '+84978789133',
+  phoneDisplay: '+84 978 789 133',
+  whatsapp: 'https://wa.me/84978789133',
+  email: 'hello@buckbike.com',
+  url: 'https://buckbike.com',
+  address: {
+    street: '31 - B2 An Thuong 37, Bắc Mỹ An',
+    district: 'Ngũ Hành Sơn',
+    city: 'Đà Nẵng',
+    postalCode: '550000',
+    country: 'VN',
+  },
+  geo: { lat: 16.0397, lng: 108.2486 },
+  hours: { opens: '10:00', closes: '23:00' },
+  rating: { value: 4.9, count: 62 },
+  maps: 'https://maps.app.goo.gl/4r7hXgFa3zhd7WGD6',
+  socials: {
+    facebook: 'https://facebook.com/buckbike',
+    instagram: 'https://instagram.com/buckbike',
+    x: 'https://x.com/buckbike',
+  },
+} as const;
