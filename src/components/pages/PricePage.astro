@@ -82,12 +82,14 @@ const faqJsonLd = {
     <div class="divide-y divide-(--line) border-y border-(--line)">
       {
         faq.map((f) => (
-          <details class="group">
+          <details class="group" data-faq>
             <summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-5 font-display font-semibold">
               {f.q}
-              <span class="text-accent transition group-open:rotate-45" aria-hidden="true">+</span>
+              <span class="shrink-0 text-accent transition-transform duration-300 group-open:rotate-45" aria-hidden="true">+</span>
             </summary>
-            <p class="pb-5 text-(--muted)">{f.a}</p>
+            <div data-faq-body class="overflow-hidden">
+              <p class="pb-5 text-(--muted)">{f.a}</p>
+            </div>
           </details>
         ))
       }

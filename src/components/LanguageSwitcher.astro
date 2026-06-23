@@ -8,17 +8,25 @@ interface Props {
 const { locale, path } = Astro.props;
 ---
 
-<details class="lang group relative">
-  <summary
-    class="flex cursor-pointer list-none items-center gap-1.5 rounded-full border border-(--line) px-3 py-1.5 text-sm transition hover:border-accent"
+<div class="relative" data-lang-switcher>
+  <button
+    type="button"
+    data-lang-trigger
+    aria-haspopup="true"
+    aria-expanded="false"
+    class="flex cursor-pointer items-center gap-1.5 rounded-full border border-(--line) px-3 py-1.5 text-sm transition hover:border-accent"
   >
     <svg class="size-4 text-(--muted)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
       <circle cx="12" cy="12" r="10" /><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20" />
     </svg>
     <span>{LOCALE_LABELS[locale]}</span>
-  </summary>
+    <svg class="size-3.5 text-(--muted)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+      <path d="M6 9l6 6 6-6" />
+    </svg>
+  </button>
   <ul
-    class="absolute right-0 z-50 mt-2 min-w-40 overflow-hidden rounded-xl border border-(--line) bg-(--card) p-1 shadow-xl shadow-black/30"
+    data-lang-menu
+    class="absolute right-0 z-50 mt-2 hidden min-w-40 origin-top-right overflow-hidden rounded-xl border border-(--line) bg-(--card) p-1 shadow-xl shadow-black/30"
   >
     {
       LOCALES.map((l) => (
@@ -35,11 +43,4 @@ const { locale, path } = Astro.props;
       ))
     }
   </ul>
-</details>
-
-<style>
-  /* Hide the default disclosure triangle across browsers. */
-  .lang > summary::-webkit-details-marker {
-    display: none;
-  }
-</style>
+</div>

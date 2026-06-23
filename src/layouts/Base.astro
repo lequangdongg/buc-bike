@@ -102,6 +102,7 @@ const t = await useTranslations(locale);
       import { initScrollHideHeader } from '../lib/motion/scrollHideHeader';
       import { initScrollProgress } from '../lib/motion/scrollProgress';
       import { initMobileMenu } from '../lib/motion/mobileMenu';
+      import { initLangSwitcher, initFaqAccordion } from '../lib/motion/disclosure';
 
       let cleanups: Array<VoidFunction | undefined> = [];
 
@@ -112,7 +113,8 @@ const t = await useTranslations(locale);
 
       function boot() {
         teardown();
-        cleanups.push(initReveal(), initParallax(), initCountUp(), initMobileMenu());
+        cleanups.push(initReveal(), initParallax(), initCountUp(), initMobileMenu(), initLangSwitcher());
+        initFaqAccordion();
         const header = document.getElementById('site-header');
         if (header) cleanups.push(initScrollHideHeader(header));
       }
