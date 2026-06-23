@@ -1,0 +1,46 @@
+---
+import { Image } from 'astro:assets';
+import { localizePath, type Locale } from '../i18n/config';
+import type { Bike } from '../data/fleet';
+
+interface Props {
+  bike: Bike;
+  locale: Locale;
+  label: string;
+  availableLabel: string;
+}
+const { bike, locale, label, availableLabel } = Astro.props;
+---
+
+<a
+  href={localizePath(`/fleet/${bike.id}`, locale)}
+  data-reveal-item
+  class="group relative block overflow-hidden rounded-card border border-(--line) bg-(--card) transition duration-300 hover:-translate-y-1 hover:border-accent"
+>
+  <div class="relative overflow-hidden">
+    <Image
+      src={bike.image}
+      alt={bike.name}
+      width={640}
+      height={800}
+      class="aspect-[3/4] w-full object-cover transition duration-500 group-hover:scale-[1.04]"
+      style={`view-transition-name: bike-${bike.id}`}
+    />
+    <span
+      class="absolute left-4 top-4 rounded-full bg-(--bg)/70 px-3 py-1 text-xs font-medium text-accent backdrop-blur"
+    >
+      ● {availableLabel}
+    </span>
+  </div>
+  <div class="flex items-end justify-between gap-3 p-5">
+    <div>
+      <h3 class="font-display text-lg font-bold leading-tight">{bike.name}</h3>
+      <p class="mt-1 text-sm text-(--muted)">{bike.rangeKm} km · {bike.topSpeedKmh} km/h</p>
+    </div>
+    <span
+      class="shrink-0 text-sm text-(--muted) transition group-hover:text-accent"
+    >
+      {label} →
+    </span>
+  </div>
+</a>

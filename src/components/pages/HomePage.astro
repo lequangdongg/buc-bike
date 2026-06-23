@@ -1,0 +1,262 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import SectionReveal from '../SectionReveal.astro';
+import BikeCard from '../BikeCard.astro';
+import { useTranslations } from '../../i18n';
+import { localizePath, type Locale } from '../../i18n/config';
+import { BIKES } from '../../data/fleet';
+import { BUSINESS } from '../../data/business';
+import { buildLocalBusinessJsonLd } from '../../lib/seo';
+import banner from '../../assets/banner.png';
+
+interface Props {
+  locale: Locale;
+  path: string;
+}
+const { locale, path } = Astro.props;
+const t = await useTranslations(locale);
+const link = (p: string) => localizePath(p, locale);
+
+type Item = { title: string; body: string };
+const features = t('features.items', { returnObjects: true }) as Item[];
+const steps = t('booking.steps', { returnObjects: true }) as Item[];
+const needs = t('booking.need', { returnObjects: true }) as Item[];
+const advantages = t('advantages.items', { returnObjects: true }) as Item[];
+
+const maxRange = Math.max(...BIKES.map((b) => b.rangeKm));
+const advantageIcons = ['🪪', '⚡', '🌿', '💰'];
+---
+
+<Base
+  title={`${t('site.name')} — ${t('hero.title_line1')} ${t('hero.title_line2')}`}
+  description={t('hero.subtitle')}
+  locale={locale}
+  path={path}
+  jsonLd={[buildLocalBusinessJsonLd()]}
+>
+  <!-- ░░ HERO ░░ -->
+  <section class="relative flex min-h-[100svh] items-center overflow-hidden">
+    <Image
+      src={banner}
+      alt=""
+      data-parallax="0.35"
+      class="pointer-events-none absolute inset-0 -z-20 h-[120%] w-full object-cover opacity-25"
+    />
+    <div class="absolute inset-0 -z-10 bg-gradient-to-b from-(--bg)/40 via-(--bg)/70 to-(--bg)"></div>
+
+    <!-- signature charge-arc -->
+    <svg
+      class="pointer-events-none absolute -right-24 top-1/2 -z-10 hidden h-[130%] -translate-y-1/2 opacity-60 md:block"
+      viewBox="0 0 400 400"
+      fill="none"
+      aria-hidden="true"
+    >
+      <circle cx="200" cy="200" r="180" stroke="var(--line)" stroke-width="1" />
+      <circle
+        cx="200"
+        cy="200"
+        r="180"
+        stroke="var(--color-charge)"
+        stroke-width="3"
+        stroke-linecap="round"
+        stroke-dasharray="1130"
+        stroke-dashoffset="280"
+        transform="rotate(-90 200 200)"
+        opacity="0.9"
+      />
+    </svg>
+
+    <div id="hero-inner" class="mx-auto w-full max-w-6xl px-5">
+      <p class="font-display text-sm font-medium uppercase tracking-[0.2em] text-accent">
+        {t('hero.kicker')}
+      </p>
+      <h1 class="mt-5 font-display text-6xl font-bold leading-[0.92] tracking-tight sm:text-7xl md:text-8xl">
+        {t('hero.title_line1')}<br /><span class="text-(--muted)">{t('hero.title_line2')}</span>
+      </h1>
+      <p class="mt-6 max-w-xl text-lg text-(--muted)">{t('hero.subtitle')}</p>
+
+      <div class="mt-9 flex flex-wrap gap-3">
+        <a
+          href={link('/price')}
+          class="rounded-full bg-accent px-6 py-3 font-semibold text-(--color-accent-ink) transition hover:brightness-110"
+        >
+          {t('hero.cta_primary')}
+        </a>
+        <a
+          href={link('/fleet')}
+          class="rounded-full border border-(--line) px-6 py-3 font-semibold transition hover:border-accent hover:text-accent"
+        >
+          {t('hero.cta_secondary')}
+        </a>
+      </div>
+
+      <!-- stats strip with count-up -->
+      <dl class="mt-14 grid max-w-2xl grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-4">
+        <div>
+          <dt class="text-xs uppercase tracking-wider text-(--muted)">{t('stats.rating')}</dt>
+          <dd class="mt-1 font-display text-3xl font-bold">
+            <span data-count={BUSINESS.rating.value} data-decimals="1">0</span>
+          </dd>
+        </div>
+        <div>
+          <dt class="text-xs uppercase tracking-wider text-(--muted)">{t('stats.reviews')}</dt>
+          <dd class="mt-1 font-display text-3xl font-bold">
+            <span data-count={BUSINESS.rating.count}>0</span>+
+          </dd>
+        </div>
+        <div>
+          <dt class="text-xs uppercase tracking-wider text-(--muted)">{t('stats.range')}</dt>
+          <dd class="mt-1 font-display text-3xl font-bold text-charge">
+            <span data-count={maxRange}>0</span>
+          </dd>
+        </div>
+        <div>
+          <dt class="text-xs uppercase tracking-wider text-(--muted)">{t('stats.support')}</dt>
+          <dd class="mt-1 font-display text-3xl font-bold">24<span class="text-(--muted)">h</span></dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ░░ FEATURES ░░ -->
+  <section class="mx-auto max-w-6xl px-5 py-24">
+    <div class="mb-12 max-w-2xl">
+      <p class="font-display text-sm uppercase tracking-[0.2em] text-accent">{t('features.kicker')}</p>
+      <h2 class="mt-3 font-display text-4xl font-bold tracking-tight sm:text-5xl">{t('features.heading')}</h2>
+    </div>
+    <SectionReveal class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        features.map((f) => (
+          <article
+            data-reveal-item
+            class="rounded-card border border-(--line) bg-(--card) p-6 transition hover:border-accent"
+          >
+            <h3 class="font-display text-lg font-bold">{f.title}</h3>
+            <p class="mt-2 text-sm text-(--muted)">{f.body}</p>
+          </article>
+        ))
+      }
+    </SectionReveal>
+  </section>
+
+  <!-- ░░ HOW TO BOOK (ordered sequence) ░░ -->
+  <section class="border-y border-(--line) bg-(--card)/40">
+    <div class="mx-auto max-w-6xl px-5 py-24">
+      <div class="mb-12 max-w-2xl">
+        <p class="font-display text-sm uppercase tracking-[0.2em] text-accent">{t('booking.kicker')}</p>
+        <h2 class="mt-3 font-display text-4xl font-bold tracking-tight sm:text-5xl">{t('booking.heading')}</h2>
+      </div>
+      <SectionReveal class="grid gap-px overflow-hidden rounded-card border border-(--line) bg-(--line) sm:grid-cols-2 lg:grid-cols-4">
+        {
+          steps.map((s, i) => (
+            <div data-reveal-item class="bg-(--card) p-6">
+              <span class="font-display text-4xl font-bold text-accent">{String(i + 1).padStart(2, '0')}</span>
+              <h3 class="mt-4 font-display text-base font-bold">{s.title}</h3>
+              <p class="mt-2 text-sm text-(--muted)">{s.body}</p>
+            </div>
+          ))
+        }
+      </SectionReveal>
+
+      <SectionReveal class="mt-6 grid gap-5 sm:grid-cols-2">
+        {
+          needs.map((n) => (
+            <div data-reveal-item class="flex gap-4 rounded-card border border-(--line) p-6">
+              <span class="grid size-9 shrink-0 place-items-center rounded-full bg-accent text-(--color-accent-ink)">✓</span>
+              <div>
+                <h3 class="font-display text-base font-bold">{n.title}</h3>
+                <p class="mt-1 text-sm text-(--muted)">{n.body}</p>
+              </div>
+            </div>
+          ))
+        }
+      </SectionReveal>
+    </div>
+  </section>
+
+  <!-- ░░ ADVANTAGES ░░ -->
+  <section class="mx-auto max-w-6xl px-5 py-24">
+    <div class="mb-12 max-w-2xl">
+      <p class="font-display text-sm uppercase tracking-[0.2em] text-accent">{t('advantages.kicker')}</p>
+    </div>
+    <SectionReveal class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        advantages.map((a, i) => (
+          <article data-reveal-item class="rounded-card border border-(--line) p-6">
+            <span class="text-3xl">{advantageIcons[i]}</span>
+            <h3 class="mt-4 font-display text-lg font-bold">{a.title}</h3>
+            <p class="mt-2 text-sm text-(--muted)">{a.body}</p>
+          </article>
+        ))
+      }
+    </SectionReveal>
+  </section>
+
+  <!-- ░░ FLEET PREVIEW ░░ -->
+  <section class="mx-auto max-w-6xl px-5 py-12">
+    <div class="mb-12 flex flex-wrap items-end justify-between gap-4">
+      <div class="max-w-2xl">
+        <p class="font-display text-sm uppercase tracking-[0.2em] text-accent">{t('fleet.kicker')}</p>
+        <h2 class="mt-3 font-display text-4xl font-bold tracking-tight sm:text-5xl">{t('fleet.heading')}</h2>
+      </div>
+      <a href={link('/fleet')} class="text-sm text-(--muted) transition hover:text-accent">
+        {t('fleet.view_detail')} →
+      </a>
+    </div>
+    <SectionReveal class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        BIKES.map((bike) => (
+          <BikeCard
+            bike={bike}
+            locale={locale}
+            label={t('fleet.view_detail')}
+            availableLabel={t('fleet.available')}
+          />
+        ))
+      }
+    </SectionReveal>
+  </section>
+
+  <!-- ░░ BUSINESS / LOCATION ░░ -->
+  <section class="mx-auto max-w-6xl px-5 py-24">
+    <SectionReveal class="overflow-hidden rounded-card border border-(--line) bg-(--card)">
+      <div class="grid gap-10 p-8 md:grid-cols-2 md:p-12" data-reveal-item>
+        <div>
+          <p class="font-display text-sm uppercase tracking-[0.2em] text-accent">{t('business.kicker')}</p>
+          <h2 class="mt-3 font-display text-4xl font-bold tracking-tight">{t('business.heading')}</h2>
+          <div class="mt-6 flex items-center gap-3">
+            <span class="font-display text-4xl font-bold text-accent">
+              <span data-count={BUSINESS.rating.value} data-decimals="1">0</span>
+            </span>
+            <span class="text-(--muted)">★★★★★ · {t('business.reviews', { count: BUSINESS.rating.count })}</span>
+          </div>
+          <address class="mt-6 not-italic text-(--muted)">
+            <p>📍 {BUSINESS.address.street}</p>
+            <p>{BUSINESS.address.district} · {BUSINESS.address.city} {BUSINESS.address.postalCode}</p>
+            <p class="mt-2">🕙 {t('business.open_now')}</p>
+          </address>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href={BUSINESS.maps} class="rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-(--color-accent-ink) transition hover:brightness-110">
+              {t('business.directions')}
+            </a>
+            <a href={`tel:${BUSINESS.phone}`} class="rounded-full border border-(--line) px-5 py-2.5 text-sm font-semibold transition hover:border-accent hover:text-accent">
+              {t('business.call')} · {BUSINESS.phoneDisplay}
+            </a>
+          </div>
+        </div>
+        <div class="relative min-h-64 overflow-hidden rounded-card">
+          <Image src={banner} alt={BUSINESS.name} width={800} height={600} class="h-full w-full object-cover" />
+        </div>
+      </div>
+    </SectionReveal>
+  </section>
+
+  <script>
+    import { initHeroScroll } from '../../lib/motion/heroScroll';
+    document.addEventListener('astro:page-load', () => {
+      const el = document.getElementById('hero-inner');
+      if (el) initHeroScroll(el);
+    });
+  </script>
+</Base>

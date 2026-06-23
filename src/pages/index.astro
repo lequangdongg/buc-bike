@@ -1,19 +1,4 @@
 ---
-import Base from '../layouts/Base.astro';
-import { useTranslations } from '../i18n';
-import { buildLocalBusinessJsonLd } from '../lib/seo';
-const locale = 'en' as const;
-const t = await useTranslations(locale);
+import HomePage from '../components/pages/HomePage.astro';
 ---
-<Base
-  title={`${t('site.name')} — ${t('hero.title_line1')} ${t('hero.title_line2')}`}
-  description={t('hero.subtitle')}
-  locale={locale}
-  path="/"
-  jsonLd={[buildLocalBusinessJsonLd()]}
->
-  <section class="mx-auto max-w-6xl px-5 pt-40">
-    <h1 class="font-display text-6xl font-bold">{t('hero.title_line1')}</h1>
-    <p class="mt-4 text-(--muted)">Shell smoke test — full home arrives in Task 7.</p>
-  </section>
-</Base>
+<HomePage locale="en" path="/" />
