@@ -1,0 +1,104 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import { useTranslations } from '../../i18n';
+import { localizePath, type Locale } from '../../i18n/config';
+import { BIKES, type Bike } from '../../data/fleet';
+import { PRICING, formatVnd } from '../../data/pricing';
+import { BUSINESS } from '../../data/business';
+
+interface Props {
+  locale: Locale;
+  path: string;
+  bike: Bike;
+}
+const { locale, path, bike } = Astro.props;
+const t = await useTranslations(locale);
+const link = (p: string) => localizePath(p, locale);
+
+const specs = [
+  { label: t('fleet.range_label'), value: `${bike.rangeKm} km`, accent: true },
+  { label: t('fleet.speed_label'), value: `${bike.topSpeedKmh} km/h`, accent: false },
+  { label: t('fleet.seats_label'), value: String(bike.seats), accent: false },
+];
+const others = BIKES.filter((b) => b.id !== bike.id);
+---
+
+<Base
+  title={`${bike.name} — ${t('site.name')}`}
+  description={`${bike.name}: ${bike.rangeKm} km ${t('fleet.range_label').toLowerCase()}, ${bike.topSpeedKmh} km/h.`}
+  locale={locale}
+  path={path}
+>
+  <section class="mx-auto max-w-6xl px-5 pt-32 pb-24">
+    <a href={link('/fleet')} class="inline-flex items-center gap-1 text-sm text-(--muted) transition hover:text-accent">
+      ← {t('fleet.back')}
+    </a>
+
+    <div class="mt-8 grid gap-10 md:grid-cols-2 md:items-center">
+      <div class="overflow-hidden rounded-card border border-(--line) bg-(--card)">
+        <Image
+          src={bike.image}
+          alt={bike.name}
+          width={900}
+          height={1100}
+          loading="eager"
+          class="aspect-[4/5] w-full object-cover"
+          style={`view-transition-name: bike-${bike.id}`}
+        />
+      </div>
+
+      <div>
+        <span class="inline-block rounded-full bg-accent/15 px-3 py-1 text-xs font-medium text-accent">
+          ● {t('fleet.available')}
+        </span>
+        <h1 class="mt-4 font-display text-5xl font-bold tracking-tight">{bike.name}</h1>
+
+        <dl class="mt-8 grid grid-cols-3 gap-4">
+          {
+            specs.map((s) => (
+              <div class="rounded-card border border-(--line) p-4">
+                <dt class="text-xs uppercase tracking-wider text-(--muted)">{s.label}</dt>
+                <dd class={`mt-1 font-display text-2xl font-bold ${s.accent ? 'text-charge' : ''}`}>{s.value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+
+        <p class="mt-8 font-display text-4xl font-bold text-accent">
+          {formatVnd(PRICING[bike.id].daily)}<span class="ml-1 text-base font-normal text-(--muted)">{t('price.per_day')}</span>
+        </p>
+
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href={link('/price')} class="rounded-full bg-accent px-6 py-3 font-semibold text-(--color-accent-ink) transition hover:brightness-110">
+            {t('fleet.book_this')}
+          </a>
+          <a href={BUSINESS.whatsapp} class="rounded-full border border-(--line) px-6 py-3 font-semibold transition hover:border-accent hover:text-accent">
+            {t('business.whatsapp')}
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-20">
+      <h2 class="mb-6 font-display text-2xl font-bold">{t('fleet.heading')}</h2>
+      <div class="grid gap-5 sm:grid-cols-2">
+        {
+          others.map((b) => (
+            <a
+              href={link(`/fleet/${b.id}`)}
+              class="group flex items-center gap-4 rounded-card border border-(--line) bg-(--card) p-4 transition hover:border-accent"
+            >
+              <Image src={b.image} alt={b.name} width={120} height={120} class="size-20 shrink-0 rounded-xl object-cover" />
+              <div>
+                <h3 class="font-display font-bold">{b.name}</h3>
+                <p class="text-sm text-(--muted)">{b.rangeKm} km · {b.topSpeedKmh} km/h</p>
+              </div>
+              <span class="ml-auto text-(--muted) transition group-hover:text-accent">→</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Base>

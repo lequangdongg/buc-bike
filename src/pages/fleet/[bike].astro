@@ -1,0 +1,11 @@
+---
+import FleetDetailPage from '../../components/pages/FleetDetailPage.astro';
+import { BIKES, getBike } from '../../data/fleet';
+
+export function getStaticPaths() {
+  return BIKES.map((b) => ({ params: { bike: b.id } }));
+}
+
+const bike = getBike(Astro.params.bike!)!;
+---
+<FleetDetailPage locale="en" path={`/fleet/${bike.id}`} bike={bike} />
