@@ -65,7 +65,18 @@
   "price": {
     "heading": "Gói linh hoạt, không bất ngờ",
     "kicker": "Chọn gói của bạn",
-    "intro": "Chọn mẫu xe và thời hạn phù hợp với chuyến đi. Luôn kèm mũ bảo hiểm và hỗ trợ 24h.",
+    "intro": "Một mức giá theo ngày duy nhất cho cả đội xe — đầy đủ mọi thứ bạn cần.",
+    "daily": {
+      "eyebrow": "Thuê theo ngày",
+      "applies": "Áp dụng cho mọi xe trong đội.",
+      "note": "Thuê theo tuần hoặc tháng? Nhắn cho chúng tôi để có giá tốt hơn."
+    },
+    "perks": [
+      { "title": "Giao & nhận xe trong 24h", "body": "Giao xe tận nơi và nhận lại — khắp Đà Nẵng." },
+      { "title": "Sạc hoặc đổi pin bất cứ lúc nào", "body": "Sạc ở bất kỳ ổ điện nào, hoặc nhắn chúng tôi đổi pin khi cần." },
+      { "title": "Kèm mũ bảo hiểm · không cần bằng lái", "body": "Mũ bảo hiểm đạt chuẩn miễn phí, xe điện không cần bằng lái." },
+      { "title": "Hỗ trợ 24/7 & bảo dưỡng", "body": "Nhắn bất cứ lúc nào qua WhatsApp/Zalo — kèm bảo dưỡng và đổi xe." }
+    ],
     "disclaimer": "Giá chỉ mang tính minh hoạ và có thể khác với cửa hàng thực tế. Liên hệ để biết giá mới nhất.",
     "period": { "daily": "Ngày", "weekly": "Tuần", "monthly": "Tháng" },
     "most_popular": "Phổ biến nhất",

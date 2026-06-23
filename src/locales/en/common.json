@@ -65,7 +65,18 @@
   "price": {
     "heading": "Flexible Plans, No Surprises",
     "kicker": "Choose your plan",
-    "intro": "Pick the model and the period that suit your trip. Helmet and 24h support always included.",
+    "intro": "One flat daily rate for the whole fleet — everything you need, included.",
+    "daily": {
+      "eyebrow": "Daily rental",
+      "applies": "Flat rate for every scooter in our fleet.",
+      "note": "Renting for a week or a month? Message us for a better rate."
+    },
+    "perks": [
+      { "title": "Delivery & return within 24h", "body": "We bring the scooter to you and collect it — anywhere in Đà Nẵng." },
+      { "title": "Charge or swap anytime", "body": "Top up at any outlet, or ask us for a battery swap whenever you need." },
+      { "title": "Helmet included · no licence", "body": "A certified helmet is free, and electric scooters need no driving licence." },
+      { "title": "24/7 support & maintenance", "body": "Message us any time on WhatsApp or Zalo — servicing and swaps included." }
+    ],
     "disclaimer": "Prices are illustrative and may differ from the live store. Contact us for the latest rates.",
     "period": { "daily": "Daily", "weekly": "Weekly", "monthly": "Monthly" },
     "most_popular": "Most popular",
