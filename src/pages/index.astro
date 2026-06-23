@@ -1,5 +1,6 @@
 ---
-// Temporary placeholder — replaced in Task 7.
+import '../styles/global.css';
+import ThemeToggle from '../components/ThemeToggle.astro';
 ---
 <!doctype html>
 <html lang="en">
@@ -7,7 +8,12 @@
     <meta charset="utf-8" />
     <title>BuckBike</title>
   </head>
-  <body>
-    <h1>BuckBike — scaffold OK</h1>
+  <body class="min-h-dvh bg-(--bg) text-(--fg)">
+    <main class="mx-auto max-w-3xl p-10">
+      <h1 class="font-display text-5xl font-bold">Buck<span class="text-accent">Bike</span></h1>
+      <p class="mt-4 text-(--muted)">Tailwind v4 token smoke test.</p>
+      <div class="mt-6 rounded-card border border-(--line) bg-(--card) p-6">card</div>
+      <ThemeToggle locale="en" />
+    </main>
   </body>
 </html>
