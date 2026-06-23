@@ -1,0 +1,27 @@
+# BuckBike — Electric Scooter Rental, Đà Nẵng, Vietnam
+
+> Affordable VinFast electric scooter rental in Đà Nẵng for tourists and locals.
+> No driving licence required. Daily, weekly and monthly plans. Cash or bank
+> transfer only. Free helmet and 24h support included with every rental.
+
+## Pages
+- [Home](https://buckbike.com/): Overview, how to book, fleet and location.
+- [Fleet](https://buckbike.com/fleet): VinFast Evo 200 Lite, Feliz S and Theon — specs and detail pages.
+- [Pricing](https://buckbike.com/price): Daily / weekly / monthly rates per model, what's included, and FAQ.
+
+## Fleet
+- VinFast Evo 200 Lite — up to 120 km range, 70 km/h. From 150,000₫/day.
+- VinFast Feliz S — up to 100 km range, 78 km/h. From 180,000₫/day.
+- VinFast Theon — up to 150 km range, 90 km/h. From 220,000₫/day.
+
+## Key facts
+- Location: 31-B2 An Thuong 37, Bắc Mỹ An, Ngũ Hành Sơn, Đà Nẵng 550000, Vietnam
+- Phone: +84 978 789 133
+- Hours: 10:00–23:00 daily
+- Payment: cash or direct bank transfer (no cards)
+- Languages: English, Tiếng Việt, Русский, 日本語, 한국어, 中文
+- Rating: 4.9 / 5 (62 reviews)
+
+## Notes
+- Prices shown are illustrative for a technical demo and may differ from the live store.
+- This site is a rebuilt technical demo; content adapted from buckbike.com.
