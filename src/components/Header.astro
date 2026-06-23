@@ -1,0 +1,58 @@
+---
+import { useTranslations } from '../i18n';
+import { localizePath, type Locale } from '../i18n/config';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import ThemeToggle from './ThemeToggle.astro';
+
+interface Props {
+  locale: Locale;
+  path: string;
+}
+const { locale, path } = Astro.props;
+const t = await useTranslations(locale);
+const link = (p: string) => localizePath(p, locale);
+
+const navItems = [
+  { href: '/', label: t('nav.home') },
+  { href: '/fleet', label: t('nav.fleet') },
+  { href: '/price', label: t('nav.price') },
+];
+const isActive = (href: string) => path === href || (href !== '/' && path.startsWith(href));
+---
+
+<header
+  id="site-header"
+  data-scrolled="false"
+  class="fixed inset-x-0 top-0 z-40 transition-transform duration-300 will-change-transform data-[scrolled=true]:border-b data-[scrolled=true]:border-(--line) data-[scrolled=true]:bg-(--bg)/80 data-[scrolled=true]:backdrop-blur-xl"
+>
+  <nav class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-4">
+    <a href={link('/')} class="font-display text-xl font-bold tracking-tight">
+      Buck<span class="text-accent">Bike</span>
+    </a>
+
+    <div class="hidden items-center gap-8 md:flex">
+      {
+        navItems.map((item) => (
+          <a
+            href={link(item.href)}
+            aria-current={isActive(item.href) ? 'page' : undefined}
+            class="relative text-sm text-(--muted) transition hover:text-(--fg) aria-[current]:text-(--fg)"
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="flex items-center gap-2 sm:gap-3">
+      <LanguageSwitcher locale={locale} path={path} />
+      <ThemeToggle locale={locale} />
+      <a
+        href={link('/price')}
+        class="rounded-full bg-accent px-4 py-2 text-sm font-semibold text-(--color-accent-ink) transition hover:brightness-110"
+      >
+        {t('nav.book')}
+      </a>
+    </div>
+  </nav>
+</header>

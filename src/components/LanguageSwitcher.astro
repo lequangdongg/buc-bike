@@ -1,0 +1,44 @@
+---
+import { LOCALES, LOCALE_LABELS, localizePath, type Locale } from '../i18n/config';
+
+interface Props {
+  locale: Locale;
+  path: string;
+}
+const { locale, path } = Astro.props;
+---
+
+<details class="lang group relative">
+  <summary
+    class="flex cursor-pointer list-none items-center gap-1.5 rounded-full border border-(--line) px-3 py-1.5 text-sm transition hover:border-accent"
+  >
+    <svg class="size-4 text-(--muted)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <circle cx="12" cy="12" r="10" /><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20" />
+    </svg>
+    <span>{LOCALE_LABELS[locale]}</span>
+  </summary>
+  <ul
+    class="absolute right-0 z-50 mt-2 min-w-40 overflow-hidden rounded-xl border border-(--line) bg-(--card) p-1 shadow-xl shadow-black/30"
+  >
+    {
+      LOCALES.map((l) => (
+        <li>
+          <a
+            href={localizePath(path, l)}
+            aria-current={l === locale ? 'true' : undefined}
+            class="block rounded-lg px-3 py-2 text-sm transition hover:bg-(--card-2) aria-[current]:text-accent"
+          >
+            {LOCALE_LABELS[l]}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</details>
+
+<style>
+  /* Hide the default disclosure triangle across browsers. */
+  .lang > summary::-webkit-details-marker {
+    display: none;
+  }
+</style>

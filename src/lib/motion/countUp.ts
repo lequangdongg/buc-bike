@@ -5,7 +5,7 @@ import { prefersReducedMotion } from './prefersReducedMotion';
  * Count a `data-count` element from 0 to its target when it enters view.
  * `data-decimals` controls fractional digits (e.g. a 4.9 rating).
  */
-export function initCountUp(): void {
+export function initCountUp(): VoidFunction {
   const format = (el: HTMLElement, value: number) => {
     const decimals = Number(el.dataset.decimals || '0');
     el.textContent = value.toLocaleString(undefined, {
@@ -14,7 +14,7 @@ export function initCountUp(): void {
     });
   };
 
-  inView(
+  return inView(
     '[data-count]',
     (element) => {
       const el = element as HTMLElement;

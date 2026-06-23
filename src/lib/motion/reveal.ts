@@ -6,10 +6,10 @@ import { prefersReducedMotion } from './prefersReducedMotion';
  * `data-reveal` staggers its `data-reveal-item` children; otherwise the
  * container itself animates.
  */
-export function initReveal(): void {
-  if (prefersReducedMotion()) return;
+export function initReveal(): VoidFunction | undefined {
+  if (prefersReducedMotion()) return undefined;
 
-  inView(
+  return inView(
     '[data-reveal]',
     (element) => {
       const items = element.querySelectorAll<HTMLElement>('[data-reveal-item]');

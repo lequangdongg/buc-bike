@@ -1,19 +1,19 @@
 ---
-import '../styles/global.css';
-import ThemeToggle from '../components/ThemeToggle.astro';
+import Base from '../layouts/Base.astro';
+import { useTranslations } from '../i18n';
+import { buildLocalBusinessJsonLd } from '../lib/seo';
+const locale = 'en' as const;
+const t = await useTranslations(locale);
 ---
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>BuckBike</title>
-  </head>
-  <body class="min-h-dvh bg-(--bg) text-(--fg)">
-    <main class="mx-auto max-w-3xl p-10">
-      <h1 class="font-display text-5xl font-bold">Buck<span class="text-accent">Bike</span></h1>
-      <p class="mt-4 text-(--muted)">Tailwind v4 token smoke test.</p>
-      <div class="mt-6 rounded-card border border-(--line) bg-(--card) p-6">card</div>
-      <ThemeToggle locale="en" />
-    </main>
-  </body>
-</html>
+<Base
+  title={`${t('site.name')} — ${t('hero.title_line1')} ${t('hero.title_line2')}`}
+  description={t('hero.subtitle')}
+  locale={locale}
+  path="/"
+  jsonLd={[buildLocalBusinessJsonLd()]}
+>
+  <section class="mx-auto max-w-6xl px-5 pt-40">
+    <h1 class="font-display text-6xl font-bold">{t('hero.title_line1')}</h1>
+    <p class="mt-4 text-(--muted)">Shell smoke test — full home arrives in Task 7.</p>
+  </section>
+</Base>
