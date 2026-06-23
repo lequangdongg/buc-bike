@@ -71,10 +71,10 @@ const advantageIcons = ['🪪', '⚡', '🌿', '💰'];
       <p class="font-display text-sm font-medium uppercase tracking-[0.2em] text-accent">
         {t('hero.kicker')}
       </p>
-      <h1 class="mt-5 font-display text-6xl font-bold leading-[0.92] tracking-tight sm:text-7xl md:text-8xl">
+      <h1 class="mt-5 font-display text-[clamp(2.6rem,11vw,7rem)] font-bold leading-[0.95] tracking-tight">
         {t('hero.title_line1')}<br /><span class="text-(--muted)">{t('hero.title_line2')}</span>
       </h1>
-      <p class="mt-6 max-w-xl text-lg text-(--muted)">{t('hero.subtitle')}</p>
+      <p class="mt-5 max-w-xl text-base text-(--muted) sm:text-lg">{t('hero.subtitle')}</p>
 
       <div class="mt-9 flex flex-wrap gap-3">
         <a
@@ -123,7 +123,7 @@ const advantageIcons = ['🪪', '⚡', '🌿', '💰'];
   <section class="mx-auto max-w-6xl px-5 py-24">
     <div class="mb-12 max-w-2xl">
       <p class="font-display text-sm uppercase tracking-[0.2em] text-accent">{t('features.kicker')}</p>
-      <h2 class="mt-3 font-display text-4xl font-bold tracking-tight sm:text-5xl">{t('features.heading')}</h2>
+      <h2 class="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">{t('features.heading')}</h2>
     </div>
     <SectionReveal class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
       {
@@ -145,7 +145,7 @@ const advantageIcons = ['🪪', '⚡', '🌿', '💰'];
     <div class="mx-auto max-w-6xl px-5 py-24">
       <div class="mb-12 max-w-2xl">
         <p class="font-display text-sm uppercase tracking-[0.2em] text-accent">{t('booking.kicker')}</p>
-        <h2 class="mt-3 font-display text-4xl font-bold tracking-tight sm:text-5xl">{t('booking.heading')}</h2>
+        <h2 class="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">{t('booking.heading')}</h2>
       </div>
       <SectionReveal class="grid gap-px overflow-hidden rounded-card border border-(--line) bg-(--line) sm:grid-cols-2 lg:grid-cols-4">
         {
@@ -198,7 +198,7 @@ const advantageIcons = ['🪪', '⚡', '🌿', '💰'];
     <div class="mb-12 flex flex-wrap items-end justify-between gap-4">
       <div class="max-w-2xl">
         <p class="font-display text-sm uppercase tracking-[0.2em] text-accent">{t('fleet.kicker')}</p>
-        <h2 class="mt-3 font-display text-4xl font-bold tracking-tight sm:text-5xl">{t('fleet.heading')}</h2>
+        <h2 class="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">{t('fleet.heading')}</h2>
       </div>
       <a href={link('/fleet')} class="text-sm text-(--muted) transition hover:text-accent">
         {t('fleet.view_detail')} →
@@ -224,7 +224,7 @@ const advantageIcons = ['🪪', '⚡', '🌿', '💰'];
       <div class="grid gap-10 p-8 md:grid-cols-2 md:p-12" data-reveal-item>
         <div>
           <p class="font-display text-sm uppercase tracking-[0.2em] text-accent">{t('business.kicker')}</p>
-          <h2 class="mt-3 font-display text-4xl font-bold tracking-tight">{t('business.heading')}</h2>
+          <h2 class="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">{t('business.heading')}</h2>
           <div class="mt-6 flex items-center gap-3">
             <span class="font-display text-4xl font-bold text-accent">
               <span data-count={BUSINESS.rating.value} data-decimals="1">0</span>
