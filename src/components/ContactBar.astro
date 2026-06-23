@@ -1,0 +1,134 @@
+---
+import { BUSINESS } from '../data/business';
+
+const phone = BUSINESS.phone; // +84978789133
+const phoneDigits = phone.replace('+', '');
+
+// Channels: http links open normally; app-only schemes get a desktop copy fallback.
+const channels = [
+  {
+    id: 'zalo',
+    label: 'Zalo',
+    href: `https://zalo.me/${phoneDigits}`,
+    appOnly: false,
+    brand: '#0068FF',
+    icon: '<path d="M12 2C6.5 2 2 5.8 2 10.5c0 2.6 1.4 4.9 3.6 6.4-.2.7-.6 2-.7 2.4-.1.4.2.5.5.3.3-.1 2.2-1.4 3-1.9.8.2 1.7.3 2.6.3 5.5 0 10-3.8 10-8.5S17.5 2 12 2z"/><path d="M7 9h3.5L7 13.5h3.6M13 8.5v5M16.5 11.5a1.8 1.8 0 1 0 0 .1z" fill="none" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>',
+  },
+  {
+    id: 'whatsapp',
+    label: 'WhatsApp',
+    href: `https://wa.me/${phoneDigits}`,
+    appOnly: false,
+    brand: '#25D366',
+    icon: '<path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.552 4.103 1.518 5.83L0 24l6.335-1.502A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm5.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>',
+  },
+  {
+    id: 'wechat',
+    label: 'WeChat',
+    href: `weixin://dl/chat?phone=${phone}`,
+    appOnly: true,
+    brand: '#07C160',
+    icon: '<path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.49.49 0 0 1 .177-.554 6.027 6.027 0 0 0 2.5-4.617c.012-3.368-3.005-6.102-6.859-6.126zm-3.1 3.202c.534 0 .969.44.969.982 0 .542-.435.982-.97.982a.976.976 0 0 1-.969-.982c0-.542.434-.982.97-.982zm6.11 0c.535 0 .97.44.97.982 0 .542-.435.982-.97.982a.976.976 0 0 1-.969-.982c0-.542.434-.982.97-.982z"/>',
+  },
+  {
+    id: 'kakao',
+    label: 'KakaoTalk',
+    href: `kakaotalk://launch?phone=${phone}`,
+    appOnly: true,
+    brand: '#FEE500',
+    icon: '<path d="M12 3C6.477 3 2 6.477 2 10.8c0 2.7 1.548 5.088 3.904 6.552-.17.627-.617 2.266-.706 2.617-.112.44.161.433.338.315.138-.09 2.197-1.483 3.084-2.083.454.062.918.099 1.38.099 5.523 0 10-3.477 10-7.8S17.523 3 12 3z"/>',
+  },
+];
+---
+
+<nav
+  id="contact-bar"
+  aria-label="Contact channels"
+  class="fixed inset-x-0 bottom-0 z-30 flex justify-center border-t border-(--line) bg-(--bg)/90 backdrop-blur-xl pb-[env(safe-area-inset-bottom)] md:inset-x-auto md:bottom-auto md:right-4 md:top-1/2 md:-translate-y-1/2 md:flex-col md:rounded-full md:border md:bg-(--card)/90 md:p-1.5 md:shadow-xl md:shadow-black/30"
+>
+  {
+    channels.map((c, i) => (
+      <a
+        href={c.href}
+        target={c.appOnly ? undefined : '_blank'}
+        rel="noopener"
+        data-channel={c.id}
+        data-app-only={c.appOnly ? 'true' : undefined}
+        data-phone={BUSINESS.phoneDisplay}
+        style={`--brand:${c.brand}`}
+        aria-label={c.label}
+        class:list={[
+          'group relative flex flex-1 flex-col items-center justify-center gap-0.5 py-2.5 text-(--muted) transition hover:text-(--fg)',
+          'md:size-12 md:flex-none md:rounded-full md:py-0',
+          i > 0 ? 'border-l border-(--line) md:border-l-0' : '',
+        ]}
+      >
+        <span class="grid size-6 place-items-center transition group-hover:[color:var(--brand)] md:size-5">
+          <svg viewBox="0 0 24 24" fill="currentColor" class="size-full" aria-hidden="true" set:html={c.icon} />
+        </span>
+        <span class="text-[0.65rem] font-medium md:hidden">{c.label}</span>
+        <span class="pointer-events-none absolute right-full mr-3 hidden whitespace-nowrap rounded-md bg-(--card) px-2 py-1 text-xs opacity-0 shadow-lg transition group-hover:opacity-100 md:block">
+          {c.label}
+        </span>
+      </a>
+    ))
+  }
+</nav>
+
+<div
+  id="contact-toast"
+  role="status"
+  aria-live="polite"
+  class="pointer-events-none fixed bottom-24 left-1/2 z-50 -translate-x-1/2 rounded-full bg-(--fg) px-4 py-2 text-sm font-medium text-(--bg) opacity-0 shadow-xl transition-opacity duration-300 md:bottom-8"
+>
+</div>
+
+<script>
+  import { animate } from 'motion';
+  import { prefersReducedMotion } from '../lib/motion/prefersReducedMotion';
+
+  function initContactBar() {
+    const bar = document.getElementById('contact-bar');
+    const toast = document.getElementById('contact-toast');
+    if (!bar) return;
+
+    if (!prefersReducedMotion() && !bar.dataset.shown) {
+      bar.dataset.shown = 'true';
+      const fromMobile = window.matchMedia('(max-width: 767px)').matches;
+      animate(
+        bar,
+        fromMobile
+          ? { transform: ['translateY(100%)', 'translateY(0)'] }
+          : { opacity: [0, 1], transform: ['translateX(20px)', 'translateX(0)'] },
+        { duration: 0.5, delay: 0.4, ease: [0.16, 1, 0.3, 1] },
+      );
+    }
+
+    let toastTimer: ReturnType<typeof setTimeout> | undefined;
+    const showToast = (msg: string) => {
+      if (!toast) return;
+      toast.textContent = msg;
+      toast.style.opacity = '1';
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => (toast.style.opacity = '0'), 2400);
+    };
+
+    bar.querySelectorAll<HTMLAnchorElement>('[data-app-only="true"]').forEach((link) => {
+      link.addEventListener('click', (event) => {
+        // On desktop the app scheme won't resolve — copy the number instead.
+        const isTouch = window.matchMedia('(pointer: coarse)').matches;
+        if (isTouch) return; // let the deep link open the app on phones
+        event.preventDefault();
+        const phone = link.dataset.phone || '';
+        const channel = link.dataset.channel || '';
+        const label = channel === 'wechat' ? 'WeChat' : 'KakaoTalk';
+        navigator.clipboard?.writeText(phone).then(
+          () => showToast(`${label}: ${phone} copied`),
+          () => showToast(`${label}: ${phone}`),
+        );
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', initContactBar);
+</script>

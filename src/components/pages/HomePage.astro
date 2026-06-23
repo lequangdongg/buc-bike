@@ -245,8 +245,15 @@ const advantageIcons = ['🪪', '⚡', '🌿', '💰'];
             </a>
           </div>
         </div>
-        <div class="relative min-h-64 overflow-hidden rounded-card">
-          <Image src={banner} alt={BUSINESS.name} width={800} height={600} class="h-full w-full object-cover" />
+        <div class="relative min-h-72 overflow-hidden rounded-card border border-(--line)">
+          <iframe
+            title={`${BUSINESS.name} — ${BUSINESS.address.city}`}
+            src={`https://maps.google.com/maps?q=${BUSINESS.geo.lat},${BUSINESS.geo.lng}&z=16&output=embed`}
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            class="h-full min-h-72 w-full border-0 grayscale-[0.2]"
+            allowfullscreen
+          ></iframe>
         </div>
       </div>
     </SectionReveal>
