@@ -99,6 +99,7 @@ const t = await useTranslations(locale);
       import { initCountUp } from '../lib/motion/countUp';
       import { initScrollHideHeader } from '../lib/motion/scrollHideHeader';
       import { initScrollProgress } from '../lib/motion/scrollProgress';
+      import { initMobileMenu } from '../lib/motion/mobileMenu';
 
       let cleanups: Array<VoidFunction | undefined> = [];
 
@@ -109,7 +110,7 @@ const t = await useTranslations(locale);
 
       function boot() {
         teardown();
-        cleanups.push(initReveal(), initParallax(), initCountUp());
+        cleanups.push(initReveal(), initParallax(), initCountUp(), initMobileMenu());
         const header = document.getElementById('site-header');
         if (header) cleanups.push(initScrollHideHeader(header));
       }

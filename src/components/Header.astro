@@ -1,6 +1,6 @@
 ---
 import { useTranslations } from '../i18n';
-import { localizePath, type Locale } from '../i18n/config';
+import { localizePath, LOCALES, LOCALE_LABELS, type Locale } from '../i18n/config';
 import LanguageSwitcher from './LanguageSwitcher.astro';
 import ThemeToggle from './ThemeToggle.astro';
 
@@ -30,13 +30,14 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
       Buck<span class="text-accent">Bike</span>
     </a>
 
+    <!-- Desktop nav -->
     <div class="hidden items-center gap-8 md:flex">
       {
         navItems.map((item) => (
           <a
             href={link(item.href)}
             aria-current={isActive(item.href) ? 'page' : undefined}
-            class="relative text-sm text-(--muted) transition hover:text-(--fg) aria-[current]:text-(--fg)"
+            class="text-sm text-(--muted) transition hover:text-(--fg) aria-[current]:text-(--fg)"
           >
             {item.label}
           </a>
@@ -44,7 +45,8 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
       }
     </div>
 
-    <div class="flex items-center gap-2 sm:gap-3">
+    <!-- Desktop actions -->
+    <div class="hidden items-center gap-3 md:flex">
       <LanguageSwitcher locale={locale} path={path} />
       <ThemeToggle locale={locale} />
       <a
@@ -54,5 +56,84 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
         {t('nav.book')}
       </a>
     </div>
+
+    <!-- Mobile actions -->
+    <div class="flex items-center gap-1 md:hidden">
+      <ThemeToggle locale={locale} />
+      <button
+        id="menu-open"
+        type="button"
+        aria-label="Menu"
+        aria-controls="mobile-menu"
+        aria-expanded="false"
+        class="grid size-11 place-items-center rounded-full text-(--fg)"
+      >
+        <svg class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16" />
+        </svg>
+      </button>
+    </div>
   </nav>
 </header>
+
+<!-- Mobile overlay menu -->
+<div id="mobile-menu" data-open="false" class="fixed inset-0 z-50 hidden md:hidden">
+  <div data-menu-backdrop class="absolute inset-0 bg-(--bg)/95 backdrop-blur-xl"></div>
+  <div class="relative flex h-dvh flex-col px-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-5">
+    <div class="flex items-center justify-between">
+      <span class="font-display text-xl font-bold tracking-tight">Buck<span class="text-accent">Bike</span></span>
+      <button
+        id="menu-close"
+        type="button"
+        aria-label="Close"
+        class="grid size-11 place-items-center rounded-full text-(--fg)"
+      >
+        <svg class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18" />
+        </svg>
+      </button>
+    </div>
+
+    <nav class="mt-10 flex flex-col">
+      {
+        navItems.map((item) => (
+          <a
+            data-menu-item
+            href={link(item.href)}
+            aria-current={isActive(item.href) ? 'page' : undefined}
+            class="border-b border-(--line) py-5 font-display text-3xl font-bold tracking-tight text-(--fg) aria-[current]:text-accent"
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="mt-auto space-y-6">
+      <div data-menu-item>
+        <p class="mb-3 text-xs uppercase tracking-wider text-(--muted)">Language</p>
+        <div class="flex flex-wrap gap-2">
+          {
+            LOCALES.map((l) => (
+              <a
+                href={localizePath(path, l)}
+                data-lang-link={l}
+                aria-current={l === locale ? 'true' : undefined}
+                class="rounded-full border border-(--line) px-4 py-2 text-sm transition hover:border-accent aria-[current]:border-accent aria-[current]:text-accent"
+              >
+                {LOCALE_LABELS[l]}
+              </a>
+            ))
+          }
+        </div>
+      </div>
+      <a
+        data-menu-item
+        href={link('/price')}
+        class="block rounded-full bg-accent py-4 text-center text-base font-semibold text-(--color-accent-ink)"
+      >
+        {t('nav.book')}
+      </a>
+    </div>
+  </div>
+</div>
