@@ -25,6 +25,32 @@ pnpm check      # astro type-check
 pnpm test       # vitest (i18n + pricing)
 ```
 
+## Deploy to Vercel (free)
+
+The site is fully static, so it runs on Vercel's free Hobby tier with no adapter.
+`site` auto-resolves to the Vercel production domain (`VERCEL_PROJECT_PRODUCTION_URL`),
+so canonical links, `hreflang`, sitemap and OG image URLs are correct on every deploy.
+
+**Option A — Vercel CLI (no Git remote needed):**
+
+```bash
+npm i -g vercel
+vercel        # first run: links the project, then deploys a preview
+vercel --prod # promote to production
+```
+
+**Option B — Git import:** push this repo to GitHub/GitLab, then on
+[vercel.com/new](https://vercel.com/new) import it. Vercel auto-detects Astro +
+pnpm from `vercel.json` and the lockfile — no settings to change.
+
+Build settings (already declared in `vercel.json`): framework `astro`,
+build `astro build`, output `dist`, install `pnpm install --frozen-lockfile`.
+Hashed assets and images are served with a 1-year immutable cache header.
+
+To force a specific canonical domain instead of the auto value, set the
+`PUBLIC_SITE_URL` environment variable in the Vercel project (e.g.
+`https://buckbike.com`) and add the custom domain in **Settings → Domains**.
+
 ## Pages & routes
 
 | Page  | EN          | Localized           |
