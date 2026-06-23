@@ -27,7 +27,7 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
 >
   <nav class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-4">
     <a href={link('/')} class="font-display text-xl font-bold tracking-tight">
-      Buck<span class="text-accent">Bike</span>
+      Buck<span class="text-(--accent-text)">Bike</span>
     </a>
 
     <!-- Desktop nav -->
@@ -81,7 +81,7 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
   <div data-menu-backdrop class="absolute inset-0 bg-(--bg)/95 backdrop-blur-xl"></div>
   <div class="relative flex h-dvh flex-col px-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-5">
     <div class="flex items-center justify-between">
-      <span class="font-display text-xl font-bold tracking-tight">Buck<span class="text-accent">Bike</span></span>
+      <span class="font-display text-xl font-bold tracking-tight">Buck<span class="text-(--accent-text)">Bike</span></span>
       <button
         id="menu-close"
         type="button"
@@ -101,7 +101,7 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
             data-menu-item
             href={link(item.href)}
             aria-current={isActive(item.href) ? 'page' : undefined}
-            class="border-b border-(--line) py-5 font-display text-3xl font-bold tracking-tight text-(--fg) aria-[current]:text-accent"
+            class="border-b border-(--line) py-5 font-display text-3xl font-bold tracking-tight text-(--fg) aria-[current]:text-(--accent-text)"
           >
             {item.label}
           </a>
@@ -119,7 +119,7 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
                 href={localizePath(path, l)}
                 data-lang-link={l}
                 aria-current={l === locale ? 'true' : undefined}
-                class="rounded-full border border-(--line) px-4 py-2 text-sm transition hover:border-accent aria-[current]:border-accent aria-[current]:text-accent"
+                class="rounded-full border border-(--line) px-4 py-2 text-sm transition hover:border-accent aria-[current]:border-accent aria-[current]:text-(--accent-text)"
               >
                 {LOCALE_LABELS[l]}
               </a>

@@ -26,6 +26,10 @@
   --card-2: #1c2326;
   --line: #293236;
   --muted: #8b9a9e;
+  /* Accent used as TEXT on a background. Lime reads well on graphite; in light
+     mode it would glare, so the day theme swaps to a deep readable green.
+     (Lime stays the FILL color via the static `accent` token — bg-accent etc.) */
+  --accent-text: #c6ff3a;
 }
 
 .light {
@@ -37,6 +41,7 @@
   --card-2: #f4f7f6;
   --line: #d6dedc;
   --muted: #51635f;
+  --accent-text: #2f6e12; /* deep lime-green, readable on light paper */
 }
 
 html {
