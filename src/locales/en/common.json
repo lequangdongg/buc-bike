@@ -1,0 +1,102 @@
+{
+  "site": { "name": "BuckBike", "tagline": "Renting Electric Scooters" },
+  "nav": { "home": "Home", "fleet": "Fleet", "price": "Pricing", "book": "Book Now" },
+  "hero": {
+    "kicker": "Electric Scooter Rental — Đà Nẵng",
+    "title_line1": "Hit the road.",
+    "title_line2": "No hassle.",
+    "subtitle": "Book your scooter in minutes. Daily, weekly and monthly plans. Modern fleet, 24h support and full coverage.",
+    "cta_primary": "Book Now",
+    "cta_secondary": "See Fleet"
+  },
+  "stats": {
+    "rating": "Average rating",
+    "reviews": "Happy riders",
+    "range": "Max range (km)",
+    "support": "Support"
+  },
+  "features": {
+    "kicker": "Everything you need",
+    "heading": "Simple. Fast. Reliable.",
+    "items": [
+      { "title": "Book in Minutes.", "body": "No licence? No problem. Choose, confirm and ride. Zero bureaucracy." },
+      { "title": "Electric Fleet. Zero Fuel.", "body": "Electric scooters. No fuel, no licence, zero emissions. Always serviced." },
+      { "title": "Plans that Fit Your Budget.", "body": "Daily, weekly or monthly. Cash only. No hidden fees." },
+      { "title": "Private Driver. 24 Hours.", "body": "Door-to-door comfort with a dedicated chauffeur. Any time, any destination." }
+    ]
+  },
+  "booking": {
+    "kicker": "Step by step",
+    "heading": "How to Book Your Bike",
+    "steps": [
+      { "title": "Visit our store", "body": "Come to our store and choose your favourite model in person. Our team will guide you." },
+      { "title": "Select the period", "body": "Set the pick-up and return dates. Daily, weekly or monthly plans." },
+      { "title": "Pay: cash or bank transfer", "body": "We accept cash or direct bank account transfer. No cards or digital wallets." },
+      { "title": "Pick up your bike", "body": "Show your ID and pick up the bike at the agreed address. Off you go." }
+    ],
+    "need_heading": "What you need",
+    "need": [
+      { "title": "Passport photo", "body": "Just send us a photo of your passport. No driver's licence required." },
+      { "title": "Cash or bank transfer", "body": "We accept cash or direct bank account transfer only. No cards accepted." }
+    ]
+  },
+  "advantages": {
+    "kicker": "Why electric?",
+    "items": [
+      { "title": "No licence required", "body": "Scooters can be ridden without a driving licence. Perfect for tourists and beginners." },
+      { "title": "Zero fuel costs", "body": "Our electric fleet is fully charged and ready. No petrol bills, ever." },
+      { "title": "100% eco-friendly", "body": "Zero emissions, zero noise. Explore the city and respect the planet." },
+      { "title": "Most economical option", "body": "Far cheaper than taxis and car rental. Maximum savings, zero compromise." }
+    ]
+  },
+  "fleet": {
+    "heading": "Bikes for Every Style",
+    "kicker": "Available models",
+    "intro": "A modern, fully-electric VinFast fleet — serviced, charged and ready to ride.",
+    "available": "Available",
+    "range_label": "Range",
+    "speed_label": "Top speed",
+    "seats_label": "Seats",
+    "view_detail": "View details",
+    "specs": "Specifications",
+    "book_this": "Book this bike",
+    "back": "Back to fleet"
+  },
+  "price": {
+    "heading": "Flexible Plans, No Surprises",
+    "kicker": "Choose your plan",
+    "intro": "Pick the model and the period that suit your trip. Helmet and 24h support always included.",
+    "disclaimer": "Prices are illustrative and may differ from the live store. Contact us for the latest rates.",
+    "period": { "daily": "Daily", "weekly": "Weekly", "monthly": "Monthly" },
+    "most_popular": "Most popular",
+    "per_day": "/ day",
+    "per_week": "/ week",
+    "per_month": "/ month",
+    "includes_heading": "All plans include",
+    "includes": ["Fully charged battery", "Free helmet", "24h WhatsApp support", "No licence? No problem"],
+    "payment_heading": "Payment",
+    "payment_body": "We accept cash or direct bank account transfer. No cards accepted.",
+    "faq_heading": "Frequently asked",
+    "faq": [
+      { "q": "Do I need a driving licence?", "a": "No. Our electric scooters require no licence — tourists welcome." },
+      { "q": "How do I pay?", "a": "Cash or direct bank transfer only. No cards or digital wallets." },
+      { "q": "Is a helmet included?", "a": "Yes, a certified helmet is included with every rental." },
+      { "q": "Can I swap or extend my bike?", "a": "Monthly plans include free maintenance and a bike swap. Just message us." }
+    ]
+  },
+  "business": {
+    "kicker": "Come ride with us",
+    "heading": "We Are Waiting For You",
+    "reviews": "{{count}} reviews",
+    "open_now": "Open · Closes 11 PM",
+    "directions": "Get Directions",
+    "call": "Call us",
+    "whatsapp": "WhatsApp"
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "made_with": "Rebuilt as a technical demo. Content adapted from buckbike.com."
+  },
+  "theme": { "toggle": "Toggle theme" },
+  "a11y": { "skip": "Skip to content" }
+}

@@ -1,0 +1,102 @@
+{
+  "site": { "name": "BuckBike", "tagline": "Cho thuê xe máy điện" },
+  "nav": { "home": "Trang chủ", "fleet": "Đội xe", "price": "Bảng giá", "book": "Đặt ngay" },
+  "hero": {
+    "kicker": "Cho thuê xe máy điện — Đà Nẵng",
+    "title_line1": "Lên đường.",
+    "title_line2": "Không rắc rối.",
+    "subtitle": "Đặt xe máy điện chỉ trong vài phút. Gói ngày, tuần và tháng. Đội xe hiện đại, hỗ trợ 24h và bảo hiểm đầy đủ.",
+    "cta_primary": "Đặt ngay",
+    "cta_secondary": "Xem đội xe"
+  },
+  "stats": {
+    "rating": "Đánh giá trung bình",
+    "reviews": "Khách hài lòng",
+    "range": "Quãng đường tối đa (km)",
+    "support": "Hỗ trợ"
+  },
+  "features": {
+    "kicker": "Mọi thứ bạn cần",
+    "heading": "Đơn giản. Nhanh chóng. Đáng tin.",
+    "items": [
+      { "title": "Đặt xe trong vài phút.", "body": "Không bằng lái? Không sao. Chọn, xác nhận và lên đường. Không thủ tục rườm rà." },
+      { "title": "Đội xe điện. Không tốn xăng.", "body": "Xe máy điện. Không xăng, không bằng lái, không khí thải. Luôn được bảo dưỡng." },
+      { "title": "Gói phù hợp túi tiền.", "body": "Theo ngày, tuần hoặc tháng. Tiền mặt. Không phí ẩn." },
+      { "title": "Tài xế riêng. 24 giờ.", "body": "Đưa đón tận nơi với tài xế riêng. Bất cứ lúc nào, bất cứ đâu." }
+    ]
+  },
+  "booking": {
+    "kicker": "Từng bước một",
+    "heading": "Cách đặt xe của bạn",
+    "steps": [
+      { "title": "Ghé cửa hàng", "body": "Đến cửa hàng và tự chọn mẫu xe yêu thích. Đội ngũ của chúng tôi sẽ hướng dẫn bạn." },
+      { "title": "Chọn thời hạn", "body": "Chọn ngày nhận và trả xe. Gói ngày, tuần hoặc tháng." },
+      { "title": "Thanh toán: tiền mặt hoặc chuyển khoản", "body": "Chúng tôi nhận tiền mặt hoặc chuyển khoản trực tiếp. Không thẻ, không ví điện tử." },
+      { "title": "Nhận xe", "body": "Xuất trình giấy tờ và nhận xe tại địa chỉ đã hẹn. Lên đường thôi." }
+    ],
+    "need_heading": "Bạn cần chuẩn bị",
+    "need": [
+      { "title": "Ảnh hộ chiếu", "body": "Chỉ cần gửi ảnh hộ chiếu. Không cần bằng lái." },
+      { "title": "Tiền mặt hoặc chuyển khoản", "body": "Chúng tôi chỉ nhận tiền mặt hoặc chuyển khoản trực tiếp. Không nhận thẻ." }
+    ]
+  },
+  "advantages": {
+    "kicker": "Vì sao chọn xe điện?",
+    "items": [
+      { "title": "Không cần bằng lái", "body": "Xe máy điện có thể chạy mà không cần bằng lái. Lý tưởng cho du khách và người mới." },
+      { "title": "Không tốn nhiên liệu", "body": "Đội xe điện luôn được sạc đầy và sẵn sàng. Không bao giờ tốn tiền xăng." },
+      { "title": "100% thân thiện môi trường", "body": "Không khí thải, không tiếng ồn. Khám phá thành phố và bảo vệ hành tinh." },
+      { "title": "Lựa chọn tiết kiệm nhất", "body": "Rẻ hơn nhiều so với taxi và thuê ô tô. Tiết kiệm tối đa, không đánh đổi." }
+    ]
+  },
+  "fleet": {
+    "heading": "Xe cho mọi phong cách",
+    "kicker": "Các mẫu hiện có",
+    "intro": "Đội xe VinFast hoàn toàn điện, hiện đại — đã bảo dưỡng, sạc đầy và sẵn sàng lăn bánh.",
+    "available": "Còn xe",
+    "range_label": "Quãng đường",
+    "speed_label": "Tốc độ tối đa",
+    "seats_label": "Chỗ ngồi",
+    "view_detail": "Xem chi tiết",
+    "specs": "Thông số",
+    "book_this": "Đặt xe này",
+    "back": "Quay lại đội xe"
+  },
+  "price": {
+    "heading": "Gói linh hoạt, không bất ngờ",
+    "kicker": "Chọn gói của bạn",
+    "intro": "Chọn mẫu xe và thời hạn phù hợp với chuyến đi. Luôn kèm mũ bảo hiểm và hỗ trợ 24h.",
+    "disclaimer": "Giá chỉ mang tính minh hoạ và có thể khác với cửa hàng thực tế. Liên hệ để biết giá mới nhất.",
+    "period": { "daily": "Ngày", "weekly": "Tuần", "monthly": "Tháng" },
+    "most_popular": "Phổ biến nhất",
+    "per_day": "/ ngày",
+    "per_week": "/ tuần",
+    "per_month": "/ tháng",
+    "includes_heading": "Mọi gói đều gồm",
+    "includes": ["Pin sạc đầy", "Mũ bảo hiểm miễn phí", "Hỗ trợ WhatsApp 24h", "Không bằng lái? Không sao"],
+    "payment_heading": "Thanh toán",
+    "payment_body": "Chúng tôi nhận tiền mặt hoặc chuyển khoản trực tiếp. Không nhận thẻ.",
+    "faq_heading": "Câu hỏi thường gặp",
+    "faq": [
+      { "q": "Tôi có cần bằng lái không?", "a": "Không. Xe máy điện của chúng tôi không cần bằng lái — du khách được chào đón." },
+      { "q": "Tôi thanh toán thế nào?", "a": "Chỉ tiền mặt hoặc chuyển khoản trực tiếp. Không thẻ, không ví điện tử." },
+      { "q": "Có kèm mũ bảo hiểm không?", "a": "Có, mỗi lượt thuê đều kèm mũ bảo hiểm đạt chuẩn." },
+      { "q": "Tôi có thể đổi hoặc gia hạn xe không?", "a": "Gói tháng kèm bảo dưỡng miễn phí và đổi xe. Chỉ cần nhắn cho chúng tôi." }
+    ]
+  },
+  "business": {
+    "kicker": "Cùng lên đường với chúng tôi",
+    "heading": "Chúng tôi đang chờ bạn",
+    "reviews": "{{count}} đánh giá",
+    "open_now": "Đang mở · Đóng cửa 11 giờ tối",
+    "directions": "Chỉ đường",
+    "call": "Gọi cho chúng tôi",
+    "whatsapp": "WhatsApp"
+  },
+  "footer": {
+    "rights": "Bảo lưu mọi quyền.",
+    "made_with": "Dựng lại như một bản demo kỹ thuật. Nội dung phỏng theo buckbike.com."
+  },
+  "theme": { "toggle": "Đổi giao diện" },
+  "a11y": { "skip": "Bỏ qua đến nội dung" }
+}
