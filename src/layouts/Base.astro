@@ -33,6 +33,43 @@ const t = await useTranslations(locale);
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+    <!--
+      Language preference redirect (runs before paint, static-site friendly).
+      Priority: explicit localStorage `lang` → navigator.language guess → EN default.
+      Mirrors src/i18n/config.ts (LOCALES / DEFAULT_LOCALE). Bots are skipped.
+    -->
+    <script is:inline>
+      (function () {
+        try {
+          var PREFIXED = ['vi', 'ru', 'ja', 'ko', 'zh']; // en is the unprefixed default
+          var ua = navigator.userAgent || '';
+          if (/(bot|crawl|spider|slurp|bingpreview|mediapartners|facebookexternalhit|embedly|pinterest|slackbot|whatsapp|telegram)/i.test(ua)) return;
+
+          var path = location.pathname;
+          var seg = path.split('/').filter(Boolean)[0];
+          var current = PREFIXED.indexOf(seg) > -1 ? seg : 'en';
+
+          var stored = null;
+          try { stored = localStorage.getItem('lang'); } catch (e) {}
+
+          var target = null;
+          if (stored === 'en' || PREFIXED.indexOf(stored) > -1) {
+            target = stored; // explicit choice wins
+          } else {
+            var base = (navigator.language || '').toLowerCase().split('-')[0];
+            if (base === 'zh') target = 'zh';
+            else if (PREFIXED.indexOf(base) > -1) target = base;
+          }
+
+          if (!target || target === current) return;
+
+          var rest = current === 'en' ? path : path.replace('/' + current, '') || '/';
+          if (!rest) rest = '/';
+          var dest = target === 'en' ? rest : '/' + target + (rest === '/' ? '/' : rest);
+          location.replace(dest + location.search + location.hash);
+        } catch (e) {}
+      })();
+    </script>
     <!-- Apply saved theme before paint to avoid a flash. -->
     <script is:inline>
       if (localStorage.getItem('theme') === 'light') {
@@ -87,10 +124,24 @@ const t = await useTranslations(locale);
         w.__bkGlobalInit = true;
 
         document.addEventListener('click', (event) => {
-          const toggle = (event.target as HTMLElement)?.closest('#theme-toggle');
-          if (!toggle) return;
-          const isLight = document.documentElement.classList.toggle('light');
-          localStorage.setItem('theme', isLight ? 'light' : 'dark');
+          const el = event.target as HTMLElement;
+
+          const toggle = el?.closest('#theme-toggle');
+          if (toggle) {
+            const isLight = document.documentElement.classList.toggle('light');
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+            return;
+          }
+
+          // Persist an explicit language choice so it survives across visits.
+          const langLink = el?.closest<HTMLElement>('[data-lang-link]');
+          if (langLink) {
+            try {
+              localStorage.setItem('lang', langLink.dataset.langLink || 'en');
+            } catch (e) {
+              /* ignore storage failures */
+            }
+          }
         });
 
         const bar = document.getElementById('scroll-progress');

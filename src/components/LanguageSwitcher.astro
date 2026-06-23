@@ -25,6 +25,7 @@ const { locale, path } = Astro.props;
         <li>
           <a
             href={localizePath(path, l)}
+            data-lang-link={l}
             aria-current={l === locale ? 'true' : undefined}
             class="block rounded-lg px-3 py-2 text-sm transition hover:bg-(--card-2) aria-[current]:text-accent"
           >
