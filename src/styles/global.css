@@ -5,11 +5,12 @@
 
 /* Static design tokens → generate utilities (bg-accent, text-charge, rounded-card…). */
 @theme {
-  --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Bricolage Grotesque Variable', ui-sans-serif, system-ui, sans-serif;
   --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
 
-  /* The single bold accent: electric lime (energy / "it's electric"). */
-  --color-accent: #c6ff3a;
+  /* The single bold accent: electric lime — desaturated a touch so it reads
+     premium rather than neon-glaring. */
+  --color-accent: #bce24b;
   --color-accent-ink: #0b0e0f;
   /* Reserved strictly for the range/charge signature motif. */
   --color-charge: #2ee6d6;
@@ -49,6 +50,22 @@ html {
   color: var(--fg);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Headlines feel intentional: balanced wrapping, no orphans, tighter optical
+   tracking on the display face. Body copy gets pretty wrapping. */
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+p {
+  text-wrap: pretty;
+}
+.font-display {
+  letter-spacing: -0.01em;
+  font-feature-settings: 'ss01';
 }
 
 ::selection {
