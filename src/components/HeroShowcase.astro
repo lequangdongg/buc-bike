@@ -25,7 +25,7 @@ const positions = [
   <div data-showcase-stage class="sticky top-0 flex h-[100svh] items-center overflow-hidden">
     <div class="mx-auto grid w-full max-w-6xl items-center gap-8 px-5 md:grid-cols-2">
       <!-- bike + hotspots -->
-      <div class="relative mx-auto aspect-square w-full max-w-md overflow-hidden rounded-card bg-gradient-to-b from-white to-zinc-200">
+      <div class="relative mx-auto aspect-square w-full max-w-xs overflow-hidden rounded-card bg-gradient-to-b from-white to-zinc-200 sm:max-w-sm md:max-w-md">
         <Image src={feliz} alt="VinFast Feliz Lite" width={800} height={800} class="h-full w-full object-contain p-6" />
         {
           points.map((p, i) => (
@@ -129,11 +129,23 @@ const positions = [
     width: 34px;
   }
 
-  @media (prefers-reduced-motion: reduce) {
+  /* Mobile + reduced-motion: no pin/scroll-jack — stack the image and list
+     every callout in normal flow (mobile-first). */
+  @media (max-width: 767px), (prefers-reduced-motion: reduce) {
     [data-showcase] { height: auto !important; }
-    [data-showcase-stage] { position: static !important; height: auto !important; padding: 4rem 0; }
+    [data-showcase-stage] {
+      position: static !important;
+      height: auto !important;
+      padding: 4rem 0;
+    }
     .hs-wrap { min-height: 0 !important; }
-    .hs-callout { position: static; opacity: 1; transform: none; margin-bottom: 1.75rem; }
+    .hs-callout {
+      position: static;
+      opacity: 1;
+      transform: none;
+      margin-bottom: 1.75rem;
+    }
+    .hs-callout:last-child { margin-bottom: 0; }
     .hs-dot { opacity: 1; }
     .hs-hint { display: none; }
   }

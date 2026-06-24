@@ -22,7 +22,10 @@ export function initShowcase(): VoidFunction | undefined {
     dots.forEach((el, i) => (el.dataset.active = String(i === idx)));
   };
 
-  if (prefersReducedMotion()) {
+  // Mobile + reduced motion render statically (CSS stacks every callout), so
+  // skip the scroll-jack and just light up all markers/callouts.
+  const isStatic = prefersReducedMotion() || window.matchMedia('(max-width: 767px)').matches;
+  if (isStatic) {
     section.dataset.reduced = 'true';
     hotspots.forEach((el) => (el.dataset.active = 'true'));
     callouts.forEach((el) => (el.dataset.active = 'true'));
