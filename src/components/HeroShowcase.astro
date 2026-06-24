@@ -19,6 +19,8 @@ const positions = [
   { x: 49, y: 62 },
   { x: 40, y: 40 },
 ];
+// Tooltip placement per marker so it stays inside the frame (mobile tap UI).
+const places = ['b-c', 't-r', 't-l', 't-c', 'b-l'];
 ---
 
 <section data-showcase class="relative h-[300vh]">
@@ -38,6 +40,10 @@ const positions = [
               class="absolute z-10 -translate-x-1/2 -translate-y-1/2"
             >
               <span class="hs-num">{i + 1}</span>
+              <span class:list={['hs-tip', `tip-${places[i]}`]}>
+                <span class="hs-tip-title">{i + 1}. {p.title}</span>
+                <span class="hs-tip-body">{p.body}</span>
+              </span>
             </button>
           ))
         }
@@ -101,6 +107,10 @@ const positions = [
     border: 2px solid var(--color-accent);
     opacity: 0;
   }
+  /* Lift the active marker (and its tooltip) above the other markers. */
+  [data-hotspot][data-active='true'] {
+    z-index: 40;
+  }
   [data-hotspot][data-active='true'] .hs-num {
     opacity: 1;
     transform: scale(1.25);
@@ -114,6 +124,49 @@ const positions = [
     0% { opacity: 0.7; transform: scale(0.7); }
     100% { opacity: 0; transform: scale(1.8); }
   }
+
+  /* Tap tooltip (mobile) — popover anchored to the active marker. */
+  .hs-tip {
+    position: absolute;
+    width: 168px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 0.6rem 0.7rem;
+    border-radius: 12px;
+    border: 1px solid color-mix(in srgb, var(--color-accent) 35%, transparent);
+    background: color-mix(in srgb, var(--color-base, #0b0e0f) 92%, transparent);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transform: scale(0.9);
+    transform-origin: center;
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    z-index: 30;
+  }
+  .hs-tip-title {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--fg);
+    line-height: 1.2;
+  }
+  .hs-tip-body {
+    font-size: 11.5px;
+    line-height: 1.35;
+    color: var(--muted);
+  }
+  [data-hotspot][data-active='true'] .hs-tip {
+    opacity: 1;
+    transform: scale(1);
+  }
+  /* placements — keep the bubble inside the frame */
+  .tip-b-c { top: 170%; left: 50%; margin-left: -84px; }
+  .tip-t-c { bottom: 170%; left: 50%; margin-left: -84px; }
+  .tip-t-l { bottom: 170%; left: -10px; }
+  .tip-t-r { bottom: 170%; right: -10px; }
+  .tip-b-l { top: 170%; left: -10px; }
 
   .hs-callout {
     position: absolute;
@@ -144,6 +197,11 @@ const positions = [
     width: 36px;
   }
 
+  /* Desktop uses the callout-below + scroll, never the tap tooltip. */
+  @media (min-width: 768px) {
+    .hs-tip { display: none; }
+  }
+
   /* Mobile + reduced-motion: drop the pin so the stage flows in normal order. */
   @media (max-width: 767px), (prefers-reduced-motion: reduce) {
     [data-showcase] { height: auto !important; }
@@ -154,9 +212,15 @@ const positions = [
     }
   }
 
+  /* Mobile: the tooltip replaces the callout-below; give the bike more room. */
+  @media (max-width: 767px) {
+    .hs-wrap { display: none; }
+  }
+
   /* Reduced motion only: no tap interaction — list every callout statically. */
   @media (prefers-reduced-motion: reduce) {
-    .hs-wrap { min-height: 0 !important; }
+    .hs-tip { display: none; }
+    .hs-wrap { display: block; min-height: 0 !important; }
     .hs-callout {
       position: static;
       opacity: 1;
