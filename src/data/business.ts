@@ -15,7 +15,7 @@ export const BUSINESS = {
   },
   geo: { lat: 16.0397, lng: 108.2486 },
   hours: { opens: '10:00', closes: '23:00' },
-  rating: { value: 4.9, count: 62 },
+  rating: { value: 5.0, count: 62 },
   maps: 'https://maps.app.goo.gl/4r7hXgFa3zhd7WGD6',
   socials: {
     facebook: 'https://facebook.com/buckbike',

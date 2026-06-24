@@ -8,10 +8,16 @@ const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
  * Returns a cleanup that detaches the document listeners on navigation.
  */
 export function initLangSwitcher(): VoidFunction | undefined {
-  const wrap = document.querySelector<HTMLElement>('[data-lang-switcher]');
-  const trigger = wrap?.querySelector<HTMLButtonElement>('[data-lang-trigger]');
-  const menu = wrap?.querySelector<HTMLElement>('[data-lang-menu]');
-  if (!wrap || !trigger || !menu) return undefined;
+  const wraps = document.querySelectorAll<HTMLElement>('[data-lang-switcher]');
+  if (!wraps.length) return undefined;
+  const cleanups = Array.from(wraps).map(wireOne).filter(Boolean) as VoidFunction[];
+  return () => cleanups.forEach((c) => c());
+}
+
+function wireOne(wrap: HTMLElement): VoidFunction | undefined {
+  const trigger = wrap.querySelector<HTMLButtonElement>('[data-lang-trigger]');
+  const menu = wrap.querySelector<HTMLElement>('[data-lang-menu]');
+  if (!trigger || !menu) return undefined;
 
   const reduced = prefersReducedMotion();
   let open = false;

@@ -57,6 +57,8 @@
     "range_label": "주행거리",
     "speed_label": "최고 속도",
     "seats_label": "좌석",
+    "trunk_label": "수납공간",
+    "from": "최저",
     "view_detail": "자세히 보기",
     "specs": "사양",
     "book_this": "이 차량 예약",
@@ -82,9 +84,12 @@
     "most_popular": "가장 인기",
     "per_day": "/ 일",
     "best_value": "가장 알뜰",
+    "contact_us": "문의하기",
     "plans": [
-      { "name": "일일", "note": "1–3일" },
-      { "name": "장기 렌탈", "note": "3일 초과" }
+      { "name": "1–3일", "note": "짧은 여행" },
+      { "name": "3일 초과", "note": "일일 요금에서 20% 할인" },
+      { "name": "주간", "note": "7일 이상" },
+      { "name": "월간", "note": "장기 렌탈" }
     ],
     "per_week": "/ 주",
     "per_month": "/ 월",
@@ -104,6 +109,7 @@
     "kicker": "함께 달려요",
     "heading": "기다리고 있습니다",
     "reviews": "리뷰 {{count}}개",
+    "on_google": "Google 기준",
     "open_now": "영업 중 · 오후 11시 마감",
     "directions": "길찾기",
     "call": "전화하기",

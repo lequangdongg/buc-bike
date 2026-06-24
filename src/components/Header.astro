@@ -1,6 +1,6 @@
 ---
 import { useTranslations } from '../i18n';
-import { localizePath, LOCALES, LOCALE_LABELS, type Locale } from '../i18n/config';
+import { localizePath, type Locale } from '../i18n/config';
 import LanguageSwitcher from './LanguageSwitcher.astro';
 import ThemeToggle from './ThemeToggle.astro';
 
@@ -58,7 +58,8 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
     </div>
 
     <!-- Mobile actions -->
-    <div class="flex items-center gap-1 md:hidden">
+    <div class="flex items-center gap-1.5 md:hidden">
+      <LanguageSwitcher locale={locale} path={path} compact />
       <ThemeToggle locale={locale} />
       <button
         id="menu-open"
@@ -109,24 +110,7 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
       }
     </nav>
 
-    <div class="mt-auto space-y-6">
-      <div data-menu-item>
-        <p class="mb-3 text-xs uppercase tracking-wider text-(--muted)">Language</p>
-        <div class="flex flex-wrap gap-2">
-          {
-            LOCALES.map((l) => (
-              <a
-                href={localizePath(path, l)}
-                data-lang-link={l}
-                aria-current={l === locale ? 'true' : undefined}
-                class="rounded-full border border-(--line) px-4 py-2 text-sm transition hover:border-accent aria-[current]:border-accent aria-[current]:text-(--accent-text)"
-              >
-                {LOCALE_LABELS[l]}
-              </a>
-            ))
-          }
-        </div>
-      </div>
+    <div class="mt-auto">
       <a
         data-menu-item
         href={link('/price')}

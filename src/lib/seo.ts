@@ -1,6 +1,6 @@
 import { BUSINESS } from '../data/business';
 import { BIKES } from '../data/fleet';
-import { PRICING } from '../data/pricing';
+import { DAILY_RATE } from '../data/pricing';
 
 export function buildLocalBusinessJsonLd() {
   return {
@@ -52,7 +52,7 @@ export function buildProductsJsonLd() {
     offers: {
       '@type': 'Offer',
       priceCurrency: 'VND',
-      price: PRICING[bike.id].daily,
+      price: DAILY_RATE,
       availability: bike.available
         ? 'https://schema.org/InStock'
         : 'https://schema.org/OutOfStock',

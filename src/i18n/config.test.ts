@@ -4,7 +4,7 @@ import { LOCALES, DEFAULT_LOCALE, localizePath, getLocaleFromPath } from './conf
 describe('i18n config', () => {
   it('lists 6 locales with en default', () => {
     expect(DEFAULT_LOCALE).toBe('en');
-    expect(LOCALES).toEqual(['en', 'vi', 'ru', 'ja', 'ko', 'zh']);
+    expect(LOCALES).toEqual(['en', 'vi', 'ru', 'ja', 'ko', 'zh', 'hi']);
   });
   it('localizePath leaves default locale unprefixed', () => {
     expect(localizePath('/fleet', 'en')).toBe('/fleet');

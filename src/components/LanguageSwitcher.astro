@@ -1,11 +1,14 @@
 ---
 import { LOCALES, LOCALE_LABELS, localizePath, type Locale } from '../i18n/config';
+import FlagIcon from './FlagIcon.astro';
 
 interface Props {
   locale: Locale;
   path: string;
+  /** Flag-only trigger (no label / chevron) — for the mobile header. */
+  compact?: boolean;
 }
-const { locale, path } = Astro.props;
+const { locale, path, compact = false } = Astro.props;
 ---
 
 <div class="relative" data-lang-switcher>
@@ -14,19 +17,27 @@ const { locale, path } = Astro.props;
     data-lang-trigger
     aria-haspopup="true"
     aria-expanded="false"
-    class="flex cursor-pointer items-center gap-1.5 rounded-full border border-(--line) px-3 py-1.5 text-sm transition hover:border-accent"
+    aria-label={LOCALE_LABELS[locale]}
+    class:list={[
+      'flex cursor-pointer items-center rounded-full border border-(--line) transition hover:border-accent',
+      compact ? 'size-10 justify-center' : 'gap-2 px-3 py-1.5 text-sm',
+    ]}
   >
-    <svg class="size-4 text-(--muted)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-      <circle cx="12" cy="12" r="10" /><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20" />
-    </svg>
-    <span>{LOCALE_LABELS[locale]}</span>
-    <svg class="size-3.5 text-(--muted)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-      <path d="M6 9l6 6 6-6" />
-    </svg>
+    <FlagIcon locale={locale} class="h-4 w-6" />
+    {
+      !compact && (
+        <>
+          <span>{LOCALE_LABELS[locale]}</span>
+          <svg class="size-3.5 text-(--muted)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </>
+      )
+    }
   </button>
   <ul
     data-lang-menu
-    class="absolute right-0 z-50 mt-2 hidden min-w-40 origin-top-right overflow-hidden rounded-xl border border-(--line) bg-(--card) p-1 shadow-xl shadow-black/30"
+    class="absolute right-0 z-50 mt-2 hidden min-w-44 origin-top-right overflow-hidden rounded-xl border border-(--line) bg-(--card) p-1 shadow-xl shadow-black/30"
   >
     {
       LOCALES.map((l) => (
@@ -35,8 +46,9 @@ const { locale, path } = Astro.props;
             href={localizePath(path, l)}
             data-lang-link={l}
             aria-current={l === locale ? 'true' : undefined}
-            class="block rounded-lg px-3 py-2 text-sm transition hover:bg-(--card-2) aria-[current]:text-(--accent-text)"
+            class="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition hover:bg-(--card-2) aria-[current]:text-(--accent-text)"
           >
+            <FlagIcon locale={l} class="h-4 w-6" />
             {LOCALE_LABELS[l]}
           </a>
         </li>

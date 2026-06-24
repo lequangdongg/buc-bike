@@ -229,7 +229,9 @@ const advantageIcons = ['🪪', '⚡', '🌿', '💰'];
             <span class="font-display text-4xl font-bold text-(--accent-text)">
               <span data-count={BUSINESS.rating.value} data-decimals="1">0</span>
             </span>
-            <span class="text-(--muted)">★★★★★ · {t('business.reviews', { count: BUSINESS.rating.count })}</span>
+            <a href={BUSINESS.maps} target="_blank" rel="noopener" class="text-(--muted) transition hover:text-(--fg)">
+              <span class="text-(--accent-text)">★★★★★</span> · {t('business.reviews', { count: BUSINESS.rating.count })} {t('business.on_google')}
+            </a>
           </div>
           <address class="mt-6 not-italic text-(--muted)">
             <p>📍 {BUSINESS.address.street}</p>

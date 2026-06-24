@@ -17,17 +17,17 @@ const { bike, locale, label, availableLabel } = Astro.props;
   data-reveal-item
   class="group relative block overflow-hidden rounded-card border border-(--line) bg-(--card) transition duration-300 hover:-translate-y-1 hover:border-accent"
 >
-  <div class="relative overflow-hidden">
+  <div class="relative aspect-[4/3] overflow-hidden bg-gradient-to-b from-white to-zinc-200">
     <Image
       src={bike.image}
       alt={bike.name}
       width={640}
-      height={800}
-      class="aspect-[3/4] w-full object-cover transition duration-500 group-hover:scale-[1.04]"
+      height={480}
+      class="h-full w-full object-contain p-5 transition duration-500 group-hover:scale-[1.05]"
       style={`view-transition-name: bike-${bike.id}`}
     />
     <span
-      class="absolute left-4 top-4 rounded-full bg-(--bg)/70 px-3 py-1 text-xs font-medium text-(--accent-text) backdrop-blur"
+      class="absolute left-4 top-4 rounded-full bg-black/60 px-3 py-1 text-xs font-medium text-accent backdrop-blur"
     >
       ● {availableLabel}
     </span>

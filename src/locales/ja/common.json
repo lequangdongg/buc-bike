@@ -57,6 +57,8 @@
     "range_label": "航続距離",
     "speed_label": "最高速度",
     "seats_label": "座席数",
+    "trunk_label": "トランク",
+    "from": "〜から",
     "view_detail": "詳細を見る",
     "specs": "スペック",
     "book_this": "この車両を予約",
@@ -82,9 +84,12 @@
     "most_popular": "一番人気",
     "per_day": "/ 日",
     "best_value": "一番お得",
+    "contact_us": "お問い合わせ",
     "plans": [
-      { "name": "日単位", "note": "1〜3日" },
-      { "name": "長期レンタル", "note": "4日以上" }
+      { "name": "1〜3日", "note": "短期の利用" },
+      { "name": "3日超", "note": "日額から20%オフ" },
+      { "name": "週単位", "note": "7日以上" },
+      { "name": "月単位", "note": "長期レンタル" }
     ],
     "per_week": "/ 週",
     "per_month": "/ 月",
@@ -104,6 +109,7 @@
     "kicker": "一緒に走りましょう",
     "heading": "お待ちしています",
     "reviews": "{{count}} 件のレビュー",
+    "on_google": "Google で",
     "open_now": "営業中 · 23時閉店",
     "directions": "ルート案内",
     "call": "電話する",

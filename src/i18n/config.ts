@@ -1,4 +1,4 @@
-export const LOCALES = ['en', 'vi', 'ru', 'ja', 'ko', 'zh'] as const;
+export const LOCALES = ['en', 'vi', 'ru', 'ja', 'ko', 'zh', 'hi'] as const;
 export type Locale = (typeof LOCALES)[number];
 export const DEFAULT_LOCALE: Locale = 'en';
 
@@ -9,6 +9,18 @@ export const LOCALE_LABELS: Record<Locale, string> = {
   ja: '日本語',
   ko: '한국어',
   zh: '中文',
+  hi: 'हिन्दी',
+};
+
+/** ISO country code for each locale's flag SVG (public/flags/<code>.svg). */
+export const LOCALE_FLAGS: Record<Locale, string> = {
+  en: 'gb',
+  vi: 'vn',
+  ru: 'ru',
+  ja: 'jp',
+  ko: 'kr',
+  zh: 'cn',
+  hi: 'in',
 };
 
 export function isLocale(value: string): value is Locale {

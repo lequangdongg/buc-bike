@@ -1,0 +1,17 @@
+---
+import { LOCALE_FLAGS, LOCALE_LABELS, type Locale } from '../i18n/config';
+
+interface Props {
+  locale: Locale;
+  class?: string;
+}
+const { locale, class: className = 'h-4 w-6' } = Astro.props;
+---
+<img
+  src={`/flags/${LOCALE_FLAGS[locale]}.svg`}
+  alt={LOCALE_LABELS[locale]}
+  width="24"
+  height="18"
+  loading="lazy"
+  class:list={['inline-block rounded-[3px] object-cover', className]}
+/>

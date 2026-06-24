@@ -57,6 +57,8 @@
     "range_label": "Range",
     "speed_label": "Top speed",
     "seats_label": "Seats",
+    "trunk_label": "Trunk",
+    "from": "From",
     "view_detail": "View details",
     "specs": "Specifications",
     "book_this": "Book this bike",
@@ -82,9 +84,12 @@
     "most_popular": "Most popular",
     "per_day": "/ day",
     "best_value": "Best value",
+    "contact_us": "Contact us",
     "plans": [
-      { "name": "Daily", "note": "1–3 days" },
-      { "name": "Long stay", "note": "More than 3 days" }
+      { "name": "1–3 days", "note": "Short trips" },
+      { "name": "Over 3 days", "note": "20% off the daily rate" },
+      { "name": "Weekly", "note": "7 days or more" },
+      { "name": "Monthly", "note": "Long-term rental" }
     ],
     "per_week": "/ week",
     "per_month": "/ month",
@@ -104,6 +109,7 @@
     "kicker": "Come ride with us",
     "heading": "We Are Waiting For You",
     "reviews": "{{count}} reviews",
+    "on_google": "on Google",
     "open_now": "Open · Closes 11 PM",
     "directions": "Get Directions",
     "call": "Call us",

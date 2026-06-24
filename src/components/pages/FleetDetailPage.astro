@@ -4,7 +4,7 @@ import Base from '../../layouts/Base.astro';
 import { useTranslations } from '../../i18n';
 import { localizePath, type Locale } from '../../i18n/config';
 import { BIKES, type Bike } from '../../data/fleet';
-import { PRICING, formatVnd } from '../../data/pricing';
+import { DAILY_RATE, formatVnd } from '../../data/pricing';
 import { BUSINESS } from '../../data/business';
 
 interface Props {
@@ -19,7 +19,7 @@ const link = (p: string) => localizePath(p, locale);
 const specs = [
   { label: t('fleet.range_label'), value: `${bike.rangeKm} km`, accent: true },
   { label: t('fleet.speed_label'), value: `${bike.topSpeedKmh} km/h`, accent: false },
-  { label: t('fleet.seats_label'), value: String(bike.seats), accent: false },
+  { label: t('fleet.trunk_label'), value: `${bike.trunkL} L`, accent: false },
 ];
 const others = BIKES.filter((b) => b.id !== bike.id);
 ---
@@ -36,14 +36,14 @@ const others = BIKES.filter((b) => b.id !== bike.id);
     </a>
 
     <div class="mt-8 grid gap-10 md:grid-cols-2 md:items-center">
-      <div class="overflow-hidden rounded-card border border-(--line) bg-(--card)">
+      <div class="overflow-hidden rounded-card border border-(--line) bg-gradient-to-b from-white to-zinc-200">
         <Image
           src={bike.image}
           alt={bike.name}
           width={900}
-          height={1100}
+          height={760}
           loading="eager"
-          class="aspect-[4/5] w-full object-cover"
+          class="aspect-[4/3] w-full object-contain p-6"
           style={`view-transition-name: bike-${bike.id}`}
         />
       </div>
@@ -66,7 +66,7 @@ const others = BIKES.filter((b) => b.id !== bike.id);
         </dl>
 
         <p class="mt-8 font-display text-4xl font-bold tabular-nums text-(--accent-text)">
-          {formatVnd(PRICING[bike.id].daily)}<span class="ml-1 text-base font-normal text-(--muted)">{t('price.per_day')}</span>
+          <span class="text-base font-normal text-(--muted)">{t('fleet.from')} </span>{formatVnd(DAILY_RATE)}<span class="ml-1 text-base font-normal text-(--muted)">{t('price.per_day')}</span>
         </p>
 
         <div class="mt-8 flex flex-wrap gap-3">
@@ -89,7 +89,7 @@ const others = BIKES.filter((b) => b.id !== bike.id);
               href={link(`/fleet/${b.id}`)}
               class="group flex items-center gap-4 rounded-card border border-(--line) bg-(--card) p-4 transition hover:border-accent"
             >
-              <Image src={b.image} alt={b.name} width={120} height={120} class="size-20 shrink-0 rounded-xl object-cover" />
+              <Image src={b.image} alt={b.name} width={120} height={120} class="size-20 shrink-0 rounded-xl bg-gradient-to-b from-white to-zinc-200 object-contain p-1.5" />
               <div>
                 <h3 class="font-display font-bold">{b.name}</h3>
                 <p class="text-sm text-(--muted)">{b.rangeKm} km · {b.topSpeedKmh} km/h</p>
