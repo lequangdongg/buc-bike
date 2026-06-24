@@ -37,16 +37,15 @@ const advantageIcons = ['🪪', '⚡', '🌿', '💰'];
   jsonLd={[buildLocalBusinessJsonLd()]}
 >
   <!-- ░░ HERO ░░ -->
-  <section class="relative flex min-h-[100svh] items-center overflow-hidden">
-    <!-- Feliz Lite hero subject (right on desktop, faded backdrop on mobile) -->
+  <section class="relative flex items-center overflow-hidden py-24 md:min-h-[100svh] md:py-0">
+    <!-- Feliz Lite hero subject — desktop: floating on the right -->
     <div
-      data-parallax="0.2"
       class="pointer-events-none absolute inset-y-0 right-0 -z-10 hidden w-[55%] items-center justify-center md:flex"
     >
-      <div class="absolute size-[80%] rounded-full bg-charge/10 blur-3xl"></div>
-      <Image src={felizHero} alt="VinFast Feliz Lite" width={760} height={760} loading="eager" class="relative h-auto w-[78%] max-w-xl object-contain drop-shadow-2xl md:w-[88%]" />
+      <div class="absolute size-[75%] rounded-full bg-charge/15 blur-3xl"></div>
+      <Image src={felizHero} alt="VinFast Feliz Lite" width={760} height={760} loading="eager" class="bike-float relative h-auto w-[88%] max-w-xl object-contain drop-shadow-2xl" />
     </div>
-    <div class="absolute inset-0 -z-10 bg-gradient-to-r from-(--bg) via-(--bg)/85 to-(--bg)/30"></div>
+    <div class="absolute inset-0 -z-10 bg-gradient-to-r from-(--bg) via-(--bg)/80 to-transparent"></div>
 
     <!-- signature charge-arc -->
     <svg
@@ -119,6 +118,12 @@ const advantageIcons = ['🪪', '⚡', '🌿', '💰'];
           <dd class="mt-1 font-display text-3xl font-bold">24<span class="text-(--muted)">h</span></dd>
         </div>
       </dl>
+
+      <!-- Feliz Lite hero subject — mobile: in-flow, floating -->
+      <div class="relative mt-12 flex justify-center md:hidden">
+        <div class="absolute bottom-6 size-56 rounded-full bg-charge/15 blur-3xl"></div>
+        <Image src={felizHero} alt="VinFast Feliz Lite" width={520} height={520} loading="eager" class="bike-float relative w-64 object-contain drop-shadow-2xl" />
+      </div>
     </div>
   </section>
 

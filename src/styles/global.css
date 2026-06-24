@@ -80,6 +80,17 @@ p {
   border-radius: 4px;
 }
 
+/* Idle hover/float for the hero bike — gentle bob + slight tilt for life.
+   Auto-disabled under prefers-reduced-motion by the safety net below. */
+@keyframes bike-float {
+  0%, 100% { transform: translateY(0) rotate(-1.2deg); }
+  50% { transform: translateY(-16px) rotate(1.2deg); }
+}
+.bike-float {
+  animation: bike-float 5s ease-in-out infinite;
+  will-change: transform;
+}
+
 /* Page-transition keyframes referenced by src/lib/motion/pageTransition.ts. */
 @keyframes bk-enter-up {
   from { opacity: 0; transform: translateY(16px); }
