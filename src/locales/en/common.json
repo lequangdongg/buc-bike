@@ -19,6 +19,7 @@
     "kicker": "Meet the ride",
     "heading": "Get to know the Feliz Lite",
     "scroll_hint": "Scroll to explore",
+    "tap_hint": "Tap a number to explore",
     "points": [
       { "title": "Keyless smart start", "body": "Twist the smart key and go — no ignition fumbling, no kick-start." },
       { "title": "34 L under-seat trunk", "body": "Swallows a full-face helmet plus your day bag, room to spare." },

@@ -19,6 +19,7 @@
     "kicker": "认识这台车",
     "heading": "了解 Feliz Lite",
     "scroll_hint": "滚动查看",
+    "tap_hint": "点按数字查看",
     "points": [
       { "title": "无钥匙智能启动", "body": "转动智能钥匙即可出发 — 无需摆弄钥匙，无需脚启动。" },
       { "title": "座下 34L 储物", "body": "全盔加随身包都能轻松放下，还有富余。" },

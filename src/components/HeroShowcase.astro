@@ -61,9 +61,10 @@ const positions = [
         </div>
 
         <div class="mt-8 flex gap-2">
-          {points.map((_, i) => <span data-dot={i} class="hs-progress"></span>)}
+          {points.map((_, i) => <button type="button" data-dot={i} aria-label={`${i + 1}`} class="hs-progress"></button>)}
         </div>
-        <p class="hs-hint mt-6 text-xs uppercase tracking-wider text-(--muted)">{t('showcase.scroll_hint')} ↓</p>
+        <p class="hs-hint mt-6 hidden text-xs uppercase tracking-wider text-(--muted) md:block">{t('showcase.scroll_hint')} ↓</p>
+        <p class="hs-tap-hint mt-6 text-xs uppercase tracking-wider text-(--accent-text) md:hidden">{t('showcase.tap_hint')}</p>
       </div>
     </div>
   </div>
@@ -90,7 +91,7 @@ const positions = [
   }
   [data-hotspot] {
     position: absolute;
-    cursor: default;
+    cursor: pointer;
   }
   [data-hotspot]::after {
     content: '';
@@ -129,19 +130,21 @@ const positions = [
   }
 
   .hs-progress {
-    height: 6px;
-    width: 22px;
+    height: 8px;
+    width: 24px;
+    padding: 0;
+    border: 0;
     border-radius: 9999px;
     background: var(--line);
+    cursor: pointer;
     transition: background 0.3s ease, width 0.3s ease;
   }
   .hs-progress[data-active='true'] {
     background: var(--color-accent);
-    width: 34px;
+    width: 36px;
   }
 
-  /* Mobile + reduced-motion: no pin/scroll-jack — stack the image and list
-     every callout in normal flow (mobile-first). */
+  /* Mobile + reduced-motion: drop the pin so the stage flows in normal order. */
   @media (max-width: 767px), (prefers-reduced-motion: reduce) {
     [data-showcase] { height: auto !important; }
     [data-showcase-stage] {
@@ -149,6 +152,10 @@ const positions = [
       height: auto !important;
       padding: 1rem 0 2rem;
     }
+  }
+
+  /* Reduced motion only: no tap interaction — list every callout statically. */
+  @media (prefers-reduced-motion: reduce) {
     .hs-wrap { min-height: 0 !important; }
     .hs-callout {
       position: static;
@@ -158,6 +165,7 @@ const positions = [
     }
     .hs-callout:last-child { margin-bottom: 0; }
     .hs-num { opacity: 1; }
-    .hs-hint { display: none; }
+    .hs-hint,
+    .hs-tap-hint { display: none; }
   }
 </style>
