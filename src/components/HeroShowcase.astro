@@ -24,19 +24,20 @@ const positions = [
 <section data-showcase class="relative h-[300vh]">
   <div data-showcase-stage class="sticky top-0 flex h-[100svh] items-center overflow-hidden">
     <div class="mx-auto grid w-full max-w-6xl items-center gap-8 px-5 md:grid-cols-2">
-      <!-- bike + hotspots -->
-      <div class="relative mx-auto aspect-square w-full max-w-xs overflow-hidden rounded-card bg-gradient-to-b from-white to-zinc-200 sm:max-w-sm md:max-w-md">
-        <Image src={feliz} alt="VinFast Feliz Lite" width={800} height={800} class="h-full w-full object-contain p-6" />
+      <!-- bike + hotspots (transparent — bike floats on the dark section) -->
+      <div class="relative mx-auto aspect-square w-full max-w-xs sm:max-w-sm md:max-w-md">
+        <div class="absolute inset-[10%] rounded-full bg-charge/12 blur-3xl"></div>
+        <Image src={feliz} alt="VinFast Feliz Lite" width={800} height={800} class="relative h-full w-full object-contain p-4" />
         {
           points.map((p, i) => (
             <button
               data-hotspot={i}
               type="button"
-              aria-label={p.title}
+              aria-label={`${i + 1}. ${p.title}`}
               style={`left:${positions[i].x}%;top:${positions[i].y}%`}
-              class="absolute -translate-x-1/2 -translate-y-1/2"
+              class="absolute z-10 -translate-x-1/2 -translate-y-1/2"
             >
-              <span class="hs-dot"></span>
+              <span class="hs-num">{i + 1}</span>
             </button>
           ))
         }
@@ -69,15 +70,23 @@ const positions = [
 </section>
 
 <style>
-  .hs-dot {
-    display: block;
-    width: 14px;
-    height: 14px;
+  .hs-num {
+    display: grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
     border-radius: 9999px;
-    background: var(--color-accent);
-    box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-accent) 28%, transparent);
-    opacity: 0.5;
-    transition: transform 0.3s ease, opacity 0.3s ease;
+    border: 2px solid var(--color-accent);
+    background: color-mix(in srgb, var(--color-base, #0b0e0f) 70%, transparent);
+    backdrop-filter: blur(2px);
+    color: var(--color-accent);
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1;
+    opacity: 0.72;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+    transition: transform 0.3s ease, opacity 0.3s ease, background 0.3s ease, color 0.3s ease;
   }
   [data-hotspot] {
     position: absolute;
@@ -86,21 +95,23 @@ const positions = [
   [data-hotspot]::after {
     content: '';
     position: absolute;
-    inset: -7px;
+    inset: -6px;
     border-radius: 9999px;
     border: 2px solid var(--color-accent);
     opacity: 0;
   }
-  [data-hotspot][data-active='true'] .hs-dot {
+  [data-hotspot][data-active='true'] .hs-num {
     opacity: 1;
-    transform: scale(1.5);
+    transform: scale(1.25);
+    background: var(--color-accent);
+    color: var(--color-accent-ink);
   }
   [data-hotspot][data-active='true']::after {
     animation: hs-ping 1.5s ease-out infinite;
   }
   @keyframes hs-ping {
     0% { opacity: 0.7; transform: scale(0.7); }
-    100% { opacity: 0; transform: scale(1.7); }
+    100% { opacity: 0; transform: scale(1.8); }
   }
 
   .hs-callout {
@@ -146,7 +157,7 @@ const positions = [
       margin-bottom: 1.75rem;
     }
     .hs-callout:last-child { margin-bottom: 0; }
-    .hs-dot { opacity: 1; }
+    .hs-num { opacity: 1; }
     .hs-hint { display: none; }
   }
 </style>
