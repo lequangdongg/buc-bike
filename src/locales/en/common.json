@@ -15,6 +15,18 @@
     "range": "Max range (km)",
     "support": "Support"
   },
+  "showcase": {
+    "kicker": "Meet the ride",
+    "heading": "Get to know the Feliz Lite",
+    "scroll_hint": "Scroll to explore",
+    "points": [
+      { "title": "Keyless smart start", "body": "Twist the smart key and go — no ignition fumbling, no kick-start." },
+      { "title": "34 L under-seat trunk", "body": "Swallows a full-face helmet plus your day bag, room to spare." },
+      { "title": "Front disc + CBS braking", "body": "Balanced, confident stopping on every Đà Nẵng street." },
+      { "title": "Up to 262 km range", "body": "LFP battery — explore all day on a single charge." },
+      { "title": "Full-LED lighting & LCD dash", "body": "Projector headlight and a crisp display, day or night." }
+    ]
+  },
   "features": {
     "kicker": "Everything you need",
     "heading": "Simple. Fast. Reliable.",

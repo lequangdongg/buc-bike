@@ -15,6 +15,18 @@
     "range": "Quãng đường tối đa (km)",
     "support": "Hỗ trợ"
   },
+  "showcase": {
+    "kicker": "Làm quen với xe",
+    "heading": "Khám phá Feliz Lite",
+    "scroll_hint": "Cuộn để khám phá",
+    "points": [
+      { "title": "Khởi động thông minh", "body": "Vặn khoá thông minh là đi — không loay hoay ổ khoá, không đạp nổ." },
+      { "title": "Cốp 34 L dưới yên", "body": "Đủ chứa mũ fullface cùng túi đồ cả ngày, vẫn còn chỗ." },
+      { "title": "Phanh đĩa trước + CBS", "body": "Dừng chắc chắn, cân bằng trên mọi con phố Đà Nẵng." },
+      { "title": "Quãng đường tới 262 km", "body": "Pin LFP — rong ruổi cả ngày chỉ với một lần sạc." },
+      { "title": "Đèn LED & đồng hồ LCD", "body": "Đèn pha projector và màn hình sắc nét, ngày hay đêm." }
+    ]
+  },
   "features": {
     "kicker": "Mọi thứ bạn cần",
     "heading": "Đơn giản. Nhanh chóng. Đáng tin.",

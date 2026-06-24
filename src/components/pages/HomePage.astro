@@ -3,12 +3,13 @@ import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
 import SectionReveal from '../SectionReveal.astro';
 import BikeCard from '../BikeCard.astro';
+import HeroShowcase from '../HeroShowcase.astro';
 import { useTranslations } from '../../i18n';
 import { localizePath, type Locale } from '../../i18n/config';
 import { BIKES } from '../../data/fleet';
 import { BUSINESS } from '../../data/business';
 import { buildLocalBusinessJsonLd } from '../../lib/seo';
-import banner from '../../assets/banner.png';
+import felizHero from '../../assets/bike-feliz-lite.png';
 
 interface Props {
   locale: Locale;
@@ -37,13 +38,15 @@ const advantageIcons = ['🪪', '⚡', '🌿', '💰'];
 >
   <!-- ░░ HERO ░░ -->
   <section class="relative flex min-h-[100svh] items-center overflow-hidden">
-    <Image
-      src={banner}
-      alt=""
-      data-parallax="0.35"
-      class="pointer-events-none absolute inset-0 -z-20 h-[120%] w-full scale-105 object-cover opacity-30 blur-2xl"
-    />
-    <div class="absolute inset-0 -z-10 bg-gradient-to-b from-(--bg)/40 via-(--bg)/70 to-(--bg)"></div>
+    <!-- Feliz Lite hero subject (right on desktop, faded backdrop on mobile) -->
+    <div
+      data-parallax="0.2"
+      class="pointer-events-none absolute inset-y-0 right-0 -z-10 flex w-full items-center justify-center opacity-20 md:w-[55%] md:opacity-100"
+    >
+      <div class="absolute size-[80%] rounded-full bg-charge/10 blur-3xl"></div>
+      <Image src={felizHero} alt="VinFast Feliz Lite" width={760} height={760} loading="eager" class="relative h-auto w-[78%] max-w-xl object-contain drop-shadow-2xl md:w-[88%]" />
+    </div>
+    <div class="absolute inset-0 -z-10 bg-gradient-to-r from-(--bg) via-(--bg)/85 to-(--bg)/30"></div>
 
     <!-- signature charge-arc -->
     <svg
@@ -118,6 +121,9 @@ const advantageIcons = ['🪪', '⚡', '🌿', '💰'];
       </dl>
     </div>
   </section>
+
+  <!-- ░░ FELIZ LITE SHOWCASE (pinned hotspots) ░░ -->
+  <HeroShowcase locale={locale} />
 
   <!-- ░░ FEATURES ░░ -->
   <section class="mx-auto max-w-6xl px-5 py-24">

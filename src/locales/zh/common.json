@@ -15,6 +15,18 @@
     "range": "最大续航 (km)",
     "support": "支持"
   },
+  "showcase": {
+    "kicker": "认识这台车",
+    "heading": "了解 Feliz Lite",
+    "scroll_hint": "滚动查看",
+    "points": [
+      { "title": "无钥匙智能启动", "body": "转动智能钥匙即可出发 — 无需摆弄钥匙，无需脚启动。" },
+      { "title": "座下 34L 储物", "body": "全盔加随身包都能轻松放下，还有富余。" },
+      { "title": "前碟刹 + CBS", "body": "在每条街道都能平稳、自信地刹停。" },
+      { "title": "续航最高 262 公里", "body": "LFP 电池 — 一次充电畅游一整天。" },
+      { "title": "全 LED 灯组与 LCD 仪表", "body": "投射式大灯与清晰显示，无论白天黑夜。" }
+    ]
+  },
   "features": {
     "kicker": "你需要的一切",
     "heading": "简单。快速。可靠。",
