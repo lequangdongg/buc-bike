@@ -1,6 +1,15 @@
 {
-  "site": { "name": "BuckBike", "tagline": "Cho thuê xe máy điện" },
-  "nav": { "home": "Trang chủ", "fleet": "Đội xe", "price": "Bảng giá", "book": "Đặt ngay" },
+  "site": {
+    "name": "BuckBike",
+    "tagline": "Cho thuê xe máy điện"
+  },
+  "nav": {
+    "home": "Trang chủ",
+    "fleet": "Đội xe",
+    "price": "Bảng giá",
+    "book": "Đặt ngay",
+    "blog": "Cẩm nang"
+  },
   "hero": {
     "kicker": "Cho thuê xe máy điện — Đà Nẵng",
     "title_line1": "Lên đường.",
@@ -22,45 +31,102 @@
     "scroll_hint": "Cuộn để khám phá",
     "tap_hint": "Chạm vào số để khám phá",
     "points": [
-      { "title": "Khởi động thông minh", "body": "Vặn khoá thông minh là đi — không loay hoay ổ khoá, không đạp nổ." },
-      { "title": "Cốp 34 L dưới yên", "body": "Đủ chứa mũ fullface cùng túi đồ cả ngày, vẫn còn chỗ." },
-      { "title": "Phanh đĩa trước + CBS", "body": "Dừng chắc chắn, cân bằng trên mọi con phố Đà Nẵng." },
-      { "title": "Quãng đường tới 262 km", "body": "Pin LFP — rong ruổi cả ngày chỉ với một lần sạc." },
-      { "title": "Đèn LED & đồng hồ LCD", "body": "Đèn pha projector và màn hình sắc nét, ngày hay đêm." }
+      {
+        "title": "Khởi động thông minh",
+        "body": "Vặn khoá thông minh là đi — không loay hoay ổ khoá, không đạp nổ."
+      },
+      {
+        "title": "Cốp 34 L dưới yên",
+        "body": "Đủ chứa mũ fullface cùng túi đồ cả ngày, vẫn còn chỗ."
+      },
+      {
+        "title": "Phanh đĩa trước + CBS",
+        "body": "Dừng chắc chắn, cân bằng trên mọi con phố Đà Nẵng."
+      },
+      {
+        "title": "Quãng đường tới 262 km",
+        "body": "Pin LFP — rong ruổi cả ngày chỉ với một lần sạc."
+      },
+      {
+        "title": "Đèn LED & đồng hồ LCD",
+        "body": "Đèn pha projector và màn hình sắc nét, ngày hay đêm."
+      }
     ]
   },
   "features": {
     "kicker": "Mọi thứ bạn cần",
     "heading": "Đơn giản. Nhanh chóng. Đáng tin.",
     "items": [
-      { "title": "Đặt xe trong vài phút.", "body": "Không bằng lái? Không sao. Chọn, xác nhận và lên đường. Không thủ tục rườm rà." },
-      { "title": "Đội xe điện. Không tốn xăng.", "body": "Xe máy điện. Không xăng, không bằng lái, không khí thải. Luôn được bảo dưỡng." },
-      { "title": "Gói phù hợp túi tiền.", "body": "Theo ngày, tuần hoặc tháng. Tiền mặt. Không phí ẩn." },
-      { "title": "Tài xế riêng. 24 giờ.", "body": "Đưa đón tận nơi với tài xế riêng. Bất cứ lúc nào, bất cứ đâu." }
+      {
+        "title": "Đặt xe trong vài phút.",
+        "body": "Không bằng lái? Không sao. Chọn, xác nhận và lên đường. Không thủ tục rườm rà."
+      },
+      {
+        "title": "Đội xe điện. Không tốn xăng.",
+        "body": "Xe máy điện. Không xăng, không bằng lái, không khí thải. Luôn được bảo dưỡng."
+      },
+      {
+        "title": "Gói phù hợp túi tiền.",
+        "body": "Theo ngày, tuần hoặc tháng. Tiền mặt. Không phí ẩn."
+      },
+      {
+        "title": "Tài xế riêng. 24 giờ.",
+        "body": "Đưa đón tận nơi với tài xế riêng. Bất cứ lúc nào, bất cứ đâu."
+      }
     ]
   },
   "booking": {
     "kicker": "Từng bước một",
     "heading": "Cách đặt xe của bạn",
     "steps": [
-      { "title": "Ghé cửa hàng", "body": "Đến cửa hàng và tự chọn mẫu xe yêu thích. Đội ngũ của chúng tôi sẽ hướng dẫn bạn." },
-      { "title": "Chọn thời hạn", "body": "Chọn ngày nhận và trả xe. Gói ngày, tuần hoặc tháng." },
-      { "title": "Thanh toán: tiền mặt hoặc chuyển khoản", "body": "Chúng tôi nhận tiền mặt hoặc chuyển khoản trực tiếp. Không thẻ, không ví điện tử." },
-      { "title": "Nhận xe", "body": "Xuất trình giấy tờ và nhận xe tại địa chỉ đã hẹn. Lên đường thôi." }
+      {
+        "title": "Ghé cửa hàng",
+        "body": "Đến cửa hàng và tự chọn mẫu xe yêu thích. Đội ngũ của chúng tôi sẽ hướng dẫn bạn."
+      },
+      {
+        "title": "Chọn thời hạn",
+        "body": "Chọn ngày nhận và trả xe. Gói ngày, tuần hoặc tháng."
+      },
+      {
+        "title": "Thanh toán: tiền mặt hoặc chuyển khoản",
+        "body": "Chúng tôi nhận tiền mặt hoặc chuyển khoản trực tiếp. Không thẻ, không ví điện tử."
+      },
+      {
+        "title": "Nhận xe",
+        "body": "Xuất trình giấy tờ và nhận xe tại địa chỉ đã hẹn. Lên đường thôi."
+      }
     ],
     "need_heading": "Bạn cần chuẩn bị",
     "need": [
-      { "title": "Ảnh hộ chiếu", "body": "Chỉ cần gửi ảnh hộ chiếu. Không cần bằng lái." },
-      { "title": "Tiền mặt hoặc chuyển khoản", "body": "Chúng tôi chỉ nhận tiền mặt hoặc chuyển khoản trực tiếp. Không nhận thẻ." }
+      {
+        "title": "Ảnh hộ chiếu",
+        "body": "Chỉ cần gửi ảnh hộ chiếu. Không cần bằng lái."
+      },
+      {
+        "title": "Tiền mặt hoặc chuyển khoản",
+        "body": "Chúng tôi chỉ nhận tiền mặt hoặc chuyển khoản trực tiếp. Không nhận thẻ."
+      }
     ]
   },
   "advantages": {
     "kicker": "Vì sao chọn xe điện?",
     "items": [
-      { "title": "Không cần bằng lái", "body": "Xe máy điện có thể chạy mà không cần bằng lái. Lý tưởng cho du khách và người mới." },
-      { "title": "Không tốn nhiên liệu", "body": "Đội xe điện luôn được sạc đầy và sẵn sàng. Không bao giờ tốn tiền xăng." },
-      { "title": "100% thân thiện môi trường", "body": "Không khí thải, không tiếng ồn. Khám phá thành phố và bảo vệ hành tinh." },
-      { "title": "Lựa chọn tiết kiệm nhất", "body": "Rẻ hơn nhiều so với taxi và thuê ô tô. Tiết kiệm tối đa, không đánh đổi." }
+      {
+        "title": "Không cần bằng lái",
+        "body": "Xe máy điện có thể chạy mà không cần bằng lái. Lý tưởng cho du khách và người mới."
+      },
+      {
+        "title": "Không tốn nhiên liệu",
+        "body": "Đội xe điện luôn được sạc đầy và sẵn sàng. Không bao giờ tốn tiền xăng."
+      },
+      {
+        "title": "100% thân thiện môi trường",
+        "body": "Không khí thải, không tiếng ồn. Khám phá thành phố và bảo vệ hành tinh."
+      },
+      {
+        "title": "Lựa chọn tiết kiệm nhất",
+        "body": "Rẻ hơn nhiều so với taxi và thuê ô tô. Tiết kiệm tối đa, không đánh đổi."
+      }
     ]
   },
   "fleet": {
@@ -88,36 +154,87 @@
       "note": "Thuê theo tuần hoặc tháng? Nhắn cho chúng tôi để có giá tốt hơn."
     },
     "perks": [
-      { "title": "Giao & nhận xe trong 24h", "body": "Giao xe tận nơi và nhận lại — khắp Đà Nẵng." },
-      { "title": "Sạc hoặc đổi pin bất cứ lúc nào", "body": "Sạc ở bất kỳ ổ điện nào, hoặc nhắn chúng tôi đổi pin khi cần." },
-      { "title": "Kèm mũ bảo hiểm · không cần bằng lái", "body": "Mũ bảo hiểm đạt chuẩn miễn phí, xe điện không cần bằng lái." },
-      { "title": "Hỗ trợ 24/7 & bảo dưỡng", "body": "Nhắn bất cứ lúc nào qua WhatsApp/Zalo — kèm bảo dưỡng và đổi xe." }
+      {
+        "title": "Giao & nhận xe trong 24h",
+        "body": "Giao xe tận nơi và nhận lại — khắp Đà Nẵng."
+      },
+      {
+        "title": "Sạc hoặc đổi pin bất cứ lúc nào",
+        "body": "Sạc ở bất kỳ ổ điện nào, hoặc nhắn chúng tôi đổi pin khi cần."
+      },
+      {
+        "title": "Kèm mũ bảo hiểm · không cần bằng lái",
+        "body": "Mũ bảo hiểm đạt chuẩn miễn phí, xe điện không cần bằng lái."
+      },
+      {
+        "title": "Hỗ trợ 24/7 & bảo dưỡng",
+        "body": "Nhắn bất cứ lúc nào qua WhatsApp/Zalo — kèm bảo dưỡng và đổi xe."
+      }
     ],
     "disclaimer": "Giá chỉ mang tính minh hoạ và có thể khác với cửa hàng thực tế. Liên hệ để biết giá mới nhất.",
-    "period": { "daily": "Ngày", "weekly": "Tuần", "monthly": "Tháng" },
+    "period": {
+      "daily": "Ngày",
+      "weekly": "Tuần",
+      "monthly": "Tháng"
+    },
     "most_popular": "Phổ biến nhất",
     "per_day": "/ ngày",
     "best_value": "Tiết kiệm nhất",
     "contact_us": "Liên hệ",
-    "calc": { "heading": "Ước tính chi phí chuyến đi", "days_label": "Thuê bao nhiêu ngày?", "total_label": "Tổng ước tính", "day": "ngày", "days": "ngày" },
+    "calc": {
+      "heading": "Ước tính chi phí chuyến đi",
+      "days_label": "Thuê bao nhiêu ngày?",
+      "total_label": "Tổng ước tính",
+      "day": "ngày",
+      "days": "ngày"
+    },
     "plans": [
-      { "name": "1–3 ngày", "note": "Chuyến ngắn" },
-      { "name": "Trên 3 ngày", "note": "Giảm 20% so với giá ngày" },
-      { "name": "Theo tuần", "note": "Từ 7 ngày trở lên" },
-      { "name": "Theo tháng", "note": "Thuê dài hạn" }
+      {
+        "name": "1–3 ngày",
+        "note": "Chuyến ngắn"
+      },
+      {
+        "name": "Trên 3 ngày",
+        "note": "Giảm 20% so với giá ngày"
+      },
+      {
+        "name": "Theo tuần",
+        "note": "Từ 7 ngày trở lên"
+      },
+      {
+        "name": "Theo tháng",
+        "note": "Thuê dài hạn"
+      }
     ],
     "per_week": "/ tuần",
     "per_month": "/ tháng",
     "includes_heading": "Mọi gói đều gồm",
-    "includes": ["Pin sạc đầy", "Mũ bảo hiểm miễn phí", "Hỗ trợ WhatsApp 24h", "Không bằng lái? Không sao"],
+    "includes": [
+      "Pin sạc đầy",
+      "Mũ bảo hiểm miễn phí",
+      "Hỗ trợ WhatsApp 24h",
+      "Không bằng lái? Không sao"
+    ],
     "payment_heading": "Thanh toán",
     "payment_body": "Chúng tôi nhận tiền mặt hoặc chuyển khoản trực tiếp. Không nhận thẻ.",
     "faq_heading": "Câu hỏi thường gặp",
     "faq": [
-      { "q": "Tôi có cần bằng lái không?", "a": "Không. Xe máy điện của chúng tôi không cần bằng lái — du khách được chào đón." },
-      { "q": "Tôi thanh toán thế nào?", "a": "Chỉ tiền mặt hoặc chuyển khoản trực tiếp. Không thẻ, không ví điện tử." },
-      { "q": "Có kèm mũ bảo hiểm không?", "a": "Có, mỗi lượt thuê đều kèm mũ bảo hiểm đạt chuẩn." },
-      { "q": "Tôi có thể đổi hoặc gia hạn xe không?", "a": "Gói tháng kèm bảo dưỡng miễn phí và đổi xe. Chỉ cần nhắn cho chúng tôi." }
+      {
+        "q": "Tôi có cần bằng lái không?",
+        "a": "Không. Xe máy điện của chúng tôi không cần bằng lái — du khách được chào đón."
+      },
+      {
+        "q": "Tôi thanh toán thế nào?",
+        "a": "Chỉ tiền mặt hoặc chuyển khoản trực tiếp. Không thẻ, không ví điện tử."
+      },
+      {
+        "q": "Có kèm mũ bảo hiểm không?",
+        "a": "Có, mỗi lượt thuê đều kèm mũ bảo hiểm đạt chuẩn."
+      },
+      {
+        "q": "Tôi có thể đổi hoặc gia hạn xe không?",
+        "a": "Gói tháng kèm bảo dưỡng miễn phí và đổi xe. Chỉ cần nhắn cho chúng tôi."
+      }
     ]
   },
   "testimonials": {
@@ -144,6 +261,16 @@
     "rights": "Bảo lưu mọi quyền.",
     "made_with": "Dựng lại như một bản demo kỹ thuật. Nội dung phỏng theo buckbike.com."
   },
-  "theme": { "toggle": "Đổi giao diện" },
-  "a11y": { "skip": "Bỏ qua đến nội dung" }
+  "theme": {
+    "toggle": "Đổi giao diện"
+  },
+  "a11y": {
+    "skip": "Bỏ qua đến nội dung"
+  },
+  "blog": {
+    "kicker": "Cẩm nang & cung đường",
+    "heading": "Cẩm nang chạy xe ở Đà Nẵng",
+    "read_more": "Đọc tiếp",
+    "back": "Tất cả bài viết"
+  }
 }

@@ -1,0 +1,85 @@
+---
+import Base from '../../layouts/Base.astro';
+import { render, type CollectionEntry } from 'astro:content';
+import { useTranslations } from '../../i18n';
+import { localizePath, type Locale } from '../../i18n/config';
+import { BUSINESS } from '../../data/business';
+
+interface Props {
+  locale: Locale;
+  path: string;
+  entry: CollectionEntry<'blog'>;
+}
+const { locale, path, entry } = Astro.props;
+const t = await useTranslations(locale);
+const link = (p: string) => localizePath(p, locale);
+const { Content } = await render(entry);
+
+const dateLocale = locale === 'vi' ? 'vi-VN' : locale;
+const fmtDate = (d: Date) =>
+  d.toLocaleDateString(dateLocale, { year: 'numeric', month: 'long', day: 'numeric' });
+
+const articleJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: entry.data.title,
+  description: entry.data.description,
+  datePublished: entry.data.date.toISOString(),
+  inLanguage: locale,
+  author: { '@type': 'Organization', name: BUSINESS.name },
+  publisher: { '@type': 'Organization', name: BUSINESS.legalName },
+};
+---
+
+<Base
+  title={`${entry.data.title} — ${t('site.name')}`}
+  description={entry.data.description}
+  locale={locale}
+  path={path}
+  jsonLd={[articleJsonLd]}
+>
+  <article class="mx-auto max-w-3xl px-5 pt-32 pb-24">
+    <a href={link('/blog')} class="inline-flex items-center gap-1 text-sm text-(--muted) transition hover:text-(--accent-text)">
+      ← {t('blog.back')}
+    </a>
+    <p class="mt-8 text-xs uppercase tracking-wider text-(--muted)">{fmtDate(entry.data.date)}</p>
+    <h1 class="mt-3 font-display text-4xl font-bold leading-tight tracking-tight sm:text-5xl">{entry.data.title}</h1>
+    <p class="mt-5 text-lg text-(--muted)">{entry.data.description}</p>
+    <div class="blog-body mt-10">
+      <Content />
+    </div>
+  </article>
+</Base>
+
+<style>
+  .blog-body :global(p) {
+    margin-block: 1rem;
+    line-height: 1.7;
+    color: var(--fg);
+  }
+  .blog-body :global(ul) {
+    margin-block: 1rem;
+    padding-left: 1.1rem;
+    list-style: disc;
+  }
+  .blog-body :global(li) {
+    margin-block: 0.4rem;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+  .blog-body :global(strong) {
+    color: var(--fg);
+    font-weight: 600;
+  }
+  .blog-body :global(a) {
+    color: var(--accent-text);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .blog-body :global(h2) {
+    margin-top: 2rem;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+</style>

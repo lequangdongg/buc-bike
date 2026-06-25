@@ -1,0 +1,19 @@
+---
+import BlogPostPage from '../../../components/pages/BlogPostPage.astro';
+import { getCollection } from 'astro:content';
+import { LOCALES, DEFAULT_LOCALE, type Locale } from '../../../i18n/config';
+
+export async function getStaticPaths() {
+  const langs = LOCALES.filter((l) => l !== DEFAULT_LOCALE);
+  const all = await getCollection('blog');
+  return langs.flatMap((lang) =>
+    all
+      .filter((p) => p.data.locale === lang)
+      .map((entry) => ({ params: { lang, slug: entry.data.slug }, props: { entry } })),
+  );
+}
+
+const locale = Astro.params.lang as Locale;
+const { entry } = Astro.props;
+---
+<BlogPostPage locale={locale} path={`/blog/${entry.data.slug}`} entry={entry} />
