@@ -10,7 +10,7 @@ import { BIKES } from '../../data/fleet';
 import { BUSINESS } from '../../data/business';
 import { WEEKLY_RATE, formatVnd } from '../../data/pricing';
 import { buildLocalBusinessJsonLd } from '../../lib/seo';
-import felizHero from '../../assets/feliz-lite-cutout.png';
+import felizHero from '../../assets/feliz-lite-bright.png';
 
 interface Props {
   locale: Locale;
@@ -81,8 +81,9 @@ const advantageIcons = ['🪪', '⚡', '🌿', '💰'];
       <p class="mt-5 max-w-xl text-base text-(--muted) sm:text-lg">{t('hero.subtitle')}</p>
 
       <p class="mt-8 text-sm text-(--muted)">
-        {t('fleet.from')}
-        <span class="font-display text-lg font-bold tabular-nums text-(--accent-text)">{formatVnd(WEEKLY_RATE)}</span>{t('price.per_day')}
+        {t('fleet.from')}{' '}
+        <span class="font-display text-lg font-bold tabular-nums text-(--accent-text)">{formatVnd(WEEKLY_RATE)}</span>{' '}
+        {t('price.per_day')}
       </p>
       <div class="mt-4 flex flex-wrap gap-3">
         <a

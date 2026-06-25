@@ -1,5 +1,5 @@
 import evo200 from '../assets/bike-evo-200-lite-white.jpg';
-import feliz from '../assets/feliz-lite-cutout.png';
+import feliz from '../assets/feliz-lite-bright.png';
 import grand from '../assets/bike-evo-grand-lite.jpg';
 import type { ImageMetadata } from 'astro';
 
