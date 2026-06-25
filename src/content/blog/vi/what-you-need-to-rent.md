@@ -8,7 +8,7 @@ slug: what-you-need-to-rent
 
 Thuê xe ở BuckBike cố tình làm thật đơn giản:
 
-- Một **ảnh hộ chiếu** — giấy tờ duy nhất cần.
+- **Hộ chiếu hoặc giấy tờ tùy thân** — giấy tờ duy nhất cần.
 - **Tiền mặt hoặc chuyển khoản** — không nhận thẻ.
 - Một tin nhắn nhanh qua **Zalo hoặc WhatsApp**.
 

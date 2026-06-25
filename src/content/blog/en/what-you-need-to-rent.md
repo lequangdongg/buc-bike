@@ -8,7 +8,7 @@ slug: what-you-need-to-rent
 
 Renting with BuckBike is deliberately simple:
 
-- A **photo of your passport** — the only document we need.
+- Your **passport or a valid ID** — the only document we need.
 - **Cash or a bank transfer** — we do not take cards.
 - A quick message on **Zalo or WhatsApp**.
 
