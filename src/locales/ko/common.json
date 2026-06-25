@@ -125,6 +125,7 @@
     "reviews": "리뷰 {{count}}개",
     "on_google": "Google 기준",
     "open_now": "영업 중 · 오후 11시 마감",
+    "closed": "영업 종료 · 오전 10시 오픈",
     "directions": "길찾기",
     "call": "전화하기",
     "whatsapp": "WhatsApp"

@@ -1,0 +1,63 @@
+---
+import { useTranslations } from '../i18n';
+import { BUSINESS } from '../data/business';
+import type { Locale } from '../i18n/config';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = await useTranslations(locale);
+const opens = Number(BUSINESS.hours.opens.split(':')[0]); // 10
+const closes = Number(BUSINESS.hours.closes.split(':')[0]); // 23
+---
+
+<span
+  data-open-status
+  data-opens={opens}
+  data-closes={closes}
+  data-open-label={t('business.open_now')}
+  data-closed-label={t('business.closed')}
+  class="inline-flex items-center gap-2"
+>
+  <span class="os-dot size-2 shrink-0 rounded-full bg-(--muted)"></span>
+  <span class="os-text">{t('business.open_now')}</span>
+</span>
+
+<script>
+  function refreshOpenStatus() {
+    document.querySelectorAll<HTMLElement>('[data-open-status]').forEach((el) => {
+      const opens = Number(el.dataset.opens);
+      const closes = Number(el.dataset.closes);
+      // Current hour in Đà Nẵng (UTC+7), regardless of the visitor's timezone.
+      const hour = Number(
+        new Intl.DateTimeFormat('en-US', {
+          timeZone: 'Asia/Ho_Chi_Minh',
+          hour: 'numeric',
+          hour12: false,
+        }).format(new Date()),
+      );
+      const isOpen = hour >= opens && hour < closes;
+      const text = el.querySelector('.os-text');
+      const dot = el.querySelector<HTMLElement>('.os-dot');
+      if (text) text.textContent = isOpen ? el.dataset.openLabel! : el.dataset.closedLabel!;
+      if (dot) {
+        dot.classList.toggle('bg-accent', isOpen);
+        dot.classList.toggle('bg-(--muted)', !isOpen);
+        dot.classList.toggle('os-pulse', isOpen);
+      }
+    });
+  }
+  document.addEventListener('astro:page-load', refreshOpenStatus);
+</script>
+
+<style>
+  .os-pulse {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-accent) 60%, transparent);
+    animation: os-pulse 2s ease-out infinite;
+  }
+  @keyframes os-pulse {
+    0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-accent) 55%, transparent); }
+    100% { box-shadow: 0 0 0 8px transparent; }
+  }
+</style>

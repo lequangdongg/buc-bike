@@ -125,6 +125,7 @@
     "reviews": "{{count}} 件のレビュー",
     "on_google": "Google で",
     "open_now": "営業中 · 23時閉店",
+    "closed": "閉店中 · 10時開店",
     "directions": "ルート案内",
     "call": "電話する",
     "whatsapp": "WhatsApp"

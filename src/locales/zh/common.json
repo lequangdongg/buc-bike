@@ -125,6 +125,7 @@
     "reviews": "{{count}} 条评价",
     "on_google": "来自 Google",
     "open_now": "营业中 · 晚上11点打烊",
+    "closed": "已打烊 · 上午10点开门",
     "directions": "获取路线",
     "call": "致电我们",
     "whatsapp": "WhatsApp"

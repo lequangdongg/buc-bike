@@ -4,6 +4,7 @@ import Base from '../../layouts/Base.astro';
 import SectionReveal from '../SectionReveal.astro';
 import BikeCard from '../BikeCard.astro';
 import HeroShowcase from '../HeroShowcase.astro';
+import OpenStatus from '../OpenStatus.astro';
 import { useTranslations } from '../../i18n';
 import { localizePath, type Locale } from '../../i18n/config';
 import { BIKES } from '../../data/fleet';
@@ -249,7 +250,7 @@ const advantageIcons = ['🪪', '⚡', '🌿', '💰'];
           <address class="mt-6 not-italic text-(--muted)">
             <p>📍 {BUSINESS.address.street}</p>
             <p>{BUSINESS.address.district} · {BUSINESS.address.city} {BUSINESS.address.postalCode}</p>
-            <p class="mt-2">🕙 {t('business.open_now')}</p>
+            <p class="mt-2 flex items-center gap-1.5"><span aria-hidden="true">🕙</span> <OpenStatus locale={locale} /></p>
           </address>
           <div class="mt-8 flex flex-wrap gap-3">
             <a href={BUSINESS.maps} class="rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-(--color-accent-ink) transition hover:brightness-110">

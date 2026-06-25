@@ -70,11 +70,13 @@ const t = await useTranslations(locale);
         } catch (e) {}
       })();
     </script>
-    <!-- Apply saved theme before paint to avoid a flash. -->
+    <!-- Apply theme before paint: saved choice wins, else the OS preference. -->
     <script is:inline>
-      if (localStorage.getItem('theme') === 'light') {
-        document.documentElement.classList.add('light');
-      }
+      (function () {
+        var t = localStorage.getItem('theme');
+        if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        if (t === 'light') document.documentElement.classList.add('light');
+      })();
     </script>
     <Seo title={title} description={description} locale={locale} path={path} jsonLd={jsonLd} />
     <ClientRouter />

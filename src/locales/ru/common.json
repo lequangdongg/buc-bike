@@ -125,6 +125,7 @@
     "reviews": "{{count}} отзывов",
     "on_google": "в Google",
     "open_now": "Открыто · Закрытие в 23:00",
+    "closed": "Закрыто · Откроется в 10:00",
     "directions": "Проложить маршрут",
     "call": "Позвонить",
     "whatsapp": "WhatsApp"

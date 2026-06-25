@@ -125,6 +125,7 @@
     "reviews": "{{count}} reviews",
     "on_google": "on Google",
     "open_now": "Open · Closes 11 PM",
+    "closed": "Closed · Opens 10 AM",
     "directions": "Get Directions",
     "call": "Call us",
     "whatsapp": "WhatsApp"
