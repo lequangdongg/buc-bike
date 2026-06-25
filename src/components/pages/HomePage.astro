@@ -39,9 +39,9 @@ const advantageIcons = ['🪪', '⚡', '🌿', '💰'];
 >
   <!-- ░░ HERO ░░ -->
   <section class="relative flex items-center overflow-hidden py-24 md:min-h-[100svh] md:py-0">
-    <!-- Feliz Lite hero subject — desktop: floating on the right -->
+    <!-- Feliz Lite hero subject — desktop: floating on the right (above the dim gradient so it stays bright) -->
     <div
-      class="pointer-events-none absolute inset-y-0 right-0 -z-10 hidden w-[55%] items-center justify-center md:flex"
+      class="pointer-events-none absolute inset-y-0 right-0 z-0 hidden w-[55%] items-center justify-center md:flex"
     >
       <div class="absolute size-[82%] rounded-full bg-charge/25 blur-3xl"></div>
       <div class="absolute size-[55%] rounded-full bg-white/12 blur-2xl"></div>
@@ -71,7 +71,7 @@ const advantageIcons = ['🪪', '⚡', '🌿', '💰'];
       />
     </svg>
 
-    <div id="hero-inner" class="mx-auto w-full max-w-6xl px-5">
+    <div id="hero-inner" class="relative z-10 mx-auto w-full max-w-6xl px-5">
       <p class="font-display text-sm font-medium uppercase tracking-[0.2em] text-(--accent-text)">
         {t('hero.kicker')}
       </p>
