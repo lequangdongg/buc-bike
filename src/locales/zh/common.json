@@ -99,6 +99,7 @@
     "per_day": "/ 天",
     "best_value": "最划算",
     "contact_us": "联系我们",
+    "calc": { "heading": "估算行程费用", "days_label": "租几天？", "total_label": "预计总计", "day": "天", "days": "天" },
     "plans": [
       { "name": "1–3 天", "note": "短途出行" },
       { "name": "超过 3 天", "note": "按日价格立减 20%" },

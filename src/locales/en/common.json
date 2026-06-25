@@ -99,6 +99,7 @@
     "per_day": "/ day",
     "best_value": "Best value",
     "contact_us": "Contact us",
+    "calc": { "heading": "Estimate your trip cost", "days_label": "How many days?", "total_label": "Estimated total", "day": "day", "days": "days" },
     "plans": [
       { "name": "1–3 days", "note": "Short trips" },
       { "name": "Over 3 days", "note": "20% off the daily rate" },

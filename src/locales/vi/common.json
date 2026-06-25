@@ -99,6 +99,7 @@
     "per_day": "/ ngày",
     "best_value": "Tiết kiệm nhất",
     "contact_us": "Liên hệ",
+    "calc": { "heading": "Ước tính chi phí chuyến đi", "days_label": "Thuê bao nhiêu ngày?", "total_label": "Tổng ước tính", "day": "ngày", "days": "ngày" },
     "plans": [
       { "name": "1–3 ngày", "note": "Chuyến ngắn" },
       { "name": "Trên 3 ngày", "note": "Giảm 20% so với giá ngày" },

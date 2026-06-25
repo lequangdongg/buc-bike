@@ -99,6 +99,7 @@
     "per_day": "/ 日",
     "best_value": "一番お得",
     "contact_us": "お問い合わせ",
+    "calc": { "heading": "費用を見積もる", "days_label": "何日間？", "total_label": "概算合計", "day": "日", "days": "日" },
     "plans": [
       { "name": "1〜3日", "note": "短期の利用" },
       { "name": "3日超", "note": "日額から20%オフ" },

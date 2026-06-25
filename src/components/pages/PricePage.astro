@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import SectionReveal from '../SectionReveal.astro';
+import PriceCalculator from '../PriceCalculator.astro';
 import { useTranslations } from '../../i18n';
 import { localizePath, type Locale } from '../../i18n/config';
 import { buildProductsJsonLd } from '../../lib/seo';
@@ -92,6 +93,15 @@ const faqJsonLd = {
     </SectionReveal>
 
     <p class="mt-6 text-sm text-(--muted)">{t('price.daily.note')}</p>
+  </section>
+
+  <!-- Price calculator -->
+  <section class="mx-auto max-w-5xl px-5 pb-14">
+    <SectionReveal>
+      <div data-reveal-item>
+        <PriceCalculator locale={locale} />
+      </div>
+    </SectionReveal>
   </section>
 
   <!-- What every rental includes -->
