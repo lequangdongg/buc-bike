@@ -37,7 +37,7 @@ const places = ['b-c', 't-r', 't-l', 't-c', 'b-l'];
               type="button"
               aria-label={`${i + 1}. ${p.title}`}
               style={`left:${positions[i].x}%;top:${positions[i].y}%`}
-              class="absolute z-10 -translate-x-1/2 -translate-y-1/2"
+              class="absolute -translate-x-1/2 -translate-y-1/2"
             >
               <span class="hs-num">{i + 1}</span>
               <span class:list={['hs-tip', `tip-${places[i]}`]}>
@@ -98,6 +98,8 @@ const places = ['b-c', 't-r', 't-l', 't-c', 'b-l'];
   [data-hotspot] {
     position: absolute;
     cursor: pointer;
+    /* Markers always sit above tooltips so every number stays visible + tappable. */
+    z-index: 30;
   }
   [data-hotspot]::after {
     content: '';
@@ -107,9 +109,9 @@ const places = ['b-c', 't-r', 't-l', 't-c', 'b-l'];
     border: 2px solid var(--color-accent);
     opacity: 0;
   }
-  /* Lift the active marker (and its tooltip) above the other markers. */
+  /* Active marker sits just above its siblings (and well above the tooltip). */
   [data-hotspot][data-active='true'] {
-    z-index: 40;
+    z-index: 35;
   }
   [data-hotspot][data-active='true'] .hs-num {
     opacity: 1;
@@ -143,7 +145,8 @@ const places = ['b-c', 't-r', 't-l', 't-c', 'b-l'];
     transform-origin: center;
     pointer-events: none;
     transition: opacity 0.25s ease, transform 0.25s ease;
-    z-index: 30;
+    /* Below the number markers so they remain visible + tappable over it. */
+    z-index: 20;
   }
   .hs-tip-title {
     font-family: var(--font-display);
