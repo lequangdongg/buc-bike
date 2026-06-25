@@ -120,6 +120,15 @@
       { "q": "Tôi có thể đổi hoặc gia hạn xe không?", "a": "Gói tháng kèm bảo dưỡng miễn phí và đổi xe. Chỉ cần nhắn cho chúng tôi." }
     ]
   },
+  "testimonials": {
+    "kicker": "Khách nói gì",
+    "heading": "Được khách yêu thích",
+    "quotes": [
+      "Giao tận khách sạn trong chưa đầy một giờ. Tôi chạy khắp Đà Nẵng chỉ với một lần sạc — tuyệt vời.",
+      "Không bằng lái, không rắc rối. Nhắn Zalo trả lời ngay, mũ bảo hiểm sạch bong.",
+      "Rẻ hơn taxi mà vui hơn nhiều. Chuyển khoản dễ, không phí ẩn."
+    ]
+  },
   "business": {
     "kicker": "Cùng lên đường với chúng tôi",
     "heading": "Chúng tôi đang chờ bạn",

@@ -29,6 +29,13 @@ const advantages = t('advantages.items', { returnObjects: true }) as Item[];
 
 const maxRange = Math.max(...BIKES.map((b) => b.rangeKm));
 const advantageIcons = ['🪪', '⚡', '🌿', '💰'];
+
+const reviewers = [
+  { name: 'Min-jun Park', from: 'Seoul, South Korea' },
+  { name: 'Elena Volkova', from: 'Moscow, Russia' },
+  { name: 'Jack Thompson', from: 'Sydney, Australia' },
+];
+const quotes = t('testimonials.quotes', { returnObjects: true }) as string[];
 ---
 
 <Base
@@ -227,6 +234,37 @@ const advantageIcons = ['🪪', '⚡', '🌿', '💰'];
             label={t('fleet.view_detail')}
             availableLabel={t('fleet.available')}
           />
+        ))
+      }
+    </SectionReveal>
+  </section>
+
+  <!-- ░░ TESTIMONIALS ░░ -->
+  <section class="mx-auto max-w-6xl px-5 py-24">
+    <div class="mb-12 flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <p class="font-display text-sm uppercase tracking-[0.2em] text-(--accent-text)">{t('testimonials.kicker')}</p>
+        <h2 class="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">{t('testimonials.heading')}</h2>
+      </div>
+      <a href={BUSINESS.maps} target="_blank" rel="noopener" class="text-sm text-(--muted) transition hover:text-(--fg)">
+        <span class="font-display text-lg font-bold text-(--accent-text)">{BUSINESS.rating.value.toFixed(1)}</span>
+        <span class="text-(--accent-text)">★★★★★</span> {t('business.on_google')} →
+      </a>
+    </div>
+    <SectionReveal class="grid gap-5 md:grid-cols-3">
+      {
+        reviewers.map((r, i) => (
+          <figure data-reveal-item class="flex flex-col rounded-card border border-(--line) bg-(--card) p-6">
+            <div class="text-(--accent-text)" aria-label="5 out of 5">★★★★★</div>
+            <blockquote class="mt-4 flex-1 text-(--fg)">“{quotes[i]}”</blockquote>
+            <figcaption class="mt-6 flex items-center gap-3">
+              <span class="grid size-10 shrink-0 place-items-center rounded-full bg-(--card-2) font-display font-bold text-(--accent-text)">{r.name.charAt(0)}</span>
+              <span>
+                <span class="block font-display font-bold leading-tight">{r.name}</span>
+                <span class="block text-sm text-(--muted)">{r.from}</span>
+              </span>
+            </figcaption>
+          </figure>
         ))
       }
     </SectionReveal>

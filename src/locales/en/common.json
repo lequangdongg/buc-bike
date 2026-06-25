@@ -120,6 +120,15 @@
       { "q": "Can I swap or extend my bike?", "a": "Monthly plans include free maintenance and a bike swap. Just message us." }
     ]
   },
+  "testimonials": {
+    "kicker": "Rider stories",
+    "heading": "Loved by riders",
+    "quotes": [
+      "Delivered to my hotel in under an hour. I rode all over Đà Nẵng on a single charge — brilliant.",
+      "No licence, no fuss. They replied on Zalo instantly and the helmet was spotless.",
+      "Cheaper than taxis and far more fun. Easy bank transfer, no hidden fees."
+    ]
+  },
   "business": {
     "kicker": "Come ride with us",
     "heading": "We Are Waiting For You",
