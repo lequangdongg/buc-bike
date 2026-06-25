@@ -1,5 +1,6 @@
 ---
 import { LOCALES, localizePath, DEFAULT_LOCALE, type Locale } from '../i18n/config';
+import { BUSINESS } from '../data/business';
 
 interface Props {
   title: string;
@@ -7,10 +8,14 @@ interface Props {
   locale: Locale;
   path: string;
   image?: string;
+  imageAlt?: string;
   jsonLd?: object[];
 }
 
-const { title, description, locale, path, image = '/og/default.png', jsonLd = [] } = Astro.props;
+const { title, description, locale, path, image = '/og/default.png', imageAlt, jsonLd = [] } = Astro.props;
+const ogImageAlt = imageAlt ?? `${BUSINESS.name} — ${title}`;
+// Twitter @handle from the X profile URL (…/buckbike → @buckbike).
+const twitterHandle = '@' + BUSINESS.socials.x.replace(/\/+$/, '').split('/').pop();
 
 const site = (Astro.site?.toString() ?? 'https://buckbike.com').replace(/\/$/, '');
 const canonical = site + localizePath(path, locale);
@@ -29,6 +34,7 @@ const OG_LOCALES: Record<Locale, string> = {
 
 <title>{title}</title>
 <meta name="description" content={description} />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <link rel="canonical" href={canonical} />
 
 {
@@ -46,11 +52,20 @@ const OG_LOCALES: Record<Locale, string> = {
 <meta property="og:image" content={ogImage} />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={ogImageAlt} />
 <meta property="og:locale" content={OG_LOCALES[locale]} />
+{
+  LOCALES.filter((l) => l !== locale).map((l) => (
+    <meta property="og:locale:alternate" content={OG_LOCALES[l]} />
+  ))
+}
 
 <meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content={twitterHandle} />
+<meta name="twitter:creator" content={twitterHandle} />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImage} />
+<meta name="twitter:image:alt" content={ogImageAlt} />
 
 {jsonLd.map((obj) => <script type="application/ld+json" is:inline set:html={JSON.stringify(obj)} />)}

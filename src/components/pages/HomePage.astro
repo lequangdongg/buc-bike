@@ -300,12 +300,25 @@ const quotes = t('testimonials.quotes', { returnObjects: true }) as string[];
           </div>
         </div>
         <div class="relative min-h-72 overflow-hidden rounded-card border border-(--line)">
+          <!-- Skeleton shown until the map tiles load -->
+          <div
+            data-map-skeleton
+            class="absolute inset-0 animate-pulse bg-gradient-to-br from-(--card-2) to-(--card)"
+            aria-hidden="true"
+          >
+            <div class="grid h-full place-items-center text-(--muted)">
+              <svg class="size-8 opacity-50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                <path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11z" /><circle cx="12" cy="10" r="2.5" />
+              </svg>
+            </div>
+          </div>
           <iframe
             title={`${BUSINESS.name} — ${BUSINESS.address.city}`}
             src={`https://maps.google.com/maps?q=${BUSINESS.geo.lat},${BUSINESS.geo.lng}&z=16&output=embed`}
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
-            class="h-full min-h-72 w-full border-0 grayscale-[0.2]"
+            onload="this.previousElementSibling?.remove()"
+            class="relative h-full min-h-72 w-full border-0 grayscale-[0.2]"
             allowfullscreen
           ></iframe>
         </div>
