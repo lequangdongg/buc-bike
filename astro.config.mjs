@@ -14,6 +14,13 @@ const site =
 
 export default defineConfig({
   site,
+  // All pages are static (SSG). Prefetch every in-page link as it enters the
+  // viewport so navigation from the home page (and anywhere) is instant —
+  // the target HTML is already fetched before the click.
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: 'viewport',
+  },
   vite: { plugins: [tailwindcss()] },
   integrations: [sitemap()],
 });

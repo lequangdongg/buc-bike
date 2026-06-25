@@ -8,6 +8,7 @@ import { useTranslations } from '../../i18n';
 import { localizePath, type Locale } from '../../i18n/config';
 import { BIKES } from '../../data/fleet';
 import { BUSINESS } from '../../data/business';
+import { WEEKLY_RATE, formatVnd } from '../../data/pricing';
 import { buildLocalBusinessJsonLd } from '../../lib/seo';
 import felizHero from '../../assets/feliz-lite-cutout.png';
 
@@ -42,8 +43,9 @@ const advantageIcons = ['🪪', '⚡', '🌿', '💰'];
     <div
       class="pointer-events-none absolute inset-y-0 right-0 -z-10 hidden w-[55%] items-center justify-center md:flex"
     >
-      <div class="absolute size-[75%] rounded-full bg-charge/15 blur-3xl"></div>
-      <Image src={felizHero} alt="VinFast Feliz Lite" width={760} height={760} loading="eager" class="bike-float relative h-auto w-[88%] max-w-xl object-contain drop-shadow-2xl" />
+      <div class="absolute size-[82%] rounded-full bg-charge/25 blur-3xl"></div>
+      <div class="absolute size-[55%] rounded-full bg-white/12 blur-2xl"></div>
+      <Image src={felizHero} alt="VinFast Feliz Lite" width={760} height={760} loading="eager" class="bike-float relative h-auto w-[88%] max-w-xl object-contain brightness-110 drop-shadow-[0_25px_60px_rgba(0,0,0,0.55)]" />
     </div>
     <div class="absolute inset-0 -z-10 bg-gradient-to-r from-(--bg) via-(--bg)/80 to-transparent"></div>
 
@@ -78,18 +80,23 @@ const advantageIcons = ['🪪', '⚡', '🌿', '💰'];
       </h1>
       <p class="mt-5 max-w-xl text-base text-(--muted) sm:text-lg">{t('hero.subtitle')}</p>
 
-      <div class="mt-9 flex flex-wrap gap-3">
+      <p class="mt-8 text-sm text-(--muted)">
+        {t('fleet.from')}
+        <span class="font-display text-lg font-bold tabular-nums text-(--accent-text)">{formatVnd(WEEKLY_RATE)}</span>{t('price.per_day')}
+      </p>
+      <div class="mt-4 flex flex-wrap gap-3">
         <a
           href={link('/price')}
-          class="rounded-full bg-accent px-6 py-3 font-semibold text-(--color-accent-ink) transition hover:brightness-110"
+          class="group rounded-full bg-accent px-7 py-3.5 font-semibold text-(--color-accent-ink) shadow-lg shadow-accent/25 transition hover:brightness-110 active:scale-[0.98]"
         >
-          {t('hero.cta_primary')}
+          {t('hero.cta_price')}
+          <span class="ml-1 inline-block transition group-hover:translate-x-0.5">→</span>
         </a>
         <a
-          href={link('/fleet')}
-          class="rounded-full border border-(--line) px-6 py-3 font-semibold transition hover:border-accent hover:text-(--accent-text)"
+          href="#location"
+          class="rounded-full border border-(--line) px-6 py-3.5 font-semibold transition hover:border-accent hover:text-(--accent-text) active:scale-[0.98]"
         >
-          {t('hero.cta_secondary')}
+          {t('business.directions')}
         </a>
       </div>
 
@@ -224,7 +231,7 @@ const advantageIcons = ['🪪', '⚡', '🌿', '💰'];
   </section>
 
   <!-- ░░ BUSINESS / LOCATION ░░ -->
-  <section class="mx-auto max-w-6xl px-5 py-24">
+  <section id="location" class="mx-auto max-w-6xl scroll-mt-24 px-5 py-24">
     <SectionReveal class="overflow-hidden rounded-card border border-(--line) bg-(--card)">
       <div class="grid gap-10 p-8 md:grid-cols-2 md:p-12" data-reveal-item>
         <div>
