@@ -13,7 +13,7 @@ interface Props {
 }
 
 const { title, description, locale, path, image = '/og/default.png', imageAlt, jsonLd = [] } = Astro.props;
-const ogImageAlt = imageAlt ?? `${BUSINESS.name} — ${title}`;
+const ogImageAlt = imageAlt ?? title;
 // Twitter @handle from the X profile URL (…/buckbike → @buckbike).
 const twitterHandle = '@' + BUSINESS.socials.x.replace(/\/+$/, '').split('/').pop();
 
