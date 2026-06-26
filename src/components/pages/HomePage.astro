@@ -9,7 +9,6 @@ import { useTranslations } from '../../i18n';
 import { localizePath, type Locale } from '../../i18n/config';
 import { BIKES } from '../../data/fleet';
 import { BUSINESS } from '../../data/business';
-import { WEEKLY_RATE, formatVnd } from '../../data/pricing';
 import { buildLocalBusinessJsonLd } from '../../lib/seo';
 import felizHero from '../../assets/feliz-lite-bright.png';
 
@@ -88,12 +87,7 @@ const quotes = t('testimonials.quotes', { returnObjects: true }) as string[];
       </h1>
       <p class="mt-5 max-w-xl text-base text-(--muted) sm:text-lg">{t('hero.subtitle')}</p>
 
-      <p class="mt-8 text-sm text-(--muted)">
-        {t('fleet.from')}{' '}
-        <span class="font-display text-lg font-bold tabular-nums text-(--accent-text)">{formatVnd(WEEKLY_RATE)}</span>{' '}
-        {t('price.per_day')}
-      </p>
-      <div class="mt-4 flex flex-wrap gap-3">
+      <div class="mt-9 flex flex-wrap gap-3">
         <a
           href={link('/price')}
           class="group rounded-full bg-accent px-7 py-3.5 font-semibold text-(--color-accent-ink) shadow-lg shadow-accent/25 transition hover:brightness-110 active:scale-[0.98]"

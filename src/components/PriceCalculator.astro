@@ -63,7 +63,7 @@ const t = await useTranslations(locale);
       const over3 = Number(el.dataset.over3);
       const weekly = Number(el.dataset.weekly);
       const fmt = (n: number) => new Intl.NumberFormat('vi-VN').format(n) + ' ₫';
-      const rateFor = (d: number) => (d <= 3 ? daily : d < 7 ? over3 : weekly);
+      const rateFor = (d: number) => (d <= 2 ? daily : d < 7 ? over3 : weekly);
 
       const daysEl = el.querySelector('[data-calc-days]');
       const unitEl = el.querySelector('[data-calc-unit]');

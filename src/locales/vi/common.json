@@ -190,12 +190,12 @@
     },
     "plans": [
       {
-        "name": "1–3 ngày",
+        "name": "1–2 ngày",
         "note": "Chuyến ngắn"
       },
       {
-        "name": "Trên 3 ngày",
-        "note": "Giảm 20% so với giá ngày"
+        "name": "Từ 3 ngày",
+        "note": "Giá ngày thấp hơn"
       },
       {
         "name": "Theo tuần",
