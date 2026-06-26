@@ -8,8 +8,8 @@
   --font-display: 'Bricolage Grotesque Variable', ui-sans-serif, system-ui, sans-serif;
   --font-body: 'Geist Variable', 'Inter', ui-sans-serif, system-ui, sans-serif;
 
-  /* Primary accent: electric aqua — "it's electric" + coastal Đà Nẵng. */
-  --color-accent: #1fd4b4;
+  /* Primary accent: electric sky blue — fresh, coastal, trustworthy. */
+  --color-accent: #38bdf8;
   --color-accent-ink: #0b0e0f;
   /* Spark: lime, used sparingly for signature glows/arcs and highlights. */
   --color-charge: #bce24b;
@@ -26,9 +26,9 @@
   --card-2: #1c2326;
   --line: #293236;
   --muted: #8b9a9e;
-  /* Accent used as TEXT on a background. Bright aqua reads well on graphite;
-     the light theme swaps to a deep teal for contrast on paper. */
-  --accent-text: #2de0c4;
+  /* Accent used as TEXT on a background. Bright sky reads well on graphite;
+     the light theme swaps to a deep blue for contrast on paper. */
+  --accent-text: #5cc8fb;
 }
 
 .light {
@@ -40,7 +40,7 @@
   --card-2: #f4f7f6;
   --line: #d6dedc;
   --muted: #51635f;
-  --accent-text: #0c7a66; /* deep teal, readable on light paper */
+  --accent-text: #0670b5; /* deep sky blue, readable on light paper */
 }
 
 html {
