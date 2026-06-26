@@ -59,7 +59,7 @@ const others = BIKES.filter((b) => b.id !== bike.id);
             specs.map((s) => (
               <div class="rounded-card border border-(--line) p-3 sm:p-4">
                 <dt class="text-xs uppercase tracking-wider text-(--muted)">{s.label}</dt>
-                <dd class={`mt-1 font-display text-xl font-bold sm:text-2xl ${s.accent ? 'text-charge' : ''}`}>{s.value}</dd>
+                <dd class={`mt-1 font-display text-xl font-bold sm:text-2xl ${s.accent ? 'text-(--accent-text)' : ''}`}>{s.value}</dd>
               </div>
             ))
           }
