@@ -37,7 +37,8 @@ pnpm cf:deploy    # build + upload to Cloudflare
 ```
 
 The first `cf:deploy` opens a browser to authorise wrangler against your
-Cloudflare account and creates the `buckbike` Worker.
+Cloudflare account. It deploys to the `buc-bike` Worker — the name in
+`wrangler.jsonc` must stay in sync with the project in the dashboard.
 
 **Git-connected builds (optional):** in the Cloudflare dashboard, **Workers →
 Create → Import a repository**. Set build command `pnpm build` and leave the
