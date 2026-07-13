@@ -3,6 +3,8 @@ import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 import AstroPWA from '@vite-pwa/astro';
 
+import cloudflare from '@astrojs/cloudflare';
+
 // Canonical site URL. On Vercel it resolves to the production domain
 // (custom domain if set, otherwise the project's *.vercel.app), so canonical
 // links, hreflang, sitemap and OG image URLs are correct on every deploy.
@@ -15,6 +17,7 @@ const site =
 
 export default defineConfig({
   site,
+
   // All pages are static (SSG). Prefetch every in-page link as it enters the
   // viewport so navigation from the home page (and anywhere) is instant —
   // the target HTML is already fetched before the click.
@@ -22,7 +25,9 @@ export default defineConfig({
     prefetchAll: true,
     defaultStrategy: 'viewport',
   },
+
   vite: { plugins: [tailwindcss()] },
+
   integrations: [
     sitemap(),
     AstroPWA({
@@ -50,4 +55,6 @@ export default defineConfig({
       },
     }),
   ],
+
+  adapter: cloudflare(),
 });
