@@ -1,6 +1,8 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "buckbike",
+  // Must match the Worker Cloudflare created from the repo name, or a CLI
+  // deploy would spin up a second Worker instead of updating this one.
+  "name": "buc-bike",
   "compatibility_date": "2026-07-13",
 
   // No "main" entry: this is a static-only Worker. Cloudflare serves dist/
