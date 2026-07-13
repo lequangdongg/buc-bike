@@ -1,0 +1,21 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "buckbike",
+  "compatibility_date": "2026-07-13",
+
+  // No "main" entry: this is a static-only Worker. Cloudflare serves dist/
+  // straight from its asset store, so there is no Worker script to invoke and
+  // no request ever hits a CPU — every page is prerendered by `astro build`.
+  "assets": {
+    "directory": "./dist",
+
+    // Astro emits /about/index.html for /about. auto-trailing-slash serves that
+    // at both /about and /about/, redirecting to the canonical form.
+    "html_handling": "auto-trailing-slash",
+
+    // Unknown paths return dist/404.html with a real 404 status. Do NOT switch
+    // this to single-page-application: that answers every unknown URL with 200,
+    // which would let search engines index typo'd URLs as real pages.
+    "not_found_handling": "404-page"
+  }
+}

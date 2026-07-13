@@ -25,31 +25,33 @@ pnpm check      # astro type-check
 pnpm test       # vitest (i18n + pricing)
 ```
 
-## Deploy to Vercel (free)
+## Deploy to Cloudflare (free)
 
-The site is fully static, so it runs on Vercel's free Hobby tier with no adapter.
-`site` auto-resolves to the Vercel production domain (`VERCEL_PROJECT_PRODUCTION_URL`),
-so canonical links, `hreflang`, sitemap and OG image URLs are correct on every deploy.
-
-**Option A — Vercel CLI (no Git remote needed):**
+The site is fully static, so it deploys as a Workers **static-assets** project —
+no adapter, no server code, no request ever runs a Worker. `wrangler.jsonc`
+points Cloudflare at `dist/`.
 
 ```bash
-npm i -g vercel
-vercel        # first run: links the project, then deploys a preview
-vercel --prod # promote to production
+pnpm cf:preview   # build + serve through Cloudflare's own runtime, locally
+pnpm cf:deploy    # build + upload to Cloudflare
 ```
 
-**Option B — Git import:** push this repo to GitHub/GitLab, then on
-[vercel.com/new](https://vercel.com/new) import it. Vercel auto-detects Astro +
-pnpm from `vercel.json` and the lockfile — no settings to change.
+The first `cf:deploy` opens a browser to authorise wrangler against your
+Cloudflare account and creates the `buckbike` Worker.
 
-Build settings (already declared in `vercel.json`): framework `astro`,
-build `astro build`, output `dist`, install `pnpm install --frozen-lockfile`.
-Hashed assets and images are served with a 1-year immutable cache header.
+**Git-connected builds (optional):** in the Cloudflare dashboard, **Workers →
+Create → Import a repository**. Set build command `pnpm build` and leave the
+rest — `wrangler.jsonc` supplies the asset config.
 
-To force a specific canonical domain instead of the auto value, set the
-`PUBLIC_SITE_URL` environment variable in the Vercel project (e.g.
-`https://buckbike.com`) and add the custom domain in **Settings → Domains**.
+Caching lives in `public/_headers`: hashed `/_astro/*` files get a 1-year
+immutable cache; `/icons`, `/flags` and `/og` keep stable filenames across
+builds, so they get a 1-day cache with `stale-while-revalidate` instead — an
+immutable header there would strand cached clients on an old logo or OG image.
+
+The canonical domain is `https://buckbike.com`, hardcoded in `astro.config.mjs`
+so previews never emit a `*.workers.dev` canonical. Override it for a staging
+domain with the `PUBLIC_SITE_URL` environment variable at build time. Add the
+real domain under **Workers → your Worker → Settings → Domains & Routes**.
 
 ## Pages & routes
 

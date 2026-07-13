@@ -4,6 +4,8 @@ dist/
 node_modules/
 # generated types
 .astro/
+# wrangler local state
+.wrangler/
 # logs
 npm-debug.log*
 pnpm-debug.log*

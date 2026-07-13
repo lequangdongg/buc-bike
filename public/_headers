@@ -1,0 +1,16 @@
+# Cache rules for Cloudflare (Workers Static Assets / Pages).
+# Copied verbatim into dist/ by Astro's public/ handling.
+
+# Astro emits these with a content hash in the filename, so a new build always
+# means a new URL — safe to cache forever.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# These keep a stable filename across builds (icon-192.png, og/default.png, …),
+# so they must stay revalidatable or a redesign would never reach cached clients.
+/icons/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+/flags/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+/og/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
