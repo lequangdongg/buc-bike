@@ -41,40 +41,39 @@ const t = await useTranslations(locale);
     <script is:inline>
       (function () {
         try {
-          var PREFIXED = ['vi', 'ru', 'ja', 'ko', 'zh', 'hi']; // en is the unprefixed default
-          var ua = navigator.userAgent || '';
+          const PREFIXED = ['vi', 'ru', 'ja', 'ko', 'zh', 'hi']; // en is the unprefixed default
+          const ua = navigator.userAgent || '';
           if (/(bot|crawl|spider|slurp|bingpreview|mediapartners|facebookexternalhit|embedly|pinterest|slackbot|whatsapp|telegram)/i.test(ua)) return;
 
-          var path = location.pathname;
-          var seg = path.split('/').filter(Boolean)[0];
-          var current = PREFIXED.indexOf(seg) > -1 ? seg : 'en';
+          const path = location.pathname;
+          const seg = path.split('/').filter(Boolean)[0];
+          const current = PREFIXED.indexOf(seg) > -1 ? seg : 'en';
 
-          var stored = null;
+          let stored = null;
           try { stored = localStorage.getItem('lang'); } catch (e) {}
 
-          var target = null;
+          let target = null;
           if (stored === 'en' || PREFIXED.indexOf(stored) > -1) {
             target = stored; // explicit choice wins
           } else {
-            var base = (navigator.language || '').toLowerCase().split('-')[0];
+            const base = (navigator.language || '').toLowerCase().split('-')[0];
             if (base === 'zh') target = 'zh';
             else if (PREFIXED.indexOf(base) > -1) target = base;
           }
 
           if (!target || target === current) return;
 
-          var rest = current === 'en' ? path : path.replace('/' + current, '') || '/';
+          let rest = current === 'en' ? path : path.replace('/' + current, '') || '/';
           if (!rest) rest = '/';
-          var dest = target === 'en' ? rest : '/' + target + (rest === '/' ? '/' : rest);
+          const dest = target === 'en' ? rest : '/' + target + (rest === '/' ? '/' : rest);
           location.replace(dest + location.search + location.hash);
         } catch (e) {}
       })();
     </script>
-    <!-- Apply theme before paint: saved choice wins, else the OS preference. -->
+    <!-- Apply theme before paint: a saved choice wins, else dark (the brand default, regardless of OS). -->
     <script is:inline>
       (function () {
-        var t = localStorage.getItem('theme');
-        if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        const t = localStorage.getItem('theme') || 'dark';
         if (t === 'light') document.documentElement.classList.add('light');
       })();
     </script>

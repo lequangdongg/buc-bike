@@ -129,6 +129,30 @@
       }
     ]
   },
+    "parking": {
+      "kicker": "Đỗ xe đúng chỗ",
+      "heading": "Đỗ đúng luật, khỏi lo bị phạt",
+      "intro": "Ở Việt Nam, vỉa hè trước hết dành cho người đi bộ. Vài thói quen nhỏ giúp chiếc BuckBike của bạn luôn đỗ đúng luật — tránh bị phạt hay bị cẩu xe.",
+      "items": [
+        {
+          "title": "Đỗ nơi có kẻ vạch",
+          "body": "Ưu tiên để xe trong ô kẻ vạch hoặc bãi giữ xe của quán, khách sạn. Hầu hết địa điểm ở Đà Nẵng đều có — cứ hỏi nhân viên."
+        },
+        {
+          "title": "Chừa lối cho người đi bộ",
+          "body": "Nếu buộc phải đỗ trên vỉa hè, xếp xe sát mép trong và chừa lối cho người qua lại. Đừng chắn hết vỉa hè."
+        },
+        {
+          "title": "Tránh nơi cấm đỗ",
+          "body": "Không đỗ dưới lòng đường, ở góc ngã tư, trước cửa nhà người khác, hay nơi có biển cấm dừng đỗ / vạch sơn ở lề đường."
+        },
+        {
+          "title": "Khóa xe và nhớ vị trí",
+          "body": "Khóa cổ, rút chìa và chụp lại chỗ để xe. Đỗ xe thường miễn phí, nhưng bãi có người trông ở trung tâm là an toàn nhất."
+        }
+      ],
+      "note": "Lỡ bị khóa bánh hay phạt nhầm? Gọi ngay +84 978 789 133 — chúng tôi sẽ hỗ trợ bạn xử lý nhanh."
+    },
   "fleet": {
     "heading": "Xe cho mọi phong cách",
     "kicker": "Các mẫu hiện có",

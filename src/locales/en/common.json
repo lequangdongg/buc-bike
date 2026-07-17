@@ -129,6 +129,30 @@
       }
     ]
   },
+    "parking": {
+      "kicker": "Park it right",
+      "heading": "Park legally, avoid the fine",
+      "intro": "In Vietnam the pavement (vỉa hè) is for pedestrians first. A few simple habits keep your BuckBike legally parked — and keep you clear of a ticket or a towed scooter.",
+      "items": [
+        {
+          "title": "Use marked parking",
+          "body": "Whenever you can, leave the scooter in a designated bay or a shop/hotel parking area. Most venues in Đà Nẵng have one — just ask the staff."
+        },
+        {
+          "title": "Keep the walkway clear",
+          "body": "If you must park on the pavement, tuck the scooter against the inner edge and leave room for people to pass. Never block the whole pavement."
+        },
+        {
+          "title": "Mind the no-park zones",
+          "body": "Don't park on the roadway, on street corners, in front of someone's door, or where you see a no-stopping sign or a painted curb."
+        },
+        {
+          "title": "Lock it, note the spot",
+          "body": "Steering-lock the scooter, take the key, and snap a photo of where you left it. Parking is usually free, but an attended lot is safest downtown."
+        }
+      ],
+      "note": "Clamped or fined by mistake? Call us on +84 978 789 133 — we will help you sort it out fast."
+    },
   "fleet": {
     "heading": "Bikes for Every Style",
     "kicker": "Available models",
