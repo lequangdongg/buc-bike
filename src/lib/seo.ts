@@ -1,6 +1,7 @@
 import { BUSINESS } from '../data/business';
 import { BIKES } from '../data/fleet';
 import { DAILY_RATE } from '../data/pricing';
+import { LOCALES } from '../i18n/config';
 
 export function buildLocalBusinessJsonLd() {
   return {
@@ -8,12 +9,16 @@ export function buildLocalBusinessJsonLd() {
     '@type': 'LocalBusiness',
     '@id': `${BUSINESS.url}/#business`,
     name: BUSINESS.legalName,
+    description: `Affordable VinFast electric scooter rental in ${BUSINESS.address.city}. No licence required, free helmet and 24h support, daily to monthly plans.`,
     image: `${BUSINESS.url}/og/default.png`,
     telephone: BUSINESS.phoneDisplay,
     url: BUSINESS.url,
+    hasMap: BUSINESS.maps,
     priceRange: '₫₫',
     currenciesAccepted: 'VND',
     paymentAccepted: 'Cash, Bank transfer',
+    knowsLanguage: [...LOCALES],
+    areaServed: { '@type': 'City', name: BUSINESS.address.city },
     address: {
       '@type': 'PostalAddress',
       streetAddress: BUSINESS.address.street,

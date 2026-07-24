@@ -1,4 +1,17 @@
+# Open to all crawlers, including AI answer engines.
 User-agent: *
 Allow: /
 
+# Explicitly welcome the major LLM / AI-search crawlers (GEO).
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: PerplexityBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+Allow: /
+
+# Machine-readable brief for LLMs: https://buckbike.com/llms.txt
 Sitemap: https://buckbike.com/sitemap-index.xml
