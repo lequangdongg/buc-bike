@@ -16,8 +16,8 @@ export const BUSINESS = {
   // Coordinates of the actual Google Business pin (place
   // 0x3142170049e821f3:0x12f728d5030a70eb) — drives the JSON-LD geo point.
   geo: { lat: 16.0499088, lng: 108.2434231 },
-  hours: { opens: '10:00', closes: '23:00' },
-  rating: { value: 5.0, count: 86 },
+  hours: { opens: '07:00', closes: '23:00' },
+  rating: { value: 5.0, count: 95 },
   maps: 'https://maps.app.goo.gl/4r7hXgFa3zhd7WGD6',
   // Official Google embed for the BuckBike place (pinned by place id, so it
   // always lands on the shop). Prefer this over a q=lat,lng embed, which only

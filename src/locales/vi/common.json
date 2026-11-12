@@ -11,13 +11,19 @@
     "blog": "Cẩm nang"
   },
   "hero": {
-    "kicker": "Cho thuê xe máy điện — Đà Nẵng",
+    "kicker": "Cho thuê xe máy điện — Trung tâm Đà Nẵng",
     "title_line1": "Lên đường.",
     "title_line2": "Không rắc rối.",
     "subtitle": "Đặt xe máy điện chỉ trong vài phút. Gói ngày, tuần và tháng. Đội xe hiện đại, hỗ trợ 24h và bảo hiểm đầy đủ.",
     "cta_primary": "Đặt ngay",
     "cta_secondary": "Xem đội xe",
-    "cta_price": "Xem bảng giá"
+    "cta_price": "Xem bảng giá",
+    "kicker_service": "Cho thuê xe máy điện",
+    "kicker_place": "Trung tâm Đà Nẵng",
+    "cta_whatsapp": "Đặt qua WhatsApp",
+    "chip_range": "Tới {{km}} km mỗi lần sạc",
+    "chip_licence": "Không cần bằng lái",
+    "google_short": "{{count}} trên Google"
   },
   "stats": {
     "rating": "Đánh giá trung bình",
@@ -37,15 +43,15 @@
       },
       {
         "title": "Cốp 34 L dưới yên",
-        "body": "Đủ chứa mũ fullface cùng túi đồ cả ngày, vẫn còn chỗ."
+        "body": "Đủ chứa mũ fullface cùng túi đồ cả ngày — còn 15 L khi lắp pin phụ."
       },
       {
         "title": "Phanh đĩa trước + CBS",
-        "body": "Dừng chắc chắn, cân bằng trên mọi con phố Đà Nẵng."
+        "body": "Dừng chắc chắn, cân bằng trên mọi con phố trung tâm Đà Nẵng."
       },
       {
-        "title": "Quãng đường tới 262 km",
-        "body": "Pin LFP — rong ruổi cả ngày chỉ với một lần sạc."
+        "title": "100 km mỗi lần sạc",
+        "body": "Pin LFP. Đi xa? Hỏi chúng tôi về pin phụ."
       },
       {
         "title": "Đèn LED & đồng hồ LCD",
@@ -129,30 +135,30 @@
       }
     ]
   },
-    "parking": {
-      "kicker": "Đỗ xe đúng chỗ",
-      "heading": "Đỗ đúng luật, khỏi lo bị phạt",
-      "intro": "Ở Việt Nam, vỉa hè trước hết dành cho người đi bộ. Vài thói quen nhỏ giúp chiếc BuckBike của bạn luôn đỗ đúng luật — tránh bị phạt hay bị cẩu xe.",
-      "items": [
-        {
-          "title": "Đỗ nơi có kẻ vạch",
-          "body": "Ưu tiên để xe trong ô kẻ vạch hoặc bãi giữ xe của quán, khách sạn. Hầu hết địa điểm ở Đà Nẵng đều có — cứ hỏi nhân viên."
-        },
-        {
-          "title": "Chừa lối cho người đi bộ",
-          "body": "Nếu buộc phải đỗ trên vỉa hè, xếp xe sát mép trong và chừa lối cho người qua lại. Đừng chắn hết vỉa hè."
-        },
-        {
-          "title": "Tránh nơi cấm đỗ",
-          "body": "Không đỗ dưới lòng đường, ở góc ngã tư, trước cửa nhà người khác, hay nơi có biển cấm dừng đỗ / vạch sơn ở lề đường."
-        },
-        {
-          "title": "Khóa xe và nhớ vị trí",
-          "body": "Khóa cổ, rút chìa và chụp lại chỗ để xe. Đỗ xe thường miễn phí, nhưng bãi có người trông ở trung tâm là an toàn nhất."
-        }
-      ],
-      "note": "Lưu ý: bạn tự chịu trách nhiệm cho mọi vi phạm khi đỗ xe — bị cảnh sát phạt, khóa bánh, cẩu xe… Hãy đỗ đúng nơi quy định."
-    },
+  "parking": {
+    "kicker": "Đỗ xe đúng chỗ",
+    "heading": "Đỗ đúng luật, khỏi lo bị phạt",
+    "intro": "Ở Việt Nam, vỉa hè trước hết dành cho người đi bộ. Vài thói quen nhỏ giúp chiếc BuckBike của bạn luôn đỗ đúng luật — tránh bị phạt hay bị cẩu xe.",
+    "items": [
+      {
+        "title": "Đỗ nơi có kẻ vạch",
+        "body": "Ưu tiên để xe trong ô kẻ vạch hoặc bãi giữ xe của quán, khách sạn. Hầu hết địa điểm ở trung tâm Đà Nẵng đều có — cứ hỏi nhân viên."
+      },
+      {
+        "title": "Chừa lối cho người đi bộ",
+        "body": "Nếu buộc phải đỗ trên vỉa hè, xếp xe sát mép trong và chừa lối cho người qua lại. Đừng chắn hết vỉa hè."
+      },
+      {
+        "title": "Tránh nơi cấm đỗ",
+        "body": "Không đỗ dưới lòng đường, ở góc ngã tư, trước cửa nhà người khác, hay nơi có biển cấm dừng đỗ / vạch sơn ở lề đường."
+      },
+      {
+        "title": "Khóa xe và nhớ vị trí",
+        "body": "Khóa cổ, rút chìa và chụp lại chỗ để xe. Đỗ xe thường miễn phí, nhưng bãi có người trông ở trung tâm là an toàn nhất."
+      }
+    ],
+    "note": "Lưu ý: bạn tự chịu trách nhiệm cho mọi vi phạm khi đỗ xe — bị cảnh sát phạt, khóa bánh, cẩu xe… Hãy đỗ đúng nơi quy định."
+  },
   "fleet": {
     "heading": "Xe cho mọi phong cách",
     "kicker": "Các mẫu hiện có",
@@ -166,7 +172,18 @@
     "view_detail": "Xem chi tiết",
     "specs": "Thông số",
     "book_this": "Đặt xe này",
-    "back": "Quay lại đội xe"
+    "back": "Quay lại đội xe",
+    "see_all": "Xem tất cả",
+    "compare_by": "So sánh theo",
+    "per_charge": "Quãng đường mỗi lần sạc",
+    "best_range": "Đi xa nhất",
+    "best_speed": "Nhanh nhất",
+    "best_trunk": "Cốp lớn nhất",
+    "single_charge": "Với một lần sạc",
+    "extra_battery": "Có pin phụ cho chuyến đi xa",
+    "extra_battery_short": "Pin phụ cho chuyến đi xa",
+    "range_disclaimer": "Quãng đường mỗi lần sạc chỉ mang tính tham khảo, thay đổi theo tốc độ, tải trọng và lộ trình.",
+    "battery_note": "Đi xa? Hỏi chúng tôi về pin phụ. Cốp còn {{litres}} L khi lắp pin phụ."
   },
   "price": {
     "heading": "Gói linh hoạt, không bất ngờ",
@@ -180,7 +197,7 @@
     "perks": [
       {
         "title": "Giao & nhận xe trong 24h",
-        "body": "Giao xe tận nơi và nhận lại — khắp Đà Nẵng."
+        "body": "Giao xe tận nơi và nhận lại — khắp trung tâm Đà Nẵng."
       },
       {
         "title": "Sạc hoặc đổi pin bất cứ lúc nào",
@@ -275,8 +292,8 @@
     "heading": "Chúng tôi đang chờ bạn",
     "reviews": "{{count}} đánh giá",
     "on_google": "trên Google",
-    "open_now": "Đang mở · Đóng cửa 11 giờ tối",
-    "closed": "Đã đóng · Mở lúc 10 giờ sáng",
+    "open_now": "Đang mở · 7 giờ sáng – 11 giờ tối",
+    "closed": "Đã đóng · Mở lúc 7 giờ sáng",
     "directions": "Chỉ đường",
     "call": "Gọi cho chúng tôi",
     "whatsapp": "WhatsApp"
@@ -296,5 +313,9 @@
     "heading": "Cẩm nang chạy xe ở Đà Nẵng",
     "read_more": "Đọc tiếp",
     "back": "Tất cả bài viết"
+  },
+  "contact": {
+    "chat_to_book": "Nhắn để đặt xe",
+    "copy_number": "Sao chép số"
   }
 }

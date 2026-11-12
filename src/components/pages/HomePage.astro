@@ -1,13 +1,12 @@
 ---
 import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
-import SectionReveal from '../SectionReveal.astro';
 import BikeCard from '../BikeCard.astro';
 import HeroShowcase from '../HeroShowcase.astro';
 import OpenStatus from '../OpenStatus.astro';
 import { useTranslations } from '../../i18n';
 import { localizePath, type Locale } from '../../i18n/config';
-import { BIKES } from '../../data/fleet';
+import { BIKES, MAX_RANGE_KM } from '../../data/fleet';
 import { BUSINESS } from '../../data/business';
 import { buildLocalBusinessJsonLd } from '../../lib/seo';
 import felizHero from '../../assets/feliz-lite-bright.png';
@@ -26,17 +25,48 @@ const steps = t('booking.steps', { returnObjects: true }) as Item[];
 const needs = t('booking.need', { returnObjects: true }) as Item[];
 const advantages = t('advantages.items', { returnObjects: true }) as Item[];
 const parkingTips = t('parking.items', { returnObjects: true }) as Item[];
+const includes = t('price.includes', { returnObjects: true }) as string[];
+const perks = t('price.perks', { returnObjects: true }) as Item[];
+const quotes = t('testimonials.quotes', { returnObjects: true }) as string[];
 
-const maxRange = Math.max(...BIKES.map((b) => b.rangeKm));
-const advantageIcons = ['🪪', '⚡', '🌿', '💰'];
-const parkingIcons = ['🅿️', '🚸', '⛔', '🔑'];
+const ICONS = {
+  licence:
+    '<rect x="3" y="5" width="18" height="14" rx="2.5"/><circle cx="9" cy="11" r="2"/><path d="M6 16c.6-1.6 1.7-2.4 3-2.4s2.4.8 3 2.4M14.5 10H18M14.5 13.5H18"/>',
+  clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  bolt: '<path d="M13 2 4.5 13.5H11L10 22l8.5-11.5H12L13 2z"/>',
+  leaf: '<path d="M5 19C5 10 10 5 20 5c0 10-5 15-14 15M5 19c2-5 5-8 9-10"/>',
+  wallet: '<rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10.5h18M15.5 15H18"/>',
+  wheel: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/><path d="M3.3 10.5l6.3.9M20.7 10.5l-6.3.9M12 14.5V21"/>',
+  bay: '<rect x="4" y="4" width="16" height="16" rx="3"/><path d="M10 16V8h3a2.5 2.5 0 0 1 0 5h-3"/>',
+  walk: '<circle cx="13" cy="4.5" r="1.5"/><path d="M9 21l2-6-2-3 1.5-4 3 1.5 1.5 3 3 1M11 15l3 2 1 4"/>',
+  ban: '<circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.800 12.800"/>',
+  lock: '<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+  pin: '<path d="M12 21s-7-6.500-7-11a7 7 0 0 1 14 0c0 4.500-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/>',
+  arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+  check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+  warning: '<path d="M12 4 2.5 20h19L12 4zM12 10v4.500M12 17.500v.010"/>',
+};
+
+const why = [
+  { ...advantages[0], icon: ICONS.licence, wide: true, featured: true, tone: 'accent' },
+  { ...features[0], icon: ICONS.clock, wide: false, featured: false, tone: 'accent' },
+  { ...advantages[1], icon: ICONS.bolt, wide: false, featured: false, tone: 'charge' },
+  { ...advantages[2], icon: ICONS.leaf, wide: false, featured: false, tone: 'charge' },
+  { ...features[2], icon: ICONS.wallet, wide: false, featured: false, tone: 'accent' },
+  { ...features[3], icon: ICONS.wheel, wide: true, featured: false, tone: 'accent' },
+];
+const parkingIcons = [ICONS.bay, ICONS.walk, ICONS.ban, ICONS.lock];
+const marquee = [...includes, perks[0].title, perks[1].title, t('fleet.extra_battery_short')];
 
 const reviewers = [
   { name: 'Min-jun Park', from: 'Seoul, South Korea' },
   { name: 'Elena Volkova', from: 'Moscow, Russia' },
   { name: 'Jack Thompson', from: 'Sydney, Australia' },
 ];
-const quotes = t('testimonials.quotes', { returnObjects: true }) as string[];
+
+const kicker = 'font-display text-sm font-medium uppercase tracking-[0.2em] text-(--accent-text)';
+const heading = 'mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl';
+const stroke = { fill: 'none', stroke: 'currentColor', 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'aria-hidden': 'true' } as const;
 ---
 
 <Base
@@ -46,316 +76,360 @@ const quotes = t('testimonials.quotes', { returnObjects: true }) as string[];
   path={path}
   jsonLd={[buildLocalBusinessJsonLd()]}
 >
-  <!-- ░░ HERO ░░ -->
-  <section class="relative flex items-center overflow-hidden py-24 md:min-h-[100svh] md:py-0">
-    <!-- Feliz Lite hero subject — desktop: floating on the right (above the dim gradient so it stays bright) -->
-    <div
-      class="pointer-events-none absolute inset-y-0 right-0 z-0 hidden w-[55%] items-center justify-center md:flex"
-    >
-      <div class="absolute size-[82%] rounded-full bg-charge/25 blur-3xl"></div>
-      <div class="absolute size-[55%] rounded-full bg-white/12 blur-2xl"></div>
-      <Image src={felizHero} alt="VinFast Feliz Lite" width={760} height={760} loading="eager" class="bike-float relative h-auto w-[88%] max-w-xl object-contain brightness-110 drop-shadow-[0_25px_60px_rgba(0,0,0,0.55)]" />
-    </div>
-    <div class="absolute inset-0 -z-10 bg-gradient-to-r from-(--bg) via-(--bg)/80 to-transparent"></div>
-
-    <!-- signature charge-arc -->
-    <svg
-      class="pointer-events-none absolute -right-24 top-1/2 -z-10 hidden h-[130%] -translate-y-1/2 opacity-60 md:block"
-      viewBox="0 0 400 400"
-      fill="none"
-      aria-hidden="true"
-    >
-      <circle cx="200" cy="200" r="180" stroke="var(--line)" stroke-width="1" />
-      <circle
-        cx="200"
-        cy="200"
-        r="180"
-        stroke="var(--color-charge)"
-        stroke-width="3"
-        stroke-linecap="round"
-        stroke-dasharray="1130"
-        stroke-dashoffset="280"
-        transform="rotate(-90 200 200)"
-        opacity="0.9"
-      />
-    </svg>
-
-    <div id="hero-inner" class="relative z-10 mx-auto w-full max-w-6xl px-5">
-      <p class="font-display text-sm font-medium uppercase tracking-[0.2em] text-(--accent-text)">
-        {t('hero.kicker')}
-      </p>
-      <h1 class="mt-5 font-display text-[clamp(2.6rem,11vw,7rem)] font-bold leading-[0.95] tracking-tight">
-        {t('hero.title_line1')}<br /><span class="text-(--muted)">{t('hero.title_line2')}</span>
-      </h1>
-      <p class="mt-5 max-w-xl text-base text-(--muted) sm:text-lg">{t('hero.subtitle')}</p>
-
-      <div class="mt-9 flex flex-wrap gap-3">
-        <a
-          href={link('/price')}
-          class="group rounded-full bg-accent px-7 py-3.5 font-semibold text-(--color-accent-ink) shadow-lg shadow-accent/25 transition hover:brightness-110 active:scale-[0.98]"
-        >
-          {t('hero.cta_price')}
-          <span class="ml-1 inline-block transition group-hover:translate-x-0.5">→</span>
-        </a>
-        <a
-          href="#location"
-          class="rounded-full border border-accent px-6 py-3.5 font-semibold text-(--accent-text) transition hover:bg-accent/10 active:scale-[0.98]"
-        >
-          {t('business.directions')}
+  <section class="relative overflow-x-clip">
+    <div class="dot-field pointer-events-none absolute inset-0 opacity-70" aria-hidden="true"></div>
+    <div class="relative mx-auto grid max-w-6xl grid-cols-1 gap-y-1 px-5 pb-2 pt-24 lg:min-h-[820px] lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:grid-rows-[auto_auto] lg:content-center lg:gap-x-12 lg:pb-8 lg:pt-28">
+      <div class="enter -order-2 flex items-center justify-between gap-2.5 lg:order-none lg:col-start-1 lg:row-start-1 lg:justify-start lg:gap-5 lg:self-end">
+        <span class="flex h-[34px] items-center rounded-full border border-(--line) bg-(--card) px-3 text-[12.5px] font-medium">
+          <OpenStatus locale={locale} />
+        </span>
+        <a href={BUSINESS.maps} target="_blank" rel="noopener" class="flex min-h-11 items-center gap-1.5 text-[12.5px] font-medium text-(--muted) transition hover:text-(--fg)">
+          <span class="font-display text-[15px] font-bold text-(--fg)">{BUSINESS.rating.value.toFixed(1)}</span>
+          <span class="tracking-[1px] text-charge light:text-(--accent-text)" aria-hidden="true">★★★★★</span>
+          <span>{t('hero.google_short', { count: BUSINESS.rating.count })}</span>
         </a>
       </div>
 
-      <!-- stats strip with count-up -->
-      <dl class="mt-14 grid max-w-2xl grid-cols-2 gap-x-8 gap-y-6 tabular-nums sm:grid-cols-4">
-        <div>
-          <dt class="text-xs uppercase tracking-wider text-(--muted)">{t('stats.rating')}</dt>
-          <dd class="mt-1 font-display text-3xl font-bold">
-            <span data-count={BUSINESS.rating.value} data-decimals="1">0</span>
-          </dd>
+      <div class="hero-stage enter-zoom relative -order-1 h-[300px] lg:order-none lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:h-[660px]" style="--d:.1s">
+        <div class="stage-c" aria-hidden="true">
+          <div class="absolute inset-[14%] rounded-full bg-charge/20 blur-[60px]" style="animation:bk-glow 6s ease-in-out infinite"></div>
         </div>
-        <div>
-          <dt class="text-xs uppercase tracking-wider text-(--muted)">{t('stats.reviews')}</dt>
-          <dd class="mt-1 font-display text-3xl font-bold">
-            <span data-count={BUSINESS.rating.count}>0</span>+
-          </dd>
+        <svg class="stage-c overflow-visible" viewBox="0 0 400 400" fill="none" aria-hidden="true">
+          <g style="transform-origin:200px 200px;animation:bk-spin 70s linear infinite reverse">
+            <circle cx="200" cy="200" r="197" stroke="var(--line)" stroke-width="1" stroke-dasharray="2 12"></circle>
+          </g>
+          <circle cx="200" cy="200" r="180" stroke="var(--line)" stroke-width="1"></circle>
+          <circle
+            cx="200"
+            cy="200"
+            r="180"
+            stroke="var(--color-charge)"
+            stroke-width="3"
+            stroke-linecap="round"
+            stroke-dasharray="1131"
+            stroke-dashoffset="280"
+            transform="rotate(-90 200 200)"
+            style="animation:bk-arc 1.8s cubic-bezier(.16,1,.3,1) .4s both"
+          ></circle>
+        </svg>
+        <div class="stage-c" style="animation:bk-spin 16s linear infinite" aria-hidden="true">
+          <span class="absolute left-1/2 top-[5%] -ml-[5px] -mt-[5px] size-2.5 rounded-full bg-accent shadow-[0_0_18px_4px_rgba(56,189,248,0.6)]"></span>
         </div>
-        <div>
-          <dt class="text-xs uppercase tracking-wider text-(--muted)">{t('stats.range')}</dt>
-          <dd class="mt-1 font-display text-3xl font-bold text-(--accent-text)">
-            <span data-count={maxRange}>0</span>
-          </dd>
+        <div class="stage-c" data-parallax="0.5">
+          <Image
+            src={felizHero}
+            alt="VinFast Feliz Lite"
+            width={760}
+            height={760}
+            loading="eager"
+            class="bike-float h-full w-full scale-[0.94] object-contain brightness-110 drop-shadow-[0_26px_44px_rgba(0,0,0,0.55)]"
+          />
         </div>
-        <div>
-          <dt class="text-xs uppercase tracking-wider text-(--muted)">{t('stats.support')}</dt>
-          <dd class="mt-1 font-display text-3xl font-bold">24<span class="text-(--muted)">h</span></dd>
+        <span class="enter-pop absolute left-0 top-[12%] flex items-center gap-[7px] rounded-full border border-(--line) bg-(--card)/90 px-3 py-2 text-[12.5px] font-semibold backdrop-blur-md lg:px-4 lg:py-2.5 lg:text-sm" style="--d:1s">
+          <svg class="size-3.5 text-charge light:text-(--accent-text)" viewBox="0 0 24 24" stroke-width="2" {...stroke} set:html={ICONS.bolt} />
+          {t('hero.chip_range', { km: MAX_RANGE_KM })}
+        </span>
+        <span class="enter-pop absolute bottom-[12%] right-0 flex items-center gap-[7px] rounded-full border border-(--line) bg-(--card)/90 px-3 py-2 text-[12.5px] font-semibold backdrop-blur-md lg:px-4 lg:py-2.5 lg:text-sm" style="--d:1.2s">
+          <svg class="size-3.5 text-(--accent-text)" viewBox="0 0 24 24" stroke-width="2.2" {...stroke} set:html={ICONS.check} />
+          {t('hero.chip_licence')}
+        </span>
+      </div>
+
+      <div class="lg:col-start-1 lg:row-start-2 lg:self-start">
+        <p class="mt-3.5 flex flex-wrap items-center gap-x-2.5 gap-y-2 font-display text-sm font-bold uppercase leading-tight tracking-[0.16em] lg:gap-x-3.5 lg:text-[17px]">
+          <span class="shine-text">{t('hero.kicker_service')}</span>
+          <span class="enter-stamp inline-flex -rotate-2 items-center gap-1.5 rounded-full bg-charge py-[7px] pl-[9px] pr-[13px] tracking-[0.1em] text-(--color-accent-ink) shadow-[0_8px_24px_rgba(188,226,75,0.28)]" style="--d:.55s">
+            <svg class="size-[15px]" viewBox="0 0 24 24" stroke-width="2.2" {...stroke} set:html={ICONS.pin} />
+            {t('hero.kicker_place')}
+          </span>
+        </p>
+        <h1 class="mt-3 font-display text-[clamp(2.75rem,13.4vw,3.625rem)] font-bold leading-[0.95] tracking-[-0.03em] lg:mt-4 lg:text-[clamp(3.375rem,5.9vw,5rem)]">
+          <span class="enter block" style="--d:.28s">{t('hero.title_line1')}</span>
+          <span class="enter block text-(--muted)" style="--d:.42s">{t('hero.title_line2')}</span>
+        </h1>
+        <p class="enter mt-4 max-w-[520px] text-base text-(--muted) lg:mt-6 lg:text-lg" style="--d:.54s">{t('hero.subtitle')}</p>
+
+        <div class="enter mt-6 flex max-w-[480px] flex-wrap gap-2.5" style="--d:.64s">
+          <a
+            href={BUSINESS.whatsapp}
+            target="_blank"
+            rel="noopener"
+            class="group flex h-14 flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-full bg-accent px-6 font-semibold text-(--color-accent-ink) shadow-lg shadow-accent/25 transition hover:brightness-110 active:scale-[0.97]"
+          >
+            {t('hero.cta_whatsapp')}
+            <svg class="size-[18px] transition group-hover:translate-x-1" viewBox="0 0 24 24" stroke-width="2" {...stroke} set:html={ICONS.arrow} />
+          </a>
+          <a
+            href={link('/price')}
+            class="flex h-14 items-center justify-center whitespace-nowrap rounded-full border border-accent px-6 font-semibold text-(--accent-text) transition hover:bg-accent/10 active:scale-[0.97]"
+          >
+            {t('nav.price')}
+          </a>
         </div>
-      </dl>
+
+        <dl class="enter mt-8 grid max-w-[560px] grid-cols-4 border-t border-(--line) tabular-nums lg:mt-12" style="--d:.76s">
+          <div class="flex flex-col-reverse justify-end gap-1 pr-2 pt-4">
+            <dt class="text-[11px] uppercase leading-tight tracking-[0.06em] text-(--muted)">{t('stats.rating')}</dt>
+            <dd class="font-display text-[28px] font-bold leading-none lg:text-4xl">
+              <span data-count={BUSINESS.rating.value} data-decimals="1">{BUSINESS.rating.value.toFixed(1)}</span>
+            </dd>
+          </div>
+          <div class="flex flex-col-reverse justify-end gap-1 border-l border-(--line) pl-3 pr-2 pt-4">
+            <dt class="text-[11px] uppercase leading-tight tracking-[0.06em] text-(--muted)">{t('stats.reviews')}</dt>
+            <dd class="font-display text-[28px] font-bold leading-none lg:text-4xl">
+              <span data-count={BUSINESS.rating.count}>{BUSINESS.rating.count}</span>+
+            </dd>
+          </div>
+          <div class="flex flex-col-reverse justify-end gap-1 border-l border-(--line) pl-3 pr-2 pt-4">
+            <dt class="text-[11px] uppercase leading-tight tracking-[0.06em] text-(--muted)">{t('stats.range')}</dt>
+            <dd class="font-display text-[28px] font-bold leading-none text-(--accent-text) lg:text-4xl">
+              <span data-count={MAX_RANGE_KM}>{MAX_RANGE_KM}</span>
+            </dd>
+          </div>
+          <div class="flex flex-col-reverse justify-end gap-1 border-l border-(--line) pl-3 pt-4">
+            <dt class="text-[11px] uppercase leading-tight tracking-[0.06em] text-(--muted)">{t('stats.support')}</dt>
+            <dd class="font-display text-[28px] font-bold leading-none lg:text-4xl">24<span class="text-(--muted)">h</span></dd>
+          </div>
+        </dl>
+      </div>
     </div>
   </section>
 
-  <!-- ░░ FELIZ LITE SHOWCASE (pinned hotspots) ░░ -->
+  <div class="mt-10 overflow-hidden border-y border-(--line) bg-(--card)">
+    <div class="flex w-max" style="animation:bk-marquee 36s linear infinite">
+      {
+        [0, 1, 2, 3].map((copy) => (
+          <div class="flex items-center gap-[22px] py-[15px] pr-[22px] font-display text-sm font-semibold whitespace-nowrap lg:gap-9 lg:py-5 lg:pr-9 lg:text-base" aria-hidden={copy > 0 ? 'true' : undefined}>
+            {marquee.map((item) => (
+              <>
+                <span>{item}</span>
+                <span class="size-1.5 rounded-full bg-charge" aria-hidden="true" />
+              </>
+            ))}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
   <HeroShowcase locale={locale} />
 
-  <!-- ░░ FEATURES ░░ -->
-  <section class="mx-auto max-w-6xl px-5 py-24">
-    <div class="mb-12 max-w-2xl">
-      <p class="font-display text-sm uppercase tracking-[0.2em] text-(--accent-text)">{t('features.kicker')}</p>
-      <h2 class="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">{t('features.heading')}</h2>
+  <section class="mx-auto max-w-6xl px-5 pt-16 md:pt-32">
+    <div data-reveal>
+      <p class={kicker}>{t('advantages.kicker')}</p>
+      <h2 class={heading}>{t('features.heading')}</h2>
     </div>
-    <SectionReveal class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+    <div data-reveal class="mt-7 grid grid-cols-2 gap-3 lg:mt-12 lg:grid-cols-4 lg:gap-4">
       {
-        features.map((f) => (
+        why.map((item) => (
           <article
             data-reveal-item
-            class="rounded-card border border-(--line) bg-(--card) p-6 transition hover:border-accent"
+            class:list={[
+              'group flex rounded-card border bg-(--card) p-[18px] transition duration-300 hover:-translate-y-1.5 hover:border-accent hover:shadow-2xl hover:shadow-black/30 lg:p-6',
+              item.wide ? 'col-span-2 gap-4' : 'flex-col gap-1.5',
+              item.featured ? 'border-accent' : 'border-(--line)',
+            ]}
           >
-            <h3 class="font-display text-lg font-bold">{f.title}</h3>
-            <p class="mt-2 text-sm text-(--muted)">{f.body}</p>
+            {item.wide ? (
+              <span
+                class:list={[
+                  'grid size-12 shrink-0 place-items-center rounded-[14px] transition duration-300 group-hover:-rotate-6 group-hover:scale-110',
+                  item.featured ? 'bg-accent text-(--color-accent-ink)' : 'bg-(--card-2) text-(--accent-text)',
+                ]}
+              >
+                <svg class="size-6" viewBox="0 0 24 24" stroke-width="1.7" {...stroke} set:html={item.icon} />
+              </span>
+            ) : (
+              <svg
+                class:list={[
+                  'mb-2 size-[26px] transition duration-300 group-hover:-rotate-6 group-hover:scale-110',
+                  item.tone === 'charge' ? 'text-charge light:text-(--accent-text)' : 'text-(--accent-text)',
+                ]}
+                viewBox="0 0 24 24"
+                stroke-width="1.7"
+                {...stroke}
+                set:html={item.icon}
+              />
+            )}
+            <div class="flex flex-col gap-1">
+              <h3 class="font-display text-[17px] font-bold leading-tight lg:text-xl">{item.title}</h3>
+              <p class="text-sm text-(--muted) lg:text-[15px]">{item.body}</p>
+            </div>
           </article>
         ))
       }
-    </SectionReveal>
+    </div>
   </section>
 
-  <!-- ░░ HOW TO BOOK (ordered sequence) ░░ -->
-  <section class="border-y border-(--line) bg-(--card)/40">
-    <div class="mx-auto max-w-6xl px-5 py-24">
-      <div class="mb-12 max-w-2xl">
-        <p class="font-display text-sm uppercase tracking-[0.2em] text-(--accent-text)">{t('booking.kicker')}</p>
-        <h2 class="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">{t('booking.heading')}</h2>
+  <section class="mt-16 border-y border-(--line) bg-(--card)/40 py-14 md:mt-32 md:py-26">
+    <div class="mx-auto max-w-6xl px-5">
+      <div data-reveal>
+        <p class={kicker}>{t('booking.kicker')}</p>
+        <h2 class={heading}>{t('booking.heading')}</h2>
       </div>
-      <SectionReveal class="grid gap-px overflow-hidden rounded-card border border-(--line) bg-(--line) sm:grid-cols-2 lg:grid-cols-4">
+      <ol data-reveal class="relative mt-8 flex flex-col gap-6 lg:mt-14 lg:grid lg:grid-cols-4 lg:gap-8">
+        <li class="absolute bottom-[22px] left-[21px] top-[22px] w-0.5 bg-(--line) lg:bottom-auto lg:left-[22px] lg:right-[calc((100%-6rem)/4-22px)] lg:top-[21px] lg:h-0.5 lg:w-auto" aria-hidden="true">
+          <span class="steps-fill block h-full w-full bg-accent"></span>
+        </li>
         {
-          steps.map((s, i) => (
-            <div data-reveal-item class="bg-(--card) p-6">
-              <span class="font-display text-4xl font-bold text-(--accent-text)">{String(i + 1).padStart(2, '0')}</span>
-              <h3 class="mt-4 font-display text-base font-bold">{s.title}</h3>
-              <p class="mt-2 text-sm text-(--muted)">{s.body}</p>
-            </div>
+          steps.map((step, i) => (
+            <li data-reveal-item class="relative flex gap-4 lg:flex-col lg:gap-5">
+              <span
+                class:list={[
+                  'grid size-11 shrink-0 place-items-center rounded-full border border-accent font-display text-[15px] font-bold',
+                  i === steps.length - 1 ? 'bg-accent text-(--color-accent-ink)' : 'bg-(--bg) text-(--accent-text)',
+                ]}
+              >
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <div class="pt-2 lg:pt-0">
+                <h3 class="font-display text-lg font-bold leading-snug">{step.title}</h3>
+                <p class="mt-1 text-[14.5px] text-(--muted)">{step.body}</p>
+              </div>
+            </li>
           ))
         }
-      </SectionReveal>
+      </ol>
 
-      <SectionReveal class="mt-6 grid gap-5 sm:grid-cols-2">
+      <div data-reveal class="mt-8 flex flex-wrap gap-x-10 gap-y-4 rounded-card border border-(--line) bg-(--bg) p-5 lg:mt-14 lg:px-8 lg:py-7">
+        <h3 class="basis-full text-[13px] font-semibold uppercase tracking-[0.12em] text-(--muted)">{t('booking.need_heading')}</h3>
         {
-          needs.map((n) => (
-            <div data-reveal-item class="flex gap-4 rounded-card border border-(--line) p-6">
-              <span class="grid size-9 shrink-0 place-items-center rounded-full bg-accent text-(--color-accent-ink)">✓</span>
+          needs.map((need) => (
+            <div class="flex flex-[1_1_280px] gap-3">
+              <span class="grid size-7 shrink-0 place-items-center rounded-full bg-accent text-(--color-accent-ink)">
+                <svg class="size-4" viewBox="0 0 24 24" stroke-width="2.6" {...stroke} set:html={ICONS.check} />
+              </span>
               <div>
-                <h3 class="font-display text-base font-bold">{n.title}</h3>
-                <p class="mt-1 text-sm text-(--muted)">{n.body}</p>
+                <p class="font-semibold">{need.title}</p>
+                <p class="text-[14.5px] text-(--muted)">{need.body}</p>
               </div>
             </div>
           ))
         }
-      </SectionReveal>
-    </div>
-  </section>
-
-  <!-- ░░ ADVANTAGES ░░ -->
-  <section class="mx-auto max-w-6xl px-5 py-24">
-    <div class="mb-12 max-w-2xl">
-      <p class="font-display text-sm uppercase tracking-[0.2em] text-(--accent-text)">{t('advantages.kicker')}</p>
-    </div>
-    <SectionReveal class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-      {
-        advantages.map((a, i) => (
-          <article data-reveal-item class="rounded-card border border-(--line) p-6">
-            <span class="text-3xl">{advantageIcons[i]}</span>
-            <h3 class="mt-4 font-display text-lg font-bold">{a.title}</h3>
-            <p class="mt-2 text-sm text-(--muted)">{a.body}</p>
-          </article>
-        ))
-      }
-    </SectionReveal>
-  </section>
-
-  <!-- ░░ FLEET PREVIEW ░░ -->
-  <section id="fleet" class="mx-auto max-w-6xl px-5 py-12 scroll-mt-24">
-    <div class="mb-12 flex flex-wrap items-end justify-between gap-4">
-      <div class="max-w-2xl">
-        <p class="font-display text-sm uppercase tracking-[0.2em] text-(--accent-text)">{t('fleet.kicker')}</p>
-        <h2 class="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">{t('fleet.heading')}</h2>
       </div>
-      <a href={link('/fleet')} class="text-sm text-(--muted) transition hover:text-(--accent-text)">
-        {t('fleet.view_detail')} →
-      </a>
     </div>
-    <SectionReveal class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-      {
-        BIKES.map((bike) => (
-          <BikeCard
-            bike={bike}
-            locale={locale}
-            label={t('fleet.view_detail')}
-            availableLabel={t('fleet.available')}
-          />
-        ))
-      }
-    </SectionReveal>
   </section>
 
-  <!-- ░░ TESTIMONIALS ░░ -->
-  <section class="mx-auto max-w-6xl px-5 py-24">
-    <div class="mb-12 flex flex-wrap items-end justify-between gap-4">
+  <section id="fleet" class="mx-auto max-w-6xl scroll-mt-24 px-5 pt-16 md:pt-32">
+    <div data-reveal class="flex items-end justify-between gap-3">
       <div>
-        <p class="font-display text-sm uppercase tracking-[0.2em] text-(--accent-text)">{t('testimonials.kicker')}</p>
-        <h2 class="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">{t('testimonials.heading')}</h2>
+        <p class={kicker}>{t('fleet.kicker')}</p>
+        <h2 class={heading}>{t('fleet.heading')}</h2>
       </div>
-      <a href={BUSINESS.maps} target="_blank" rel="noopener" class="text-sm text-(--muted) transition hover:text-(--fg)">
-        <span class="font-display text-lg font-bold text-(--accent-text)">{BUSINESS.rating.value.toFixed(1)}</span>
-        <span class="text-(--accent-text)">★★★★★</span> {t('business.on_google')} →
+      <a href={link('/fleet')} class="group flex min-h-11 shrink-0 items-center gap-2 text-[14.5px] font-semibold text-(--accent-text)">
+        {t('fleet.see_all')}
+        <svg class="size-4 transition group-hover:translate-x-1" viewBox="0 0 24 24" stroke-width="2" {...stroke} set:html={ICONS.arrow} />
       </a>
     </div>
-    <SectionReveal class="grid gap-5 md:grid-cols-3">
+    <div data-reveal class="mt-7 grid gap-3 md:grid-cols-3 md:gap-5">
+      {BIKES.map((bike) => <BikeCard bike={bike} locale={locale} />)}
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-5 pt-16 md:pt-32">
+    <div data-reveal class="flex flex-wrap items-end justify-between gap-x-6 gap-y-1">
+      <div>
+        <p class={kicker}>{t('testimonials.kicker')}</p>
+        <h2 class={heading}>{t('testimonials.heading')}</h2>
+      </div>
+      <a href={BUSINESS.maps} target="_blank" rel="noopener" class="inline-flex min-h-11 items-center gap-2 text-sm text-(--muted) transition hover:text-(--fg)">
+        <span class="font-display text-lg font-bold text-(--accent-text)">{BUSINESS.rating.value.toFixed(1)}</span>
+        <span class="tracking-[1px] text-(--accent-text)" aria-hidden="true">★★★★★</span>
+        <span>{t('business.reviews', { count: BUSINESS.rating.count })} {t('business.on_google')}</span>
+      </a>
+    </div>
+    <div data-reveal class="mt-5 grid gap-3 md:grid-cols-3 md:gap-5">
       {
-        reviewers.map((r, i) => (
-          <figure data-reveal-item class="flex flex-col rounded-card border border-(--line) bg-(--card) p-6">
-            <div class="text-(--accent-text)" aria-label="5 out of 5">★★★★★</div>
-            <blockquote class="mt-4 flex-1 text-(--fg)">“{quotes[i]}”</blockquote>
-            <figcaption class="mt-6 flex items-center gap-3">
-              <span class="grid size-10 shrink-0 place-items-center rounded-full bg-(--card-2) font-display font-bold text-(--accent-text)">{r.name.charAt(0)}</span>
+        reviewers.map((reviewer, i) => (
+          <figure data-reveal-item class="flex flex-col gap-3.5 rounded-card border border-(--line) bg-(--card) p-5 transition duration-300 hover:-translate-y-1.5 hover:border-accent md:p-7">
+            <div class="tracking-[2px] text-(--accent-text)" role="img" aria-label="5 out of 5">★★★★★</div>
+            <blockquote class="flex-1">“{quotes[i]}”</blockquote>
+            <figcaption class="flex items-center gap-3">
+              <span class="grid size-10 shrink-0 place-items-center rounded-full bg-(--card-2) font-display font-bold text-(--accent-text)" aria-hidden="true">{reviewer.name.charAt(0)}</span>
               <span>
-                <span class="block font-display font-bold leading-tight">{r.name}</span>
-                <span class="block text-sm text-(--muted)">{r.from}</span>
+                <span class="block font-display font-bold leading-tight">{reviewer.name}</span>
+                <span class="block text-[13.5px] text-(--muted)">{reviewer.from}</span>
               </span>
             </figcaption>
           </figure>
         ))
       }
-    </SectionReveal>
+    </div>
   </section>
 
-  <!-- ░░ PARK LEGALLY (Vietnam sidewalk rules) ░░ -->
-  <section class="border-y border-(--line) bg-(--card)/40">
-    <div class="mx-auto max-w-6xl px-5 py-24">
-      <div class="mb-12 max-w-2xl">
-        <p class="font-display text-sm uppercase tracking-[0.2em] text-(--accent-text)">{t('parking.kicker')}</p>
-        <h2 class="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">{t('parking.heading')}</h2>
-        <p class="mt-4 text-(--muted)">{t('parking.intro')}</p>
+  <section class="mt-16 border-y border-(--line) bg-(--card)/40 py-14 md:mt-32 md:py-26">
+    <div class="mx-auto max-w-6xl px-5">
+      <div data-reveal>
+        <p class={kicker}>{t('parking.kicker')}</p>
+        <h2 class={heading}>{t('parking.heading')}</h2>
+        <p class="mt-3.5 max-w-[680px] text-[15px] text-(--muted)">{t('parking.intro')}</p>
       </div>
-      <SectionReveal class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <div data-reveal class="mt-6 grid gap-3 md:grid-cols-2 lg:grid-cols-4 lg:gap-5">
         {
-          parkingTips.map((p, i) => (
-            <article data-reveal-item class="rounded-card border border-(--line) bg-(--card) p-6">
-              <span class="text-3xl">{parkingIcons[i]}</span>
-              <h3 class="mt-4 font-display text-lg font-bold">{p.title}</h3>
-              <p class="mt-2 text-sm text-(--muted)">{p.body}</p>
+          parkingTips.map((tip, i) => (
+            <article data-reveal-item class="group grid grid-cols-[28px_minmax(0,1fr)] gap-x-3.5 gap-y-1 rounded-card border border-(--line) bg-(--card) p-[18px] transition duration-300 hover:-translate-y-1.5 hover:border-accent lg:flex lg:flex-col lg:gap-2 lg:p-6">
+              <svg class="row-span-2 size-7 text-(--accent-text) transition duration-300 group-hover:-rotate-6 group-hover:scale-110 lg:mb-1.5" viewBox="0 0 24 24" stroke-width="1.7" {...stroke} set:html={parkingIcons[i]} />
+              <h3 class="font-display text-lg font-bold leading-tight">{tip.title}</h3>
+              <p class="text-sm text-(--muted)">{tip.body}</p>
             </article>
           ))
         }
-      </SectionReveal>
-      <p
-        role="note"
-        class="mt-6 flex items-start gap-2 rounded-card border border-amber-500/40 bg-amber-500/10 p-4 text-sm font-medium text-amber-400 light:text-amber-700"
-      >
-        <span aria-hidden="true">⚠️</span>
+      </div>
+      <p role="note" class="mt-5 flex gap-2.5 rounded-card border border-amber-500/40 bg-amber-500/10 p-4 text-sm font-medium text-amber-400 light:text-amber-700">
+        <svg class="mt-px size-5 shrink-0" viewBox="0 0 24 24" stroke-width="1.8" {...stroke} set:html={ICONS.warning} />
         <span>{t('parking.note')}</span>
       </p>
     </div>
   </section>
 
-  <!-- ░░ BUSINESS / LOCATION ░░ -->
-  <section id="location" class="mx-auto max-w-6xl scroll-mt-24 px-5 py-24">
-    <SectionReveal class="overflow-hidden rounded-card border border-(--line) bg-(--card)">
-      <div class="grid gap-10 p-8 md:grid-cols-2 md:p-12" data-reveal-item>
-        <div>
-          <p class="font-display text-sm uppercase tracking-[0.2em] text-(--accent-text)">{t('business.kicker')}</p>
-          <h2 class="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">{t('business.heading')}</h2>
-          <div class="mt-6 flex items-center gap-3">
-            <span class="font-display text-4xl font-bold text-(--accent-text)">
-              <span data-count={BUSINESS.rating.value} data-decimals="1">0</span>
-            </span>
-            <a href={BUSINESS.maps} target="_blank" rel="noopener" class="text-(--muted) transition hover:text-(--fg)">
-              <span class="text-(--accent-text)">★★★★★</span> · {t('business.reviews', { count: BUSINESS.rating.count })} {t('business.on_google')}
-            </a>
-          </div>
-          <address class="mt-6 not-italic text-(--muted)">
-            <p>📍 {BUSINESS.address.street}</p>
-            <p>{BUSINESS.address.district} · {BUSINESS.address.city} {BUSINESS.address.postalCode}</p>
-            <p class="mt-2 flex items-center gap-1.5"><span aria-hidden="true">🕙</span> <OpenStatus locale={locale} /></p>
-          </address>
-          <div class="mt-8 flex flex-wrap gap-3">
-            <a href={BUSINESS.maps} class="rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-(--color-accent-ink) transition hover:brightness-110">
-              {t('business.directions')}
-            </a>
-            <a href={`tel:${BUSINESS.phone}`} class="rounded-full border border-(--line) px-5 py-2.5 text-sm font-semibold transition hover:border-accent hover:text-(--accent-text)">
-              {t('business.call')} · {BUSINESS.phoneDisplay}
-            </a>
+  <section id="location" class="mx-auto max-w-6xl scroll-mt-24 px-5 pt-16 md:pt-32">
+    <div data-reveal class="grid overflow-hidden rounded-card border border-(--line) bg-(--card) lg:grid-cols-2">
+      <div class="relative min-h-52 overflow-hidden border-b border-(--line) lg:order-2 lg:min-h-[460px] lg:border-b-0 lg:border-l">
+        <div data-map-skeleton class="absolute inset-0 animate-pulse bg-gradient-to-br from-(--card-2) to-(--card)" aria-hidden="true">
+          <div class="grid h-full place-items-center text-(--muted)">
+            <svg class="size-8 opacity-50" viewBox="0 0 24 24" stroke-width="1.6" {...stroke} set:html={ICONS.pin} />
           </div>
         </div>
-        <div class="relative min-h-72 overflow-hidden rounded-card border border-(--line)">
-          <!-- Skeleton shown until the map tiles load -->
-          <div
-            data-map-skeleton
-            class="absolute inset-0 animate-pulse bg-gradient-to-br from-(--card-2) to-(--card)"
-            aria-hidden="true"
-          >
-            <div class="grid h-full place-items-center text-(--muted)">
-              <svg class="size-8 opacity-50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
-                <path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11z" /><circle cx="12" cy="10" r="2.5" />
-              </svg>
-            </div>
-          </div>
-          <iframe
-            title={`${BUSINESS.name} — ${BUSINESS.address.city}`}
-            src={BUSINESS.mapsEmbed}
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            onload="this.previousElementSibling?.remove()"
-            class="relative h-full min-h-72 w-full border-0 grayscale-[0.2]"
-            allowfullscreen
-          ></iframe>
+        <iframe
+          title={`${BUSINESS.name} — ${BUSINESS.address.city}`}
+          src={BUSINESS.mapsEmbed}
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          onload="this.previousElementSibling?.remove()"
+          class="relative h-full min-h-52 w-full border-0 grayscale-[0.2] lg:min-h-[460px]"
+          allowfullscreen
+        ></iframe>
+      </div>
+      <div class="flex flex-col gap-[18px] px-5 py-6 lg:gap-6 lg:px-12 lg:py-14">
+        <div>
+          <p class={kicker}>{t('business.kicker')}</p>
+          <h2 class="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">{t('business.heading')}</h2>
+        </div>
+        <a href={BUSINESS.maps} target="_blank" rel="noopener" class="inline-flex min-h-11 items-center gap-2.5 text-(--muted) transition hover:text-(--fg)">
+          <span class="font-display text-4xl font-bold leading-none text-(--accent-text)">{BUSINESS.rating.value.toFixed(1)}</span>
+          <span class="text-[15px]">
+            <span class="text-(--accent-text)" aria-hidden="true">★★★★★</span> · {t('business.reviews', { count: BUSINESS.rating.count })} {t('business.on_google')}
+          </span>
+        </a>
+        <address class="flex flex-col gap-2.5 text-[15px] not-italic text-(--muted)">
+          <span class="flex gap-2.5">
+            <svg class="mt-0.5 size-[18px] shrink-0 text-(--accent-text)" viewBox="0 0 24 24" stroke-width="1.8" {...stroke} set:html={ICONS.pin} />
+            <span>{BUSINESS.address.street}<br />{BUSINESS.address.district} · {BUSINESS.address.city} {BUSINESS.address.postalCode}</span>
+          </span>
+          <span class="flex gap-2.5">
+            <svg class="mt-0.5 size-[18px] shrink-0 text-(--accent-text)" viewBox="0 0 24 24" stroke-width="1.8" {...stroke} set:html={ICONS.clock} />
+            <OpenStatus locale={locale} />
+          </span>
+        </address>
+        <div class="flex flex-col gap-2.5 lg:flex-row">
+          <a href={BUSINESS.maps} target="_blank" rel="noopener" class="flex h-[52px] flex-1 items-center justify-center rounded-full border border-accent px-5 text-[15px] font-semibold text-(--accent-text) transition hover:bg-accent/10 active:scale-[0.97]">
+            {t('business.directions')}
+          </a>
+          <a href={`tel:${BUSINESS.phone}`} class="flex h-[52px] flex-1 items-center justify-center rounded-full border border-(--line) px-5 text-[15px] font-semibold whitespace-nowrap transition hover:border-accent hover:text-(--accent-text) active:scale-[0.97]">
+            {t('business.call')} · {BUSINESS.phoneDisplay}
+          </a>
         </div>
       </div>
-    </SectionReveal>
+    </div>
   </section>
-
-  <script>
-    import { initHeroScroll } from '../../lib/motion/heroScroll';
-    document.addEventListener('astro:page-load', () => {
-      const el = document.getElementById('hero-inner');
-      if (el) initHeroScroll(el);
-    });
-  </script>
 </Base>

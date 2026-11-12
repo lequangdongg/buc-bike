@@ -107,6 +107,185 @@ p {
   to { opacity: 0; transform: translateY(10px); }
 }
 
+@keyframes bk-rise {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes bk-pop {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes bk-zoom {
+  from { opacity: 0; transform: scale(0.88); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes bk-stamp {
+  from { opacity: 0; transform: scale(1.6) rotate(8deg); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes bk-arc {
+  from { stroke-dashoffset: 1131; }
+  to { stroke-dashoffset: 280; }
+}
+@keyframes bk-spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes bk-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes bk-glow {
+  0%, 100% { opacity: 0.7; scale: 1; }
+  50% { opacity: 1; scale: 1.12; }
+}
+@keyframes bk-shine {
+  from { background-position: 100% 0; }
+  to { background-position: -60% 0; }
+}
+@keyframes bk-ping {
+  0% { transform: scale(0.8); opacity: 0.75; }
+  100% { transform: scale(2.1); opacity: 0; }
+}
+
+@keyframes bk-grow-y {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+@keyframes bk-grow-x {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+.steps-fill {
+  transform-origin: center top;
+}
+@media (min-width: 1024px) {
+  .steps-fill {
+    transform-origin: left center;
+  }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .steps-fill {
+      animation: bk-grow-y linear both;
+      animation-timeline: view();
+      animation-range: entry 20% cover 55%;
+    }
+  }
+  @media (prefers-reduced-motion: no-preference) and (min-width: 1024px) {
+    .steps-fill {
+      animation-name: bk-grow-x;
+    }
+  }
+}
+
+.enter {
+  animation: bk-rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0s) both;
+}
+.enter-pop {
+  animation: bk-pop 0.5s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0s) both;
+}
+.enter-zoom {
+  animation: bk-zoom 1s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0s) both;
+}
+.enter-stamp {
+  animation: bk-stamp 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) var(--d, 0s) both;
+}
+
+.shine-text {
+  color: var(--accent-text);
+  background: linear-gradient(100deg, var(--accent-text) 0%, var(--accent-text) 42%, var(--fg) 50%, var(--accent-text) 58%, var(--accent-text) 100%);
+  background-size: 260% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: bk-rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s backwards, bk-shine 3.6s linear 1.2s infinite;
+}
+
+.hero-stage {
+  --s: 320px;
+}
+@media (min-width: 1024px) {
+  .hero-stage {
+    --s: min(600px, 42vw);
+  }
+}
+.stage-c {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--s);
+  height: var(--s);
+  margin: calc(var(--s) / -2) 0 0 calc(var(--s) / -2);
+}
+
+.dot-field {
+  background-image: radial-gradient(var(--line) 1px, transparent 1px);
+  background-size: 26px 26px;
+  -webkit-mask-image: radial-gradient(ellipse 60% 55% at 70% 38%, #000 0%, transparent 100%);
+  mask-image: radial-gradient(ellipse 60% 55% at 70% 38%, #000 0%, transparent 100%);
+}
+
+.bike-tile {
+  position: relative;
+  display: grid;
+  grid-template: minmax(0, 1fr) / minmax(0, 1fr);
+  place-items: center;
+  overflow: hidden;
+  background: var(--card-2);
+}
+.bike-tile-glow {
+  position: absolute;
+  left: 50%;
+  top: 54%;
+  width: 72%;
+  aspect-ratio: 1 / 1;
+  translate: -50% -50%;
+  border-radius: 9999px;
+  filter: blur(46px);
+  animation: bk-glow 6s ease-in-out infinite;
+}
+.bike-tile-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 84%;
+  aspect-ratio: 1 / 1;
+  translate: -50% -50%;
+  border: 1px solid var(--line);
+  border-radius: 9999px;
+}
+.bike-tile-img {
+  position: relative;
+  width: auto;
+  height: 84%;
+  max-width: 88%;
+  object-fit: contain;
+  filter: drop-shadow(0 16px 22px rgba(0, 0, 0, 0.5));
+  transition: scale 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.bike-tile-img[data-padded='true'] {
+  height: 104%;
+  max-width: none;
+}
+@media (max-width: 767px) {
+  .bike-tile-compact .bike-tile-img {
+    height: auto;
+    max-width: 86%;
+  }
+  .bike-tile-compact .bike-tile-img[data-padded='true'] {
+    width: calc(100% + 32px);
+    max-width: none;
+    margin: 0 -16px;
+  }
+}
+@media (hover: hover) {
+  .group:hover .bike-tile-img {
+    scale: 1.07;
+  }
+}
+
 /* Safety net — components also guard reduced-motion in JS. */
 @media (prefers-reduced-motion: reduce) {
   *,

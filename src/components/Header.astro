@@ -3,6 +3,8 @@ import { useTranslations } from '../i18n';
 import { localizePath, type Locale } from '../i18n/config';
 import LanguageSwitcher from './LanguageSwitcher.astro';
 import ThemeToggle from './ThemeToggle.astro';
+import OpenStatus from './OpenStatus.astro';
+import { BUSINESS } from '../data/business';
 
 interface Props {
   locale: Locale;
@@ -51,8 +53,10 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
       <LanguageSwitcher locale={locale} path={path} />
       <ThemeToggle locale={locale} />
       <a
-        href={link('/price')}
-        class="rounded-full bg-accent px-4 py-2 text-sm font-semibold text-(--color-accent-ink) transition hover:brightness-110"
+        href={BUSINESS.whatsapp}
+        target="_blank"
+        rel="noopener"
+        class="rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-(--color-accent-ink) transition hover:brightness-110 active:scale-[0.97]"
       >
         {t('nav.book')}
       </a>
@@ -61,7 +65,6 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
     <!-- Mobile actions -->
     <div class="flex items-center gap-1.5 md:hidden">
       <LanguageSwitcher locale={locale} path={path} compact />
-      <ThemeToggle locale={locale} />
       <button
         id="menu-open"
         type="button"
@@ -111,10 +114,16 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
       }
     </nav>
 
-    <div class="mt-auto">
+    <div class="mt-auto flex flex-col gap-5">
+      <div data-menu-item class="flex items-center justify-between gap-3 text-sm text-(--muted)">
+        <OpenStatus locale={locale} />
+        <ThemeToggle locale={locale} />
+      </div>
       <a
         data-menu-item
-        href={link('/price')}
+        href={BUSINESS.whatsapp}
+        target="_blank"
+        rel="noopener"
         class="block rounded-full bg-accent py-4 text-center text-base font-semibold text-(--color-accent-ink)"
       >
         {t('nav.book')}

@@ -11,7 +11,6 @@ const { locale } = Astro.props;
 const t = await useTranslations(locale);
 const points = t('showcase.points', { returnObjects: true }) as { title: string; body: string }[];
 
-// Approximate hotspot positions on the Feliz Lite photo (start, trunk, brake, range, lights).
 const positions = [
   { x: 54, y: 30 },
   { x: 70, y: 47 },
@@ -19,220 +18,129 @@ const positions = [
   { x: 49, y: 62 },
   { x: 40, y: 40 },
 ];
-// Tooltip placement per marker so it stays inside the frame (mobile tap UI).
-const places = ['b-c', 't-r', 't-l', 't-c', 'b-l'];
 ---
 
-<section data-showcase class="relative h-[300vh]">
-  <div data-showcase-stage class="sticky top-0 flex h-[100svh] items-center overflow-hidden">
-    <div class="mx-auto grid w-full max-w-6xl items-center gap-8 px-5 md:grid-cols-2">
-      <!-- bike + hotspots (transparent — bike floats on the dark section) -->
-      <div class="relative mx-auto aspect-square w-full max-w-xs sm:max-w-sm md:max-w-md">
-        <div class="absolute inset-[10%] rounded-full bg-charge/12 blur-3xl"></div>
-        <Image src={feliz} alt="VinFast Feliz Lite" width={800} height={800} class="relative h-full w-full object-contain p-4" />
+<section data-showcase class="mx-auto max-w-6xl px-5 pt-16 md:pt-32">
+  <div class="grid items-center gap-3 md:grid-cols-2 md:gap-16">
+    <div data-reveal class="relative mx-auto aspect-square w-full max-w-[560px]">
+      <div class="absolute inset-[14%] rounded-full bg-charge/12 blur-3xl" aria-hidden="true"></div>
+      <div class="absolute inset-[6%] rounded-full border border-(--line)" aria-hidden="true"></div>
+      <Image src={feliz} alt="VinFast Feliz Lite" width={800} height={800} class="absolute inset-0 h-full w-full object-contain p-3" />
+      {
+        points.map((point, i) => (
+          <button
+            data-hotspot={i}
+            data-active={i === 0 ? 'true' : 'false'}
+            type="button"
+            aria-label={`${i + 1}. ${point.title}`}
+            style={`left:${positions[i].x}%;top:${positions[i].y}%`}
+            class="absolute grid size-11 -translate-x-1/2 -translate-y-1/2 cursor-pointer place-items-center rounded-full"
+          >
+            <span class="hs-ping" aria-hidden="true" />
+            <span class="hs-num">{i + 1}</span>
+          </button>
+        ))
+      }
+    </div>
+
+    <div data-reveal>
+      <p class="font-display text-sm font-medium uppercase tracking-[0.2em] text-(--accent-text)">{t('showcase.kicker')}</p>
+      <h2 class="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">{t('showcase.heading')}</h2>
+      <div class="mt-6 flex flex-col gap-2">
         {
-          points.map((p, i) => (
+          points.map((point, i) => (
             <button
-              data-hotspot={i}
+              data-callout={i}
+              data-active={i === 0 ? 'true' : 'false'}
               type="button"
-              aria-label={`${i + 1}. ${p.title}`}
-              style={`left:${positions[i].x}%;top:${positions[i].y}%`}
-              class="absolute -translate-x-1/2 -translate-y-1/2"
+              aria-pressed={i === 0 ? 'true' : 'false'}
+              class="hs-row"
             >
-              <span class="hs-num">{i + 1}</span>
-              <span class:list={['hs-tip', `tip-${places[i]}`]}>
-                <span class="hs-tip-title">{i + 1}. {p.title}</span>
-                <span class="hs-tip-body">{p.body}</span>
+              <span class="hs-row-num">{String(i + 1).padStart(2, '0')}</span>
+              <span class="flex flex-1 flex-col gap-1">
+                <span class="font-display text-lg font-bold leading-snug">{point.title}</span>
+                <span class="hs-row-body">{point.body}</span>
               </span>
             </button>
           ))
         }
       </div>
-
-      <!-- callouts + progress -->
-      <div class="relative">
-        <p class="font-display text-sm uppercase tracking-[0.2em] text-(--accent-text)">{t('showcase.kicker')}</p>
-        <h2 class="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">{t('showcase.heading')}</h2>
-
-        <div class="hs-wrap relative mt-8 min-h-44">
-          {
-            points.map((p, i) => (
-              <div data-callout={i} class="hs-callout">
-                <span class="font-display text-4xl font-bold tabular-nums text-(--accent-text)">{String(i + 1).padStart(2, '0')}</span>
-                <h3 class="mt-2 font-display text-xl font-bold">{p.title}</h3>
-                <p class="mt-1 text-(--muted)">{p.body}</p>
-              </div>
-            ))
-          }
-        </div>
-
-        <div class="mt-8 flex gap-2">
-          {points.map((_, i) => <button type="button" data-dot={i} aria-label={`${i + 1}`} class="hs-progress"></button>)}
-        </div>
-        <p class="hs-hint mt-6 hidden text-xs uppercase tracking-wider text-(--muted) md:block">{t('showcase.scroll_hint')} ↓</p>
-        <p class="hs-tap-hint mt-6 text-xs uppercase tracking-wider text-(--accent-text) md:hidden">{t('showcase.tap_hint')}</p>
-      </div>
+      <p class="mt-4 text-xs uppercase tracking-wider text-(--muted)">{t('showcase.tap_hint')}</p>
     </div>
   </div>
 </section>
 
 <style>
   .hs-num {
+    position: relative;
     display: grid;
     place-items: center;
-    width: 26px;
-    height: 26px;
+    width: 30px;
+    height: 30px;
     border-radius: 9999px;
     border: 2px solid var(--color-accent);
-    background: color-mix(in srgb, var(--color-base, #0b0e0f) 70%, transparent);
-    backdrop-filter: blur(2px);
-    color: var(--color-accent);
+    background: color-mix(in srgb, var(--bg) 72%, transparent);
+    color: var(--accent-text);
     font-family: var(--font-display);
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 700;
     line-height: 1;
-    opacity: 0.72;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
-    transition: transform 0.3s ease, opacity 0.3s ease, background 0.3s ease, color 0.3s ease;
-  }
-  [data-hotspot] {
-    position: absolute;
-    cursor: pointer;
-    /* Markers always sit above tooltips so every number stays visible + tappable. */
-    z-index: 30;
-  }
-  [data-hotspot]::after {
-    content: '';
-    position: absolute;
-    inset: -6px;
-    border-radius: 9999px;
-    border: 2px solid var(--color-accent);
-    opacity: 0;
-  }
-  /* Active marker sits just above its siblings (and well above the tooltip). */
-  [data-hotspot][data-active='true'] {
-    z-index: 35;
+    transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
   }
   [data-hotspot][data-active='true'] .hs-num {
-    opacity: 1;
-    transform: scale(1.25);
+    transform: scale(1.2);
     background: var(--color-accent);
     color: var(--color-accent-ink);
   }
-  [data-hotspot][data-active='true']::after {
-    animation: hs-ping 1.5s ease-out infinite;
-  }
-  @keyframes hs-ping {
-    0% { opacity: 0.7; transform: scale(0.7); }
-    100% { opacity: 0; transform: scale(1.8); }
-  }
-
-  /* Tap tooltip (mobile) — popover anchored to the active marker. */
-  .hs-tip {
+  .hs-ping {
     position: absolute;
-    width: 168px;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    padding: 0.6rem 0.7rem;
-    border-radius: 12px;
-    border: 1px solid color-mix(in srgb, var(--color-accent) 35%, transparent);
-    background: color-mix(in srgb, var(--color-base, #0b0e0f) 92%, transparent);
-    backdrop-filter: blur(6px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    inset: 6px;
+    border-radius: 9999px;
+    border: 2px solid var(--color-accent);
     opacity: 0;
-    transform: scale(0.9);
-    transform-origin: center;
-    pointer-events: none;
-    transition: opacity 0.25s ease, transform 0.25s ease;
-    /* Below the number markers so they remain visible + tappable over it. */
-    z-index: 20;
   }
-  .hs-tip-title {
+  [data-hotspot][data-active='true'] .hs-ping {
+    animation: bk-ping 1.5s ease-out infinite;
+  }
+  .hs-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    width: 100%;
+    min-height: 58px;
+    padding: 15px 16px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: transparent;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color 0.3s ease, background 0.3s ease;
+  }
+  .hs-row[data-active='true'] {
+    border-color: var(--color-accent);
+    background: var(--card);
+  }
+  .hs-row-num {
+    flex: 0 0 34px;
     font-family: var(--font-display);
-    font-size: 13px;
+    font-size: 20px;
     font-weight: 700;
-    color: var(--fg);
-    line-height: 1.2;
+    line-height: 1.3;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted);
+    transition: color 0.3s ease;
   }
-  .hs-tip-body {
-    font-size: 11.5px;
-    line-height: 1.35;
+  .hs-row[data-active='true'] .hs-row-num {
+    color: var(--accent-text);
+  }
+  .hs-row-body {
+    display: none;
+    font-size: 15px;
     color: var(--muted);
   }
-  [data-hotspot][data-active='true'] .hs-tip {
-    opacity: 1;
-    transform: scale(1);
-  }
-  /* placements — keep the bubble inside the frame */
-  .tip-b-c { top: 170%; left: 50%; margin-left: -84px; }
-  .tip-t-c { bottom: 170%; left: 50%; margin-left: -84px; }
-  .tip-t-l { bottom: 170%; left: -10px; }
-  .tip-t-r { bottom: 170%; right: -10px; }
-  .tip-b-l { top: 170%; left: -10px; }
-
-  .hs-callout {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    transform: translateY(14px);
-    transition: opacity 0.4s ease, transform 0.4s ease;
-    pointer-events: none;
-  }
-  .hs-callout[data-active='true'] {
-    opacity: 1;
-    transform: none;
-    pointer-events: auto;
-  }
-
-  .hs-progress {
-    height: 8px;
-    width: 24px;
-    padding: 0;
-    border: 0;
-    border-radius: 9999px;
-    background: var(--line);
-    cursor: pointer;
-    transition: background 0.3s ease, width 0.3s ease;
-  }
-  .hs-progress[data-active='true'] {
-    background: var(--color-accent);
-    width: 36px;
-  }
-
-  /* Desktop uses the callout-below + scroll, never the tap tooltip. */
-  @media (min-width: 768px) {
-    .hs-tip { display: none; }
-  }
-
-  /* Mobile + reduced-motion: drop the pin so the stage flows in normal order. */
-  @media (max-width: 767px), (prefers-reduced-motion: reduce) {
-    [data-showcase] { height: auto !important; }
-    [data-showcase-stage] {
-      position: static !important;
-      height: auto !important;
-      padding: 1rem 0 2rem;
-    }
-  }
-
-  /* Mobile: the tooltip replaces the callout-below; give the bike more room. */
-  @media (max-width: 767px) {
-    .hs-wrap { display: none; }
-  }
-
-  /* Reduced motion only: no tap interaction — list every callout statically. */
-  @media (prefers-reduced-motion: reduce) {
-    .hs-tip { display: none; }
-    .hs-wrap { display: block; min-height: 0 !important; }
-    .hs-callout {
-      position: static;
-      opacity: 1;
-      transform: none;
-      margin-bottom: 1.75rem;
-    }
-    .hs-callout:last-child { margin-bottom: 0; }
-    .hs-num { opacity: 1; }
-    .hs-hint,
-    .hs-tap-hint { display: none; }
+  .hs-row[data-active='true'] .hs-row-body {
+    display: block;
+    animation: bk-pop 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
 </style>

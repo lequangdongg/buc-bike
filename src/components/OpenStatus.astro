@@ -8,8 +8,8 @@ interface Props {
 }
 const { locale } = Astro.props;
 const t = await useTranslations(locale);
-const opens = Number(BUSINESS.hours.opens.split(':')[0]); // 10
-const closes = Number(BUSINESS.hours.closes.split(':')[0]); // 23
+const opens = Number(BUSINESS.hours.opens.split(':')[0]);
+const closes = Number(BUSINESS.hours.closes.split(':')[0]);
 ---
 
 <span

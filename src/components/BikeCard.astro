@@ -1,46 +1,66 @@
 ---
 import { Image } from 'astro:assets';
+import { useTranslations } from '../i18n';
 import { localizePath, type Locale } from '../i18n/config';
 import type { Bike } from '../data/fleet';
 
 interface Props {
   bike: Bike;
   locale: Locale;
-  label: string;
-  availableLabel: string;
 }
-const { bike, locale, label, availableLabel } = Astro.props;
+const { bike, locale } = Astro.props;
+const t = await useTranslations(locale);
+
+const specs = [
+  { label: t('fleet.range_label'), value: `${bike.rangeKm} km`, accent: true },
+  { label: t('fleet.speed_label'), value: `${bike.topSpeedKmh} km/h`, accent: false },
+  { label: t('fleet.trunk_label'), value: `${bike.trunkL} L`, accent: false },
+];
+const batteryNote = bike.trunkWithExtraBatteryL === null ? t('fleet.single_charge') : t('fleet.extra_battery');
 ---
 
 <a
   href={localizePath(`/fleet/${bike.id}`, locale)}
   data-reveal-item
-  class="group relative block overflow-hidden rounded-card border border-(--line) bg-(--card) transition duration-300 hover:-translate-y-1 hover:border-accent"
+  class="group grid grid-cols-[128px_minmax(0,1fr)] overflow-hidden rounded-card border border-(--line) bg-(--card) transition duration-300 hover:border-accent md:flex md:flex-col md:hover:-translate-y-1.5 md:hover:shadow-2xl md:hover:shadow-black/30"
 >
-  <div class="relative aspect-[4/3] overflow-hidden bg-gradient-to-b from-white to-zinc-200">
+  <div class="bike-tile bike-tile-compact min-h-[168px] border-r border-(--line) md:h-[300px] md:border-b md:border-r-0">
+    <span class="bike-tile-glow" style={`background:${bike.glow}`} aria-hidden="true"></span>
+    <span class="bike-tile-ring" aria-hidden="true"></span>
     <Image
       src={bike.image}
       alt={bike.name}
-      width={640}
-      height={480}
-      class="h-full w-full object-contain p-5 transition duration-500 group-hover:scale-[1.05]"
+      width={520}
+      class="bike-tile-img"
+      data-padded={bike.imagePadded ? 'true' : 'false'}
       style={`view-transition-name: bike-${bike.id}`}
     />
-    <span
-      class="absolute left-4 top-4 rounded-full bg-black/60 px-3 py-1 text-xs font-medium text-accent backdrop-blur"
-    >
-      ● {availableLabel}
+    <span class="absolute left-3.5 top-3.5 hidden items-center gap-1.5 rounded-full border border-(--line) bg-(--bg)/80 px-3 py-1 text-xs font-medium text-(--accent-text) md:flex">
+      <span class="size-1.5 rounded-full bg-charge" aria-hidden="true"></span>
+      {t('fleet.available')}
     </span>
   </div>
-  <div class="flex items-end justify-between gap-3 p-5">
-    <div>
-      <h3 class="font-display text-lg font-bold leading-tight">{bike.name}</h3>
-      <p class="mt-1 text-sm text-(--muted)">{bike.rangeKm} km · {bike.topSpeedKmh} km/h</p>
-    </div>
-    <span
-      class="shrink-0 text-sm text-(--muted) transition group-hover:text-(--accent-text)"
-    >
-      {label} →
+  <div class="flex flex-col justify-center gap-3 p-4 md:justify-start md:gap-4 md:p-[18px]">
+    <h3 class="font-display text-lg font-bold leading-tight md:text-xl">{bike.name}</h3>
+    <p class="font-display text-[15px] font-bold md:hidden">
+      <span class="text-(--accent-text)">{specs[0].value}</span> · {specs[1].value} · {specs[2].value}
+    </p>
+    <dl class="hidden grid-cols-3 gap-2 md:grid">
+      {
+        specs.map((spec) => (
+          <div class="flex flex-col-reverse gap-0.5">
+            <dt class="text-[11px] uppercase tracking-[0.06em] text-(--muted)">{spec.label}</dt>
+            <dd class:list={['font-display text-lg font-bold', spec.accent && 'text-(--accent-text)']}>{spec.value}</dd>
+          </div>
+        ))
+      }
+    </dl>
+    <p class="text-[13px] text-(--muted)">{batteryNote}</p>
+    <span class="hidden h-[46px] items-center justify-center gap-2 rounded-full border border-(--line) text-[14.5px] font-semibold transition group-hover:border-accent group-hover:text-(--accent-text) md:flex">
+      {t('fleet.view_detail')}
+      <svg class="size-4 transition group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M5 12h14M13 6l6 6-6 6" />
+      </svg>
     </span>
   </div>
 </a>

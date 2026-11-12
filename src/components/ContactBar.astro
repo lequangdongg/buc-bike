@@ -1,10 +1,18 @@
 ---
 import { BUSINESS } from '../data/business';
+import { WEEKLY_RATE, formatVnd } from '../data/pricing';
+import { useTranslations } from '../i18n';
+import type { Locale } from '../i18n/config';
 
-const phone = BUSINESS.phone; // +84978789133
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = await useTranslations(locale);
+
+const phone = BUSINESS.phone;
 const phoneDigits = phone.replace('+', '');
 
-// Official brand marks (Zalo from Wikimedia; WhatsApp/WeChat/KakaoTalk from Simple Icons).
 const ZALO = `<path d="M22.782.166H27.2c6.066 0 9.611.891 12.758 2.578 3.147 1.687 5.63 4.152 7.298 7.299 1.688 3.147 2.579 6.692 2.579 12.758V27.2c0 6.066-.891 9.611-2.579 12.758-1.687 3.147-4.151 5.63-7.298 7.298-3.147 1.688-6.692 2.579-12.758 2.579h-4.398c-6.067 0-9.612-.891-12.759-2.579-3.146-1.687-5.63-4.151-7.298-7.298C1.057 36.81.166 33.265.166 27.199V22.8c0-6.066.891-9.611 2.578-12.758C4.432 6.896 6.896 4.412 10.043 2.744 13.171 1.057 16.735.166 22.782.166Z" fill="#0068FF"/><path d="M7.779 43.589c2.323.257 5.227-.405 7.289-1.406 8.954 4.949 22.951 4.713 31.424-.709.329-.493.636-1.005.92-1.537C49.106 36.778 50 33.22 50 27.132V22.717c0-6.088-.894-9.646-2.587-12.804-1.675-3.159-4.167-5.632-7.325-7.326C36.929.894 33.371 0 27.283 0H22.85c-5.186 0-8.552.653-11.38 1.899-.155.138-.307.279-.455.422-8.298 8-8.929 25.339-1.892 34.757l.027.043c1.084 1.598.038 4.395-1.598 6.031-.267.247-.171.4.228.437Z" fill="#fff"/><path d="M20.563 17h-9.725v2.085h6.749l-6.654 8.247c-.208.303-.36.587-.36 1.232v.531h9.175c.455 0 .834-.379.834-.834v-1.119h-7.09l6.256-7.848c.095-.114.265-.322.341-.417l.038-.057c.36-.531.436-.986.436-1.535V17Z" fill="#0068FF"/><path d="M32.942 29.095h1.383V17h-2.085v11.393c0 .38.303.702.702.702Z" fill="#0068FF"/><path d="M25.814 19.692a4.74 4.74 0 1 0 0 9.479 4.74 4.74 0 0 0 0-9.48Zm0 7.527a2.787 2.787 0 1 1 0-5.574 2.787 2.787 0 0 1 0 5.574Z" fill="#0068FF"/><path d="M40.487 19.616a4.777 4.777 0 1 0 0 9.555 4.777 4.777 0 0 0 0-9.555Zm0 7.602a2.806 2.806 0 1 1 0-5.611 2.806 2.806 0 0 1 0 5.611Z" fill="#0068FF"/><path d="M29.456 29.094h1.119v-9.137h-1.953v8.322c0 .436.379.815.834.815Z" fill="#0068FF"/>`;
 
 const WHATSAPP = `<path fill="#25D366" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>`;
@@ -21,92 +29,163 @@ const channels = [
 ];
 ---
 
-<nav
-  id="contact-bar"
-  aria-label="Contact channels"
-  class="fixed inset-x-0 bottom-0 z-30 flex justify-center border-t border-(--line) bg-(--bg)/90 backdrop-blur-xl pb-[env(safe-area-inset-bottom)] md:inset-x-auto md:bottom-auto md:right-4 md:top-1/2 md:-translate-y-1/2 md:flex-col md:rounded-full md:border md:bg-(--card)/90 md:p-1.5 md:shadow-xl md:shadow-black/30"
+
+<div
+  id="contact-dock"
+  class="fixed inset-x-3 bottom-[max(0.75rem,env(safe-area-inset-bottom))] z-30 md:inset-x-auto md:bottom-6 md:right-6 md:w-[400px]"
 >
-  {
-    channels.map((c, i) => (
-      <a
-        href={c.href}
-        target={c.appOnly ? undefined : '_blank'}
-        rel="noopener"
-        data-channel={c.id}
-        data-app-only={c.appOnly ? 'true' : undefined}
-        data-phone={BUSINESS.phoneDisplay}
-        aria-label={c.label}
-        class:list={[
-          'group relative flex flex-1 flex-col items-center justify-center gap-1 py-2.5 text-(--muted) transition hover:text-(--fg)',
-          'md:size-12 md:flex-none md:rounded-full md:py-0 md:hover:bg-(--card-2)',
-          i > 0 ? 'border-l border-(--line) md:border-l-0' : '',
-        ]}
-      >
-        <span class="grid size-7 place-items-center md:size-6">
-          <svg viewBox={c.viewBox} class="size-full" aria-hidden="true" set:html={c.svg} />
-        </span>
-        <span class="text-[0.65rem] font-medium md:hidden">{c.label}</span>
-        <span class="pointer-events-none absolute right-full mr-3 hidden whitespace-nowrap rounded-md bg-(--card) px-2 py-1 text-xs opacity-0 shadow-lg transition group-hover:opacity-100 md:block">
-          {c.label}
-        </span>
-      </a>
-    ))
-  }
-</nav>
+  <div
+    id="contact-sheet"
+    class="absolute inset-x-0 bottom-[calc(100%+8px)] hidden flex-col rounded-card border border-(--line) bg-(--card) p-2 shadow-2xl shadow-black/40"
+  >
+    {
+      channels.map((c) => (
+        <a
+          href={c.href}
+          target={c.appOnly ? undefined : '_blank'}
+          rel="noopener"
+          data-channel={c.id}
+          data-channel-label={c.label}
+          data-app-only={c.appOnly ? 'true' : undefined}
+          data-phone={BUSINESS.phoneDisplay}
+          class="flex min-h-14 items-center gap-3 rounded-[14px] px-2.5 text-base font-semibold transition hover:bg-(--card-2)"
+        >
+          <span class="grid size-9 shrink-0 place-items-center">
+            <svg viewBox={c.viewBox} class="size-8" aria-hidden="true" set:html={c.svg} />
+          </span>
+          <span class="flex-1">{c.label}</span>
+          {c.appOnly ? (
+            <span class="text-[13px] font-medium text-(--muted)">{t('contact.copy_number')}</span>
+          ) : (
+            <svg class="size-4 text-(--muted)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          )}
+        </a>
+      ))
+    }
+  </div>
+
+  <div class="flex items-center justify-between gap-3 rounded-full border border-(--line) bg-(--card)/90 py-2 pl-[18px] pr-2 shadow-xl shadow-black/40 backdrop-blur-xl">
+    <div class="flex flex-col leading-tight">
+      <span class="text-xs text-(--muted)">{t('fleet.from')}</span>
+      <span class="font-display text-[17px] font-bold tabular-nums">
+        {formatVnd(WEEKLY_RATE)}
+        <span class="font-body text-[13px] font-normal text-(--muted)">{t('price.per_day')}</span>
+      </span>
+    </div>
+    <button
+      id="contact-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="contact-sheet"
+      class="flex h-12 cursor-pointer items-center gap-2 rounded-full bg-accent px-5 text-[15px] font-semibold text-(--color-accent-ink) transition hover:brightness-110 active:scale-[0.97]"
+    >
+      <svg class="size-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z" />
+      </svg>
+      <span>{t('contact.chat_to_book')}</span>
+    </button>
+  </div>
+</div>
 
 <div
   id="contact-toast"
   role="status"
   aria-live="polite"
-  class="pointer-events-none fixed bottom-24 left-1/2 z-50 -translate-x-1/2 rounded-full bg-(--fg) px-4 py-2 text-sm font-medium text-(--bg) opacity-0 shadow-xl transition-opacity duration-300 md:bottom-8"
+  class="pointer-events-none fixed bottom-28 left-1/2 z-50 -translate-x-1/2 rounded-full bg-(--fg) px-4 py-2 text-sm font-medium text-(--bg) opacity-0 shadow-xl transition-opacity duration-300 md:bottom-28"
 >
 </div>
 
 <script>
-  import { animate } from 'motion';
+  import { animate, stagger } from 'motion';
   import { prefersReducedMotion } from '../lib/motion/prefersReducedMotion';
 
-  function initContactBar() {
-    const bar = document.getElementById('contact-bar');
-    const toast = document.getElementById('contact-toast');
-    if (!bar) return;
+  let detach: VoidFunction | undefined;
 
-    if (!prefersReducedMotion() && !bar.dataset.shown) {
-      bar.dataset.shown = 'true';
-      const fromMobile = window.matchMedia('(max-width: 767px)').matches;
+  const initContactDock = () => {
+    detach?.();
+    const dock = document.getElementById('contact-dock');
+    const sheet = document.getElementById('contact-sheet');
+    const toggle = document.getElementById('contact-toggle');
+    const toast = document.getElementById('contact-toast');
+    if (!dock || !sheet || !toggle) return;
+
+    const reduced = prefersReducedMotion();
+    const links = Array.from(sheet.querySelectorAll<HTMLAnchorElement>('a'));
+    let open = false;
+
+    if (!reduced && !dock.dataset.shown) {
+      dock.dataset.shown = 'true';
       animate(
-        bar,
-        fromMobile
-          ? { transform: ['translateY(100%)', 'translateY(0)'] }
-          : { opacity: [0, 1], transform: ['translateX(20px)', 'translateX(0)'] },
+        dock,
+        { opacity: [0, 1], transform: ['translateY(24px)', 'translateY(0)'] },
         { duration: 0.5, delay: 0.4, ease: [0.16, 1, 0.3, 1] },
       );
     }
 
+    const setOpen = (next: boolean) => {
+      if (next === open) return;
+      open = next;
+      toggle.setAttribute('aria-expanded', String(open));
+      sheet.classList.toggle('hidden', !open);
+      sheet.classList.toggle('flex', open);
+      if (!open || reduced) return;
+      animate(
+        sheet,
+        { opacity: [0, 1], transform: ['translateY(10px) scale(0.98)', 'translateY(0) scale(1)'] },
+        { duration: 0.3, ease: [0.16, 1, 0.3, 1] },
+      );
+      animate(
+        links,
+        { opacity: [0, 1], transform: ['translateY(12px)', 'translateY(0)'] },
+        { duration: 0.35, delay: stagger(0.04), ease: [0.16, 1, 0.3, 1] },
+      );
+    };
+
     let toastTimer: ReturnType<typeof setTimeout> | undefined;
-    const showToast = (msg: string) => {
+    const showToast = (message: string) => {
       if (!toast) return;
-      toast.textContent = msg;
+      toast.textContent = message;
       toast.style.opacity = '1';
       clearTimeout(toastTimer);
       toastTimer = setTimeout(() => (toast.style.opacity = '0'), 2400);
     };
 
-    bar.querySelectorAll<HTMLAnchorElement>('[data-app-only="true"]').forEach((link) => {
-      link.addEventListener('click', (event) => {
-        const isTouch = window.matchMedia('(pointer: coarse)').matches;
-        if (isTouch) return; // let the deep link open the app on phones
-        event.preventDefault();
-        const phone = link.dataset.phone || '';
-        const channel = link.dataset.channel || '';
-        const label = channel === 'wechat' ? 'WeChat' : 'KakaoTalk';
-        navigator.clipboard?.writeText(phone).then(
-          () => showToast(`${label}: ${phone} copied`),
-          () => showToast(`${label}: ${phone}`),
-        );
-      });
-    });
-  }
+    const onToggle = (event: MouseEvent) => {
+      event.stopPropagation();
+      setOpen(!open);
+    };
+    const onDocumentClick = (event: MouseEvent) => {
+      if (open && !dock.contains(event.target as Node)) setOpen(false);
+    };
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setOpen(false);
+    };
+    const onChannelClick = (event: MouseEvent) => {
+      const link = event.currentTarget as HTMLAnchorElement;
+      if (link.dataset.appOnly !== 'true' || window.matchMedia('(pointer: coarse)').matches) return;
+      event.preventDefault();
+      const phone = link.dataset.phone || '';
+      const label = link.dataset.channelLabel || '';
+      navigator.clipboard?.writeText(phone).then(
+        () => showToast(`${label}: ${phone} copied`),
+        () => showToast(`${label}: ${phone}`),
+      );
+    };
 
-  document.addEventListener('astro:page-load', initContactBar);
+    toggle.addEventListener('click', onToggle);
+    document.addEventListener('click', onDocumentClick);
+    document.addEventListener('keydown', onKey);
+    links.forEach((link) => link.addEventListener('click', onChannelClick));
+
+    detach = () => {
+      toggle.removeEventListener('click', onToggle);
+      document.removeEventListener('click', onDocumentClick);
+      document.removeEventListener('keydown', onKey);
+      links.forEach((link) => link.removeEventListener('click', onChannelClick));
+    };
+  };
+
+  document.addEventListener('astro:page-load', initContactDock);
 </script>

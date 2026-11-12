@@ -1,5 +1,6 @@
 ---
 import { DAILY_RATE, OVER_3_DAYS_RATE, WEEKLY_RATE } from '../data/pricing';
+import { BUSINESS } from '../data/business';
 import { useTranslations } from '../i18n';
 import type { Locale } from '../i18n/config';
 
@@ -19,41 +20,96 @@ const t = await useTranslations(locale);
   data-perday={t('price.per_day')}
   data-day={t('price.calc.day')}
   data-days={t('price.calc.days')}
-  class="rounded-card border border-(--line) bg-(--card) p-6 sm:p-8"
+  class="flex flex-col gap-[18px] rounded-card border border-accent bg-(--card) px-5 py-[22px] lg:gap-6 lg:p-9"
 >
-  <h3 class="font-display text-2xl font-bold">{t('price.calc.heading')}</h3>
+  <h2 class="font-display text-[22px] font-bold leading-tight lg:text-3xl">{t('price.calc.heading')}</h2>
 
-  <div class="mt-6">
-    <div class="flex items-baseline justify-between">
+  <div>
+    <div class="flex items-baseline justify-between gap-3">
       <label for="calc-days" class="text-sm text-(--muted)">{t('price.calc.days_label')}</label>
-      <span class="font-display text-xl font-bold tabular-nums">
+      <span class="font-display text-[22px] font-bold tabular-nums">
         <span data-calc-days>3</span>
         <span data-calc-unit class="ml-1 text-sm font-normal text-(--muted)">{t('price.calc.days')}</span>
       </span>
     </div>
-    <input
-      id="calc-days"
-      type="range"
-      min="1"
-      max="30"
-      value="3"
-      data-calc-range
-      class="mt-3 h-2 w-full cursor-pointer appearance-none rounded-full bg-(--card-2) accent-accent"
-    />
-    <div class="mt-1 flex justify-between text-xs text-(--muted)"><span>1</span><span>30+</span></div>
+    <div class="relative h-11">
+      <div class="absolute inset-x-0 top-[18px] h-2 overflow-hidden rounded-full bg-(--card-2)" aria-hidden="true">
+        <div data-calc-fill class="h-full w-[7%] rounded-full bg-accent"></div>
+      </div>
+      <input id="calc-days" type="range" min="1" max="30" value="3" data-calc-range class="calc-range" />
+    </div>
+    <div class="flex justify-between text-xs text-(--muted)" aria-hidden="true"><span>1</span><span>30+</span></div>
   </div>
 
-  <div class="mt-6 flex flex-wrap items-end justify-between gap-3 border-t border-(--line) pt-6">
+  <div class="flex flex-wrap items-end justify-between gap-x-3 gap-y-1 border-t border-(--line) pt-[18px]">
     <div>
       <p class="text-sm text-(--muted)">{t('price.calc.total_label')}</p>
-      <p data-calc-total class="font-display text-4xl font-bold tabular-nums text-(--accent-text)">—</p>
+      <p data-calc-total aria-live="polite" class="font-display text-[clamp(2.375rem,4.4vw,3.5rem)] font-bold leading-[1.05] tabular-nums text-(--accent-text)">—</p>
     </div>
-    <p data-calc-rate class="text-sm text-(--muted)"></p>
+    <p data-calc-rate class="pb-1.5 text-sm tabular-nums text-(--muted)"></p>
   </div>
+
+  <a
+    href={BUSINESS.whatsapp}
+    target="_blank"
+    rel="noopener"
+    class="group flex h-14 items-center justify-center gap-2 rounded-full bg-accent font-semibold text-(--color-accent-ink) shadow-lg shadow-accent/25 transition hover:brightness-110 active:scale-[0.97]"
+  >
+    {t('nav.book')}
+    <svg class="size-[18px] transition group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M5 12h14M13 6l6 6-6 6" />
+    </svg>
+  </a>
 </div>
 
+<style>
+  .calc-range {
+    -webkit-appearance: none;
+    appearance: none;
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 44px;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    cursor: pointer;
+  }
+  .calc-range::-webkit-slider-runnable-track {
+    height: 8px;
+    border-radius: 9999px;
+    background: transparent;
+  }
+  .calc-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 28px;
+    height: 28px;
+    margin-top: -10px;
+    border-radius: 9999px;
+    background: var(--fg);
+    border: 4px solid var(--color-accent);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    transition: scale 0.2s ease;
+  }
+  .calc-range:active::-webkit-slider-thumb {
+    scale: 1.15;
+  }
+  .calc-range::-moz-range-track {
+    height: 8px;
+    border-radius: 9999px;
+    background: transparent;
+  }
+  .calc-range::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 9999px;
+    background: var(--fg);
+    border: 4px solid var(--color-accent);
+  }
+</style>
+
 <script>
-  function initCalc() {
+  const initCalc = () => {
     document.querySelectorAll<HTMLElement>('[data-calc]').forEach((el) => {
       const range = el.querySelector<HTMLInputElement>('[data-calc-range]');
       if (!range || range.dataset.bound) return;
@@ -62,30 +118,37 @@ const t = await useTranslations(locale);
       const daily = Number(el.dataset.daily);
       const over3 = Number(el.dataset.over3);
       const weekly = Number(el.dataset.weekly);
-      const fmt = (n: number) => new Intl.NumberFormat('vi-VN').format(n) + ' ₫';
-      const rateFor = (d: number) => (d <= 2 ? daily : d < 7 ? over3 : weekly);
+      const format = (amount: number) => `${new Intl.NumberFormat('vi-VN').format(amount)} ₫`;
+      const rateFor = (days: number) => (days <= 2 ? daily : days < 7 ? over3 : weekly);
+      const tierFor = (days: number) => (days <= 2 ? 0 : days < 7 ? 1 : days < 30 ? 2 : 3);
 
       const daysEl = el.querySelector('[data-calc-days]');
       const unitEl = el.querySelector('[data-calc-unit]');
       const totalEl = el.querySelector('[data-calc-total]');
       const rateEl = el.querySelector('[data-calc-rate]');
+      const fillEl = el.querySelector<HTMLElement>('[data-calc-fill]');
+      const tiers = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-tier-days]'));
 
       const update = () => {
-        const d = Number(range.value);
-        if (daysEl) daysEl.textContent = String(d);
-        if (unitEl) unitEl.textContent = d > 1 ? el.dataset.days! : el.dataset.day!;
-        if (d >= 30) {
-          if (totalEl) totalEl.textContent = el.dataset.contact!;
-          if (rateEl) rateEl.textContent = '';
-        } else {
-          const r = rateFor(d);
-          if (totalEl) totalEl.textContent = fmt(r * d);
-          if (rateEl) rateEl.textContent = fmt(r) + el.dataset.perday!;
-        }
+        const days = Number(range.value);
+        const monthly = days >= 30;
+        if (daysEl) daysEl.textContent = monthly ? '30+' : String(days);
+        if (unitEl) unitEl.textContent = days > 1 ? el.dataset.days! : el.dataset.day!;
+        if (fillEl) fillEl.style.width = `${Math.round(((days - 1) / 29) * 100)}%`;
+        if (totalEl) totalEl.textContent = monthly ? el.dataset.contact! : format(rateFor(days) * days);
+        if (rateEl) rateEl.textContent = monthly ? '' : `${format(rateFor(days))} ${el.dataset.perday!}`;
+        tiers.forEach((tier, index) => tier.setAttribute('aria-pressed', String(index === tierFor(days))));
       };
+
       range.addEventListener('input', update);
+      tiers.forEach((tier) =>
+        tier.addEventListener('click', () => {
+          range.value = tier.dataset.tierDays || '1';
+          update();
+        }),
+      );
       update();
     });
-  }
+  };
   document.addEventListener('astro:page-load', initCalc);
 </script>
